@@ -5,5 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="CustomHelperTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="helperTextTextColor">@color/warning</item>
+    </style>
+
     <style name="Theme.GymPro" parent="Base.Theme.GymPro" />
 </resources>

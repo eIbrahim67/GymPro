@@ -21,15 +21,15 @@ interface UserDao {
     @Query("SELECT isLoggedIn FROM user WHERE isLoggedIn = 1 LIMIT 1")
     suspend fun findLoggedInUser(): Boolean
 
-    @Query("UPDATE user SET isLoggedIn = 1 WHERE id = :id")
-    suspend fun logInUser(id: Int)
+    @Query("UPDATE user SET isLoggedIn = 1 WHERE email = :email")
+    suspend fun logInUser(email: String)
 
     @Query("UPDATE user SET isLoggedIn = 0 WHERE isLoggedIn = 1")
     suspend fun logOutUser()
 
-    @Query("SELECT password FROM user WHERE id = :id LIMIT 1")
-    suspend fun getPassword(id: Int): String?
+    @Query("SELECT password FROM user WHERE email = :email LIMIT 1")
+    suspend fun getPassword(email: String): String?
 
-    @Query("UPDATE user SET password = :newPassword WHERE id = :id")
-    suspend fun updatePassword(id: Int, newPassword : String)
+    @Query("UPDATE user SET password = :newPassword WHERE email = :email")
+    suspend fun updatePassword(email: String, newPassword: String)
 }
