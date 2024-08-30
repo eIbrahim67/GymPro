@@ -12,6 +12,8 @@ class UserRepositoryImpl(
 
     override suspend fun getLoggedInUser() = localDateSource.getLoggedInUser()
 
+    override suspend fun findLoggedInUser() = localDateSource.findLoggedInUser()
+
     override suspend fun logInUser(id: Int) = localDateSource.logInUser(id)
 
     override suspend fun logOutUser() = localDateSource.logOutUser()

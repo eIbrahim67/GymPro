@@ -11,6 +11,8 @@ class LocalDateSourceImpl(
 
     override suspend fun getLoggedInUser() = userDao.getLoggedInUser()
 
+    override suspend fun findLoggedInUser() = userDao.findLoggedInUser()
+
     override suspend fun logInUser(id: Int) = userDao.logInUser(id)
 
     override suspend fun logOutUser() = userDao.logOutUser()

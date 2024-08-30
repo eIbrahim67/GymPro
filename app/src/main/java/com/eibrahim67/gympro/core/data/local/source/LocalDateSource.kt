@@ -10,6 +10,8 @@ interface LocalDateSource {
 
     suspend fun getLoggedInUser(): User?
 
+    suspend fun findLoggedInUser(): Boolean
+
     suspend fun logInUser(id: Int)
 
     suspend fun logOutUser()
