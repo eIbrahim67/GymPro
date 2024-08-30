@@ -12,12 +12,14 @@ class UserRepositoryImpl(
 
     override suspend fun getLoggedInUser() = localDateSource.getLoggedInUser()
 
-    override suspend fun logInUser(id: Int) = localDateSource.logInUser(id)
+    override suspend fun findLoggedInUser() = localDateSource.findLoggedInUser()
+
+    override suspend fun logInUser(email: String) = localDateSource.logInUser(email)
 
     override suspend fun logOutUser() = localDateSource.logOutUser()
 
-    override suspend fun getPassword(id: Int) = localDateSource.getPassword(id)
+    override suspend fun getPassword(email: String) = localDateSource.getPassword(email)
 
-    override suspend fun updatePassword(id: Int, newPassword: String) =
-        localDateSource.updatePassword(id, newPassword)
+    override suspend fun updatePassword(email: String, newPassword: String) =
+        localDateSource.updatePassword(email, newPassword)
 }

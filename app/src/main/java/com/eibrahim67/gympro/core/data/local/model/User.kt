@@ -11,18 +11,22 @@ import androidx.room.PrimaryKey
 
     indices = [
         Index(value = ["email"], unique = true),
-        Index(value = ["phone"], unique = true)
-              ],
+        Index(value = ["phone"], unique = true),
+        Index(value = ["username"], unique = true)
+    ],
 
-)
+    )
 
 data class User(
 
     @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+    val id: Int = 0,
+
+    @ColumnInfo(name = "username")
+    val username: String,
 
     @ColumnInfo(name = "name")
-    val name : String,
+    val name: String,
 
     @ColumnInfo(name = "email")
     val email: String,
@@ -31,10 +35,10 @@ data class User(
     val password: String,
 
     @ColumnInfo(name = "phone")
-    val phone : String,
+    val phone: String,
 
     @ColumnInfo(name = "typeBody")
-    val typeBody : String,
+    val typeBody: String? = null,
 
     @ColumnInfo(name = "isLoggedIn")
     val isLoggedIn: Boolean = false,
