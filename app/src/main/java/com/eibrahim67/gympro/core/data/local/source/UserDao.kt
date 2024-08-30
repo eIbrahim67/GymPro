@@ -18,6 +18,9 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE isLoggedIn = 1 LIMIT 1")
     suspend fun getLoggedInUser(): User?
 
+    @Query("SELECT isLoggedIn FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun findLoggedInUser(): Boolean
+
     @Query("UPDATE user SET isLoggedIn = 1 WHERE id = :id")
     suspend fun logInUser(id: Int)
 
@@ -29,5 +32,4 @@ interface UserDao {
 
     @Query("UPDATE user SET password = :newPassword WHERE id = :id")
     suspend fun updatePassword(id: Int, newPassword : String)
-
 }
