@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_splashFragment_to_signinFragment"
             app:destination="@id/signinFragment"
-            app:popUpTo="@id/signinFragment"
+            app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
@@ -24,10 +24,36 @@
         <action
             android:id="@+id/action_signinFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_signinFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.eibrahim67.gympro.auth.signup.view.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" />
+    <fragment
+        android:id="@+id/checkEmailFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.CheckEmailFragment"
+        android:label="fragment_check_email"
+        tools:layout="@layout/fragment_check_email" >
+        <action
+            android:id="@+id/action_checkEmailFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerificationFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.EmailVerificationFragment"
+        android:label="fragment_email_verification"
+        tools:layout="@layout/fragment_email_verification" >
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_checkEmailFragment"
+            app:destination="@id/checkEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.NewPassword.view.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
 </navigation>

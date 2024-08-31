@@ -15,4 +15,12 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="back_to_log_in">Back to Log In</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="must_be_at_least_8_characters">Must be at least 8 characters</string>
+    <string name="set_new_password">Set new password</string>
+    <string name="click_here">Click here</string>
+    <string name="didn_t_receive_the_email">Didn\'t receive the email?</string>
+    <string name="_continue">Continue</string>
+    <string name="we_sent_a_code_to_the_email_you_provided">We sent a code to the email you provided</string>
 </resources>

@@ -72,7 +72,7 @@ class SigninFragment : Fragment() {
             navController.navigate(R.id.action_signinFragment_to_signupFragment)
         }
 
-        //forgetPasswordText.setOnClickListener { navController.navigate(R.id.action_loginFragment_to_emailVerificationFragment2) }
+        forgetPasswordText.setOnClickListener { navController.navigate(R.id.action_signinFragment_to_emailVerificationFragment) }
 
     }
 
