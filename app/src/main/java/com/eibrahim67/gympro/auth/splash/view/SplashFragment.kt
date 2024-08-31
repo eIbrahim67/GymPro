@@ -16,7 +16,7 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
-import com.eibrahim67.gympro.main.view.activities.MainActivity
+import com.eibrahim67.gympro.mainActivity.view.activities.MainActivity
 
 class SplashFragment : Fragment() {
 

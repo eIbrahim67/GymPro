@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.auth.signin.viewModel.SigninViewModel
@@ -19,7 +19,7 @@ import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
-import com.eibrahim67.gympro.main.view.activities.MainActivity
+import com.eibrahim67.gympro.mainActivity.view.activities.MainActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -34,6 +34,11 @@ class SigninFragment : Fragment() {
     private lateinit var signInButton: MaterialCardView
     private lateinit var signUpText: TextView
     private lateinit var forgetPasswordText: TextView
+
+    private val navOptions = NavOptions.Builder()
+        .setEnterAnim(R.anim.slide_in_right)
+        .setPopExitAnim(R.anim.slide_out_right)
+        .build()
 
     private val viewModel: SigninViewModel by viewModels {
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
@@ -69,10 +74,20 @@ class SigninFragment : Fragment() {
 
         signUpText.setOnClickListener {
             viewModel.resetStates()
-            navController.navigate(R.id.action_signinFragment_to_signupFragment)
+            navController.navigate(
+                R.id.action_signinFragment_to_signupFragment,
+                null,
+                navOptions
+            )
         }
 
-        forgetPasswordText.setOnClickListener { navController.navigate(R.id.action_signinFragment_to_emailVerificationFragment) }
+        forgetPasswordText.setOnClickListener {
+            navController.navigate(
+                R.id.action_signinFragment_to_emailVerificationFragment,
+                null,
+                navOptions
+            )
+        }
 
     }
 
