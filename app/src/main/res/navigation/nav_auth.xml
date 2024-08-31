@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_signup" />
     <fragment
         android:id="@+id/checkEmailFragment"
-        android:name="com.eibrahim67.gympro.auth.newPassword.CheckEmailFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.checkEmail.view.CheckEmailFragment"
         android:label="fragment_check_email"
         tools:layout="@layout/fragment_check_email" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailVerificationFragment"
-        android:name="com.eibrahim67.gympro.auth.newPassword.EmailVerificationFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.emailVerification.view.EmailVerificationFragment"
         android:label="fragment_email_verification"
         tools:layout="@layout/fragment_email_verification" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="com.eibrahim67.gympro.auth.newPassword.NewPassword.view.NewPasswordFragment"
+        android:name="com.eibrahim67.gympro.auth.newPassword.newPassword.view.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password" />
 </navigation>

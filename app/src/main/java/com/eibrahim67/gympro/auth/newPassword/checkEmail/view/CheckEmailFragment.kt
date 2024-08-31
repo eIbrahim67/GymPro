@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.auth.newPassword
+package com.eibrahim67.gympro.auth.newPassword.checkEmail.view
 
 import android.os.Bundle
 import android.text.Editable
