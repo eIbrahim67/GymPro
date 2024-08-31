@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/icon_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_train"
+        android:icon="@drawable/icon_home"
+        android:title="@string/train"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_my_trainer"
+        android:icon="@drawable/icon_home"
+        android:title="@string/my_trainer"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_chats"
+        android:icon="@drawable/icon_home"
+        android:title="@string/chat"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_news"
+        android:icon="@drawable/icon_home"
+        android:title="@string/news"
+        app:showAsAction="ifRoom" />
+
+</menu>

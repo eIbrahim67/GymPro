@@ -23,4 +23,13 @@
     <string name="didn_t_receive_the_email">Didn\'t receive the email?</string>
     <string name="_continue">Continue</string>
     <string name="we_sent_a_code_to_the_email_you_provided">We sent a code to the email you provided</string>
+    <string name="news">News</string>
+    <string name="chat">Chat</string>
+    <string name="my_trainer">My Trainer</string>
+    <string name="train">Train</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="log_out">Log out</string>
+    <string name="help_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="about">About</string>
 </resources>
