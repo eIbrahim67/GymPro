@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".auth.newPassword.CheckEmailFragment">
+    tools:context=".auth.newPassword.checkEmail.view.CheckEmailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/passcodeContainer"
@@ -158,6 +158,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/didn_t_receive_the_email"
             android:textSize="14sp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toStartOf="@id/clickHereTv"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
