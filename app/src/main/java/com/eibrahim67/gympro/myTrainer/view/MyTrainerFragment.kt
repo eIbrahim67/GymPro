@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.myTrainer
+package com.eibrahim67.gympro.myTrainer.view
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.eibrahim67.gympro.R
+import com.eibrahim67.gympro.myTrainer.viewModel.MyTrainerViewModel
 
 class MyTrainerFragment : Fragment() {
 

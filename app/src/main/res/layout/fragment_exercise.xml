@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chats.view.ChatsFragment">
+    tools:context=".exercise.view.ExerciseFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="chats" />
+        android:text="Hello" />
 
 </FrameLayout>
