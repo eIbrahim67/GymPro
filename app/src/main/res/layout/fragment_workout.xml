@@ -7,7 +7,7 @@
     android:scrollbars="none"
     tools:context=".workout.view.WorkoutFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="Back Button"
-                    android:layout_margin="10dp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/icon_back_arrow"
                     app:tint="@color/white" />
 
@@ -71,9 +71,8 @@
                 android:id="@+id/workoutTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="20dp"
-                android:text="Chest and Tricebes"
+                android:text="Chest and Triceps"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -110,7 +109,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
         android:id="@+id/workoutFinishLayout"
