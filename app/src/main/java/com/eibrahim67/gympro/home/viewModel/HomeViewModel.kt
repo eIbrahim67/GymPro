@@ -1,7 +1,7 @@
-package com.eibrahim67.gympro.home
+package com.eibrahim67.gympro.home.viewModel
 
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
 }
