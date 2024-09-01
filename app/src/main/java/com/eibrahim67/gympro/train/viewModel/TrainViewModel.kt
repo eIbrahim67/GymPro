@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.train
+package com.eibrahim67.gympro.train.viewModel
 
 import androidx.lifecycle.ViewModel
 

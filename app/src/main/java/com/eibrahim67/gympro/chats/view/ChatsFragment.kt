@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.news
+package com.eibrahim67.gympro.chats.view
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.eibrahim67.gympro.R
+import com.eibrahim67.gympro.chats.viewModel.ChatsViewModel
 
-class NewsFragment : Fragment() {
+class ChatsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = NewsFragment()
+        fun newInstance() = ChatsFragment()
     }
 
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: ChatsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,6 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        return inflater.inflate(R.layout.fragment_chats, container, false)
     }
 }

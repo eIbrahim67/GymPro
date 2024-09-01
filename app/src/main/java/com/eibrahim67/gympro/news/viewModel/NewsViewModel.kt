@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.news
+package com.eibrahim67.gympro.news.viewModel
 
 import androidx.lifecycle.ViewModel
 

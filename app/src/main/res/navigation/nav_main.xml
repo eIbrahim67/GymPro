@@ -12,22 +12,22 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/action_train"
-        android:name="com.eibrahim67.gympro.train.TrainFragment"
+        android:name="com.eibrahim67.gympro.train.view.TrainFragment"
         android:label="fragment_train"
         tools:layout="@layout/fragment_train" />
     <fragment
         android:id="@+id/action_my_trainer"
-        android:name="com.eibrahim67.gympro.myTrainer.MyTrainerFragment"
+        android:name="com.eibrahim67.gympro.myTrainer.view.MyTrainerFragment"
         android:label="fragment_my_trainer"
         tools:layout="@layout/fragment_my_trainer" />
     <fragment
         android:id="@+id/action_chats"
-        android:name="com.eibrahim67.gympro.chats.ChatsFragment"
+        android:name="com.eibrahim67.gympro.chats.view.ChatsFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chats" />
     <fragment
         android:id="@+id/action_news"
-        android:name="com.eibrahim67.gympro.news.NewsFragment"
+        android:name="com.eibrahim67.gympro.news.view.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
 </navigation>

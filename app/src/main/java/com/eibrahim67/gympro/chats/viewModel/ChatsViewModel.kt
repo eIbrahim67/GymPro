@@ -1,7 +1,7 @@
-package com.eibrahim67.gympro.chats
+package com.eibrahim67.gympro.chats.viewModel
 
 import androidx.lifecycle.ViewModel
 
 class ChatsViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
 }
