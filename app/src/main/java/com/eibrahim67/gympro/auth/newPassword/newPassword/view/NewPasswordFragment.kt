@@ -21,7 +21,7 @@ import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
-import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
+import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -35,6 +35,8 @@ class NewPasswordFragment : Fragment() {
     private lateinit var resetPasswordButton: Button
     private lateinit var backToLoginTv: TextView
     private var navController: NavController? = null
+
+    private val utils = UtilsFunctions
 
     private val sharedViewModel: AuthViewModel by activityViewModels()
     private val viewModel: NewPasswordViewModel by viewModels {
@@ -75,7 +77,10 @@ class NewPasswordFragment : Fragment() {
                 }
 
                 is Response.Failure -> (
-                        createFailureResponse(Response.Failure(response.reason), requireContext())
+                        utils.createFailureResponse(
+                            Response.Failure(response.reason),
+                            requireContext()
+                        )
                         )
             }
 

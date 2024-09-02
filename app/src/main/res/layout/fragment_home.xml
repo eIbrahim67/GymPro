@@ -101,7 +101,7 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewCategories"
-            tools:listitem="@layout/item_rv_home_categories" />
+            tools:listitem="@layout/item_rv_categories" />
 
         <TextView
             android:id="@+id/textViewFeaturePlan"
@@ -142,7 +142,7 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewFeaturePlan"
-            tools:listitem="@layout/item_rv_home_featured_plans" />
+            tools:listitem="@layout/item_rv_featured_plans" />
 
         <TextView
             android:id="@+id/textViewOurTrainers"
@@ -224,7 +224,7 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewOthersWorkout"
-            tools:listitem="@layout/item_rv_home_others_workouts" />
+            tools:listitem="@layout/item_rv_others_workouts" />
 
         <TextView
             android:layout_width="0dp"

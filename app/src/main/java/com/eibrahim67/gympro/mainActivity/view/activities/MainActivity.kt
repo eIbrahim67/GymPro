@@ -1,8 +1,6 @@
 package com.eibrahim67.gympro.mainActivity.view.activities
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -40,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         navController =
-            supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment)?.findNavController()
+            supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment)
+                ?.findNavController()
 
         navController?.let {
             bottomNavigationView.setupWithNavController(it)

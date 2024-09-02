@@ -6,7 +6,7 @@ data class Exercise(
     val description: String,
     val durationMinutes: Int,
     val intensityLevel: Int, // e.g., 1 to 5 for intensity
-    val category: TrainingCategory,
+    val category: String,
     val equipmentNeeded: List<String> = emptyList(),
     val imageUrl: String? = null ,
     val videoUrl: String? = null

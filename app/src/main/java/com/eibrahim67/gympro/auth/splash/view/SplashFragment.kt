@@ -15,10 +15,12 @@ import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
-import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
+import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.mainActivity.view.activities.MainActivity
 
 class SplashFragment : Fragment() {
+
+    private val utils = UtilsFunctions
 
     private val viewModel: SplashViewModel by viewModels {
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
@@ -39,13 +41,13 @@ class SplashFragment : Fragment() {
 
         viewModel.thereIsLoggedInUser()
 
-        viewModel.thereIsLoggedInUser.observe(viewLifecycleOwner) { state ->
+        viewModel.thereIsLoggedInUser.observe(viewLifecycleOwner) { response ->
 
-            when (state) {
+            when (response) {
                 is Response.Loading -> {}
 
                 is Response.Success -> {
-                    if (state.data) {
+                    if (response.data) {
                         startActivity(Intent(requireActivity(), MainActivity::class.java))
                         requireActivity().finish()
                     } else {
@@ -54,7 +56,7 @@ class SplashFragment : Fragment() {
                 }
 
                 is Response.Failure -> {
-                    createFailureResponse(state, requireContext())
+                    utils.createFailureResponse(response, requireContext())
                 }
             }
 

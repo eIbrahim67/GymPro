@@ -5,9 +5,10 @@ data class Workout(
     val name: String,
     val description: String,
     val durationMinutes: Int,
-    val exercises: List<Exercise>, // List of exercises included in the workout
+    val exercisesIds: List<Int>, // List of exercises included in the workout
     val targetedMuscleGroups: List<String>, // e.g., "Chest", "Legs", "Back"
-    val coach: Coach, // The coach who designed the workout
+    val coachId: Int, // The coach who designed the workout
     val difficultyLevel: String, // e.g., "Beginner", "Intermediate", "Advanced"
-    val imageUrl: String? = null // Optional: URL for an image representing the workout
+    val imageUrl: String? = null, // Optional: URL for an image representing the workout
+    val equipment : String? = null
 )

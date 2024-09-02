@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/itemTitleFeaturePlan"
+            android:id="@+id/itemTitleOthersWorkout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -27,14 +27,14 @@
             android:gravity=""
             android:text="Strength with Band"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@id/itemCategoryOthersWorkout"
+            app:layout_constraintBottom_toTopOf="@id/itemEquipmentOthersWorkout"
             android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/itemCategoryOthersWorkout"
+            android:id="@+id/itemEquipmentOthersWorkout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Band"

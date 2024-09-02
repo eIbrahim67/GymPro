@@ -87,18 +87,26 @@ object UtilsFunctions {
 
     }
 
-    fun createFailureResponse(response: Response.Failure, context: Context) {
-        when (val failureReason = response.reason) {
-            is FailureReason.NoInternet -> {
+    private var isFailureReason_NoInternet: Boolean = false
 
-                createMaterialAlertDialogBuilderOkCancel(
-                    context,
-                    title = "No Internet Connection",
-                    message = "Please check your internet connection and try again.",
-                    positiveBtnMsg = "Try again",
-                    negativeBtnMsg = "Cancel"
-                ) {
-                    //TODO Optionally, define any action to take after the dialog is dismissed
+    fun createFailureResponse(
+        response: Response.Failure,
+        context: Context
+    ) {
+        when (val failureReason = response.reason) {
+
+            is FailureReason.NoInternet -> {
+                if (!isFailureReason_NoInternet) {
+                    isFailureReason_NoInternet = true
+                    createMaterialAlertDialogBuilderOkCancel(
+                        context,
+                        title = "No Internet Connection",
+                        message = "Please check your internet connection and try again.",
+                        positiveBtnMsg = "Try again",
+                        negativeBtnMsg = "Cancel"
+                    ) {
+                        //TODO Optionally, define any action to take after the dialog is dismissed
+                    }
                 }
             }
 
