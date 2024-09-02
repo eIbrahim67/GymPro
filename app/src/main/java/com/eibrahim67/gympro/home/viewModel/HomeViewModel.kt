@@ -30,19 +30,7 @@ class HomeViewModel : ViewModel() {
             id = 1,
             name = "Strength",
             description = "Focus on building muscle strength with weights and resistance.",
-            iconUrl = "https://example.com/icons/strength.png"
-        ),
-        TrainingCategory(
-            id = 1,
-            name = "Strength",
-            description = "Focus on building muscle strength with weights and resistance.",
-            iconUrl = "https://example.com/icons/strength.png"
-        ),
-        TrainingCategory(
-            id = 1,
-            name = "Strength",
-            description = "Focus on building muscle strength with weights and resistance.",
-            iconUrl = "https://example.com/icons/strength.png"
+            iconUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzr3YQCFB8-y9_fpIEkFOLLyie0GOs_J_IBAkkrzUpeX4PiDZANiPLJE4&s=10"
         )
     )
 
@@ -52,69 +40,11 @@ class HomeViewModel : ViewModel() {
 
     fun getExercises() = applyResponse(_exercises, viewModelScope) { setExes() }
 
-    private fun setExes() = listOf(
-        Exercise(
-            id = 1,
-            name = "Push-ups",
-            description = "A basic upper body strength exercise that works the chest, shoulders, and triceps.",
-            durationMinutes = 5,
-            exerciseSet = 3,
-            category = "Strength",
-            equipmentNeeded = listOf("None"),
-            imageUrl = "https://example.com/images/pushups.png",
-            videoUrl = null,
-            exerciseReps = 10,
-            exerciseHint = "Dumbbell"
-        ),
-        Exercise(
-            id = 1,
-            name = "Push-ups",
-            description = "A basic upper body strength exercise that works the chest, shoulders, and triceps.",
-            durationMinutes = 5,
-            exerciseSet = 3,
-            category = "Strength",
-            equipmentNeeded = listOf("None"),
-            imageUrl = "https://example.com/images/pushups.png",
-            videoUrl = null,
-            exerciseReps = 10,
-            exerciseHint = "Dumbbell"
-        )
-
-    )
-
     private val _workouts = MutableLiveData<Response<List<Workout>>>()
 
     val workouts: LiveData<Response<List<Workout>>> get() = _workouts
 
     fun getWorkouts() = applyResponse(_workouts, viewModelScope) { setWorks() }
-
-    private fun setWorks() = listOf(
-        Workout(
-            id = 1,
-            name = "Full Body Strength Training",
-            description = "A comprehensive workout targeting all major muscle groups.",
-            durationMinutes = 60,
-            exercises = setExes(),
-            targetedMuscleGroups = listOf("Chest", "Legs", "Back", "Shoulders", "Arms"),
-            coachId = 123,
-            difficultyLevel = "Intermediate",
-            imageUrl = "https://example.com/images/full_body_workout.png",
-            "Band"
-        ),
-        Workout(
-            id = 1,
-            name = "Full Body Strength Training",
-            description = "A comprehensive workout targeting all major muscle groups.",
-            durationMinutes = 60,
-            exercises = setExes(),
-            targetedMuscleGroups = listOf("Chest", "Legs", "Back", "Shoulders", "Arms"),
-            coachId = 123,
-            difficultyLevel = "Intermediate",
-            imageUrl = "https://example.com/images/full_body_workout.png",
-            "Band"
-        )
-
-    )
 
     private val _coaches = MutableLiveData<Response<List<Coach>>>()
 
@@ -122,40 +52,51 @@ class HomeViewModel : ViewModel() {
 
     fun getCoaches() = applyResponse(_coaches, viewModelScope) { setCoaches() }
 
-    private fun setCoaches(): List<Coach> = listOf(
-        Coach(
+    private fun setExes() = listOf(
+        Exercise(
             id = 1,
-            name = "John Doe",
-            specialization = "Strength Training",
-            experienceYears = 10,
-            certifications = listOf(
-                "Certified Personal Trainer",
-                "Strength and Conditioning Specialist"
-            ),
-            bio = "John has over 10 years of experience helping clients build strength and achieve their fitness goals.",
-            profileImageUrl = "https://example.com/images/john_doe.png",
-            contactEmail = "john.doe@example.com",
-            contactPhone = "+1234567890",
-            price = 250.00,
-            rate = 4.4
-        ),
-        Coach(
+            name = "Incline Bench Press",
+            description = "A chest upper exercise that works the chest, front shoulders.",
+            exerciseSet = 3,
+            categoryIds = 1,
+            equipmentNeeded = listOf("Dumbbells", "Bench"),
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzr3YQCFB8-y9_fpIEkFOLLyie0GOs_J_IBAkkrzUpeX4PiDZANiPLJE4&s=10",
+            videoUrl = null,
+            exerciseReps = 8,
+            exerciseHint = "Dumbbell"
+        )
+    )
+
+    private fun setWorks() = listOf(
+        Workout(
             id = 1,
-            name = "John Doe",
-            specialization = "Strength Training",
-            experienceYears = 10,
-            certifications = listOf(
-                "Certified Personal Trainer",
-                "Strength and Conditioning Specialist"
-            ),
-            bio = "John has over 10 years of experience helping clients build strength and achieve their fitness goals.",
-            profileImageUrl = "https://example.com/images/john_doe.png",
-            contactEmail = "john.doe@example.com",
-            contactPhone = "+1234567890",
-            price = 250.00,
-            rate = 4.4
+            name = "Chest press and Triceps",
+            description = "null",
+            durationMinutes = 120,
+            exercises = setExes(),
+            targetedMuscleGroups = listOf("Chest", "Front Shoulder", "Triceps"),
+            coachId = 1,
+            difficultyLevel = "Intermediate",
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzr3YQCFB8-y9_fpIEkFOLLyie0GOs_J_IBAkkrzUpeX4PiDZANiPLJE4&s=10",
+            null
         )
 
     )
 
+    private fun setCoaches(): List<Coach> = listOf(
+        Coach(
+            id = 1,
+            name = "Ibrahim Mohamed",
+            specialization = "Strength",
+            experienceYears = 1,
+            certifications = listOf(),
+            bio = "I have over a year of experience in training and researching muscle growth techniques to effectively increase muscle mass and overall fitness.",
+            profileImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzr3YQCFB8-y9_fpIEkFOLLyie0GOs_J_IBAkkrzUpeX4PiDZANiPLJE4&s=10",
+            contactEmail = "ibrahim.mohamed.coach@gmail.com",
+            contactPhone = "01550162282",
+            price = 250.00,
+            rate = 4.6
+        )
+
+    )
 }

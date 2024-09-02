@@ -51,7 +51,6 @@ class AdapterRVWorkouts(
             holder.workoutTime.text = data.toString()
         }
 
-
     }
 
     private val differ: AsyncListDiffer<Workout> =

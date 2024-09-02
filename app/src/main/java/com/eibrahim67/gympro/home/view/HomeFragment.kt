@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
+import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
+import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
+import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVCategories
@@ -15,6 +19,8 @@ import com.eibrahim67.gympro.home.view.adapters.AdapterRVFeaturedPlans
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVOtherWorkouts
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.home.viewModel.HomeViewModel
+import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
+import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -32,6 +38,13 @@ class HomeFragment : Fragment() {
     private val utils = UtilsFunctions
 
     private val viewModel: HomeViewModel by viewModels()
+
+    private val sharedViewModel: MainViewModel by activityViewModels {
+        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val localDateSource = LocalDateSourceImpl(dao)
+        val userRepository = UserRepositoryImpl(localDateSource)
+        TrainViewModelFactory(userRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -82,9 +95,9 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.getCategories()
+        sharedViewModel.getTrainPlans()
 
-        viewModel.categories.observe(viewLifecycleOwner) { response ->
+        sharedViewModel.trainPlans.observe(viewLifecycleOwner) { response ->
 
             when (response) {
                 is Response.Loading -> {

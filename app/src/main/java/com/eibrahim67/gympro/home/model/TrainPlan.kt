@@ -10,5 +10,6 @@ data class TrainPlan(
     val coachId: Int, // The coach who designed the workout
     val difficultyLevel: String, // e.g., "Beginner", "Intermediate", "Advanced"
     val imageUrl: String? = null, // Optional: URL for an image representing the workout
+    val trainingCategories: List<TrainingCategory>
 
 )

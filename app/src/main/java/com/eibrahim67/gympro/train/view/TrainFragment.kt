@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
@@ -14,6 +15,7 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
+import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.view.adapters.AdapterRVWorkouts
 import com.eibrahim67.gympro.train.viewModel.TrainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
@@ -33,6 +35,13 @@ class TrainFragment : Fragment() {
         TrainViewModelFactory(userRepository)
     }
 
+    private val sharedViewModel: MainViewModel by activityViewModels {
+        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val localDateSource = LocalDateSourceImpl(dao)
+        val userRepository = UserRepositoryImpl(localDateSource)
+        TrainViewModelFactory(userRepository)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,8 +52,18 @@ class TrainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUi(view)
+
+        initObservers()
+    }
+
+    private fun initUi(view: View) {
         recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewWorkoutsExercises)
         recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
+    }
+
+    private fun initObservers() {
+
         viewModel.isUserHaveTrainer()
 
         viewModel.userHaveTrainer.observe(viewLifecycleOwner) { response ->
@@ -58,7 +77,7 @@ class TrainFragment : Fragment() {
 
                     if (response.data) {
 
-                        viewModel.getTrainPlan()
+                        sharedViewModel.getMyTrainPlan()
 
                     } else {
                         Toast.makeText(
@@ -67,6 +86,7 @@ class TrainFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         )
                             .show()
+                        sharedViewModel.getMyTrainPlan()
                         //TODO: Show massage to suggest to user get a trainer
                     }
 
@@ -79,7 +99,7 @@ class TrainFragment : Fragment() {
 
         }
 
-        viewModel.trainPlan.observe(viewLifecycleOwner) { response ->
+        sharedViewModel.myTrainPlan.observe(viewLifecycleOwner) { response ->
 
             when (response) {
                 is Response.Loading -> {

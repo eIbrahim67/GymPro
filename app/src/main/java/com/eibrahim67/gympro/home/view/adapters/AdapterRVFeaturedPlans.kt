@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.home.model.TrainingCategory
+import com.eibrahim67.gympro.home.model.TrainPlan
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVFeaturedPlans(
@@ -35,7 +35,7 @@ class AdapterRVFeaturedPlans(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
 
-        differ.currentList[position].iconUrl?.let { url ->
+        differ.currentList[position].imageUrl?.let { url ->
             Glide
                 .with(context)
                 .load(url)
@@ -57,25 +57,25 @@ class AdapterRVFeaturedPlans(
 
     }
 
-    private val differ: AsyncListDiffer<TrainingCategory> =
+    private val differ: AsyncListDiffer<TrainPlan> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
 
-    fun submitList(articleList: List<TrainingCategory>) {
+    fun submitList(articleList: List<TrainPlan>) {
         differ.submitList(articleList)
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrainingCategory>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrainPlan>() {
             override fun areItemsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: TrainPlan,
+                newItem: TrainPlan
             ): Boolean =
                 oldItem === newItem // this is data class
 
             override fun areContentsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: TrainPlan,
+                newItem: TrainPlan
             ): Boolean = oldItem == newItem
         }
     }
