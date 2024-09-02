@@ -58,21 +58,26 @@ class HomeViewModel : ViewModel() {
             name = "Push-ups",
             description = "A basic upper body strength exercise that works the chest, shoulders, and triceps.",
             durationMinutes = 5,
-            intensityLevel = 3,
+            exerciseSet = 3,
             category = "Strength",
             equipmentNeeded = listOf("None"),
             imageUrl = "https://example.com/images/pushups.png",
-            null
+            videoUrl = null,
+            exerciseReps = 10,
+            exerciseHint = "Dumbbell"
         ),
         Exercise(
             id = 1,
             name = "Push-ups",
             description = "A basic upper body strength exercise that works the chest, shoulders, and triceps.",
             durationMinutes = 5,
-            intensityLevel = 3,
+            exerciseSet = 3,
             category = "Strength",
             equipmentNeeded = listOf("None"),
-            imageUrl = "https://example.com/images/pushups.png"
+            imageUrl = "https://example.com/images/pushups.png",
+            videoUrl = null,
+            exerciseReps = 10,
+            exerciseHint = "Dumbbell"
         )
 
     )
@@ -89,7 +94,7 @@ class HomeViewModel : ViewModel() {
             name = "Full Body Strength Training",
             description = "A comprehensive workout targeting all major muscle groups.",
             durationMinutes = 60,
-            exercisesIds = listOf(1, 2),
+            exercises = setExes(),
             targetedMuscleGroups = listOf("Chest", "Legs", "Back", "Shoulders", "Arms"),
             coachId = 123,
             difficultyLevel = "Intermediate",
@@ -101,7 +106,7 @@ class HomeViewModel : ViewModel() {
             name = "Full Body Strength Training",
             description = "A comprehensive workout targeting all major muscle groups.",
             durationMinutes = 60,
-            exercisesIds = listOf(1, 2),
+            exercises = setExes(),
             targetedMuscleGroups = listOf("Chest", "Legs", "Back", "Shoulders", "Arms"),
             coachId = 123,
             difficultyLevel = "Intermediate",

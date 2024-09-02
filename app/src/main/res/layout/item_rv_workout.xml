@@ -16,7 +16,7 @@
         app:strokeWidth="0dp">
 
         <TextView
-            android:id="@+id/itemNum"
+            android:id="@+id/itemWorkoutNum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@id/itemNumCard" />
 
     <TextView
-        android:id="@+id/itemWorkoutTargetedMuscle"
+        android:id="@+id/itemWorkoutHint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/itemWorkoutTitle" />
 
     <TextView
-        android:id="@+id/itemWorkoutHint"
+        android:id="@+id/itemWorkoutTargetedMuscle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -68,7 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/itemWorkoutShowBtn"
         app:layout_constraintStart_toStartOf="@id/itemWorkoutTitle"
-        app:layout_constraintTop_toBottomOf="@id/itemWorkoutTargetedMuscle" />
+        app:layout_constraintTop_toBottomOf="@id/itemWorkoutHint" />
 
     <TextView
         android:id="@+id/itemWorkoutDifficult"
@@ -79,11 +79,11 @@
         android:textColor="@color/gray_v3"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/itemWorkoutHint"
-        app:layout_constraintTop_toBottomOf="@id/itemWorkoutHint" />
+        app:layout_constraintStart_toStartOf="@id/itemWorkoutTargetedMuscle"
+        app:layout_constraintTop_toBottomOf="@id/itemWorkoutTargetedMuscle" />
 
     <TextView
-        android:id="@+id/itemWorkoutSet"
+        android:id="@+id/itemWorkoutTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -92,8 +92,8 @@
         android:textColor="@color/gray_v3"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemWorkoutTargetedMuscle"
-        app:layout_constraintTop_toBottomOf="@id/itemWorkoutHint" />
+        app:layout_constraintEnd_toEndOf="@id/itemWorkoutHint"
+        app:layout_constraintTop_toBottomOf="@id/itemWorkoutTargetedMuscle" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemWorkoutShowBtn"
@@ -118,7 +118,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/itemWorkoutStartBtn"
+            android:id="@+id/itemWorkoutStartBtn"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginEnd="20dp"
@@ -147,7 +147,7 @@
         android:layout_marginBottom="15dp"
         android:background="@color/gray_v2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemWorkoutSet" />
+        app:layout_constraintTop_toBottomOf="@id/itemWorkoutTime" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,4 +22,10 @@ class UserRepositoryImpl(
 
     override suspend fun updatePassword(email: String, newPassword: String) =
         localDateSource.updatePassword(email, newPassword)
+
+    override suspend fun getTrainPlanId() = localDateSource.getTrainPlanId()
+
+    override suspend fun isLoggedInUserHaveTrainer() = localDateSource.isLoggedInUserHaveTrainer()
+
+
 }

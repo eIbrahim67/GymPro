@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.core.data.local.source
 
 import com.eibrahim67.gympro.core.data.local.model.User
+import com.eibrahim67.gympro.home.model.TrainPlan
 
 interface LocalDateSource {
 
@@ -20,4 +21,7 @@ interface LocalDateSource {
 
     suspend fun updatePassword(email: String, newPassword: String)
 
+    suspend fun getTrainPlanId() : Int?
+
+    suspend fun isLoggedInUserHaveTrainer():Boolean
 }

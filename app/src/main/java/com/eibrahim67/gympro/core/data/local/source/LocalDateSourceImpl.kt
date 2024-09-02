@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.core.data.local.source
 
 import com.eibrahim67.gympro.core.data.local.model.User
+import com.eibrahim67.gympro.home.model.TrainPlan
 
 class LocalDateSourceImpl(
     private val userDao: UserDao
@@ -21,5 +22,9 @@ class LocalDateSourceImpl(
 
     override suspend fun updatePassword(email: String, newPassword: String) =
         userDao.updatePassword(email, newPassword)
+
+    override suspend fun getTrainPlanId() = userDao.getTrainPlan()
+
+    override suspend fun isLoggedInUserHaveTrainer() = userDao.isLoggedInUserHaveTrainer()
 
 }

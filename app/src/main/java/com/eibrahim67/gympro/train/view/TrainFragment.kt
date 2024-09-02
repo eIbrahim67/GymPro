@@ -1,26 +1,36 @@
 package com.eibrahim67.gympro.train.view
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
+import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
+import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
+import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.utils.UtilsFunctions
+import com.eibrahim67.gympro.train.view.adapters.AdapterRVWorkouts
 import com.eibrahim67.gympro.train.viewModel.TrainViewModel
+import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 
 class TrainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TrainFragment()
-    }
+    private lateinit var recyclerviewWorkoutsExercises: RecyclerView
 
-    private val viewModel: TrainViewModel by viewModels()
+    private val adapterRVWorkouts = AdapterRVWorkouts()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val utils = UtilsFunctions
 
-        // TODO: Use the ViewModel
+    private val viewModel: TrainViewModel by viewModels {
+        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val localDateSource = LocalDateSourceImpl(dao)
+        val userRepository = UserRepositoryImpl(localDateSource)
+        TrainViewModelFactory(userRepository)
     }
 
     override fun onCreateView(
@@ -29,4 +39,64 @@ class TrainFragment : Fragment() {
     ): View {
         return inflater.inflate(R.layout.fragment_train, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewWorkoutsExercises)
+        recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
+        viewModel.isUserHaveTrainer()
+
+        viewModel.userHaveTrainer.observe(viewLifecycleOwner) { response ->
+
+            when (response) {
+                is Response.Loading -> {
+
+                }
+
+                is Response.Success -> {
+
+                    if (response.data) {
+
+                        viewModel.getTrainPlan()
+
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Show massage to suggest to user get a trainer",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        //TODO: Show massage to suggest to user get a trainer
+                    }
+
+                }
+
+                is Response.Failure -> {
+                    utils.createFailureResponse(response, requireContext())
+                }
+            }
+
+        }
+
+        viewModel.trainPlan.observe(viewLifecycleOwner) { response ->
+
+            when (response) {
+                is Response.Loading -> {
+
+                }
+
+                is Response.Success -> {
+
+                    adapterRVWorkouts.submitList(response.data.workoutsList)
+
+                }
+
+                is Response.Failure -> {
+                    utils.createFailureResponse(response, requireContext())
+                }
+            }
+        }
+    }
+
 }

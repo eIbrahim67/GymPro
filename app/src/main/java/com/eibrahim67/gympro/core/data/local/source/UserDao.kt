@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.eibrahim67.gympro.core.data.local.model.User
+import com.eibrahim67.gympro.home.model.TrainPlan
 
 @Dao
 interface UserDao {
@@ -32,4 +33,10 @@ interface UserDao {
 
     @Query("UPDATE user SET password = :newPassword WHERE email = :email")
     suspend fun updatePassword(email: String, newPassword: String)
+
+    @Query("SELECT trainPlanId FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun getTrainPlan(): Int?
+
+    @Query("SELECT haveCoach FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun isLoggedInUserHaveTrainer(): Boolean
 }
