@@ -21,6 +21,7 @@ import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.home.viewModel.HomeViewModel
 import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
@@ -30,7 +31,9 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerviewOurTrainers: RecyclerView
     private lateinit var recyclerviewOthersWorkout: RecyclerView
 
-    private val adapterRVFeaturedPlans = AdapterRVFeaturedPlans()
+    private lateinit var bottomNavigationView: BottomNavigationView
+
+    private val adapterRVFeaturedPlans = AdapterRVFeaturedPlans(){id-> goToTrainPlan(id)}
     private val adapterRVTrainers = AdapterRVTrainers()
     private val adapterRVCategories = AdapterRVCategories()
     private val adapterRVOtherWorkouts = AdapterRVOtherWorkouts()
@@ -73,6 +76,9 @@ class HomeFragment : Fragment() {
         recyclerviewOurTrainers = view.findViewById(R.id.recyclerviewOurTrainers)
         recyclerviewOthersWorkout =
             view.findViewById(R.id.recyclerviewOthersWorkout)
+
+        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
+        bottomNavigationView.visibility = View.VISIBLE
     }
 
     private fun initObservers() {
@@ -154,6 +160,11 @@ class HomeFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun goToTrainPlan(id : Int){
+        sharedViewModel.setTrainPlanId(id)
+        sharedViewModel.navigateTo(R.id.action_showTrainPlan)
     }
 
 }

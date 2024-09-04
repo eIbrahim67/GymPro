@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.home.model.Workout
+import com.eibrahim67.gympro.core.data.writtenData.model.Workout
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVWorkouts(
-    private val goToSearch: ((id: String) -> Unit)? = null
+    private val goToWorkout: (id: Int) -> Unit
 ) :
     RecyclerView.Adapter<AdapterRVWorkouts.CategoryViewHolder>() {
 
@@ -39,9 +39,9 @@ class AdapterRVWorkouts(
             holder.workoutTitle.text = data
         }
 
-        differ.currentList[position].targetedMuscleGroups.let { data ->
-            holder.workoutTargetedMuscle.text = data[0]
-        }
+//        differ.currentList[position].targetedMuscleGroups.let { data ->
+//            holder.workoutTargetedMuscle.text = data[0]
+//        }
 
         differ.currentList[position].difficultyLevel.let { data ->
             holder.workoutDifficult.text = data
@@ -49,6 +49,12 @@ class AdapterRVWorkouts(
 
         differ.currentList[position].durationMinutes.let { data ->
             holder.workoutTime.text = data.toString()
+        }
+
+        holder.workoutShowBtn.setOnClickListener {
+
+            goToWorkout(differ.currentList[position].id)
+
         }
 
     }
@@ -85,7 +91,6 @@ class AdapterRVWorkouts(
         val workoutDifficult: TextView = itemView.findViewById(R.id.itemWorkoutDifficult)
         val workoutTime: TextView = itemView.findViewById(R.id.itemWorkoutTime)
         val workoutShowBtn: MaterialCardView = itemView.findViewById(R.id.itemWorkoutShowBtn)
-        val workoutStartBtn: MaterialCardView = itemView.findViewById(R.id.itemWorkoutStartBtn)
 
     }
 }

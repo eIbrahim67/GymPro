@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.exercise.view
+package com.eibrahim67.gympro.showExercise.view
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.exercise.viewModel.ExerciseViewModel
+import com.eibrahim67.gympro.showExercise.viewModel.ExerciseViewModel
 
 class ExerciseFragment : Fragment() {
 

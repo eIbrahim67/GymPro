@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
+import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private var navController: NavController? = null
 
-    private val viewModel: MainViewModel by viewModels{
+    private val navOptions = NavOptions.Builder()
+        .setEnterAnim(R.anim.slide_in_right)
+        .setPopExitAnim(R.anim.slide_out_right)
+        .build()
+
+    private val viewModel: MainViewModel by viewModels {
         val dao = UserDatabase.getDatabaseInstance(this).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
@@ -40,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.navigateToFragment.observe(this) { fragmentId ->
             fragmentId?.let {
-                bottomNavigationView.selectedItemId = fragmentId
+                navController?.navigate(fragmentId, null, navOptions)
             }
         }
 

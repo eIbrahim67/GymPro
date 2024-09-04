@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.home.model.TrainingCategory
+import com.eibrahim67.gympro.core.data.writtenData.model.Category
 
 class AdapterRVCategories(
     private val goToSearch: ((id: String) -> Unit)? = null
@@ -50,25 +50,25 @@ class AdapterRVCategories(
 
     }
 
-    private val differ: AsyncListDiffer<TrainingCategory> =
+    private val differ: AsyncListDiffer<Category> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
 
-    fun submitList(articleList: List<TrainingCategory>) {
+    fun submitList(articleList: List<Category>) {
         differ.submitList(articleList)
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrainingCategory>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
             override fun areItemsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: Category,
+                newItem: Category
             ): Boolean =
                 oldItem === newItem // this is data class
 
             override fun areContentsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: Category,
+                newItem: Category
             ): Boolean = oldItem == newItem
         }
     }

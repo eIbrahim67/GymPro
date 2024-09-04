@@ -24,7 +24,7 @@ class TrainFragment : Fragment() {
 
     private lateinit var recyclerviewWorkoutsExercises: RecyclerView
 
-    private val adapterRVWorkouts = AdapterRVWorkouts()
+    private val adapterRVWorkouts = AdapterRVWorkouts { id -> gotoWorkout(id) }
 
     private val utils = UtilsFunctions
 
@@ -58,7 +58,7 @@ class TrainFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
-        recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewWorkoutsExercises)
+        recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewTrainPlanWorkouts)
         recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
     }
 
@@ -108,7 +108,7 @@ class TrainFragment : Fragment() {
 
                 is Response.Success -> {
 
-                    adapterRVWorkouts.submitList(response.data.workoutsList)
+                    //adapterRVWorkouts.submitList(response.data.workoutsList)
 
                 }
 
@@ -117,6 +117,14 @@ class TrainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun gotoWorkout(id: Int) {
+
+        sharedViewModel.setWorkoutId(id)
+
+        sharedViewModel.navigateTo(R.id.action_workout)
+
     }
 
 }

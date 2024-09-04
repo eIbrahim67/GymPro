@@ -7,9 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
-import com.eibrahim67.gympro.home.model.Exercise
-import com.eibrahim67.gympro.home.model.TrainPlan
-import com.eibrahim67.gympro.home.model.Workout
 
 class TrainViewModel(
     private val userRepository: UserRepository

@@ -1,7 +1,6 @@
 package com.eibrahim67.gympro.core.data.local.source
 
 import com.eibrahim67.gympro.core.data.local.model.User
-import com.eibrahim67.gympro.home.model.TrainPlan
 
 class LocalDateSourceImpl(
     private val userDao: UserDao

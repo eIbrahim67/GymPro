@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.home.model.Coach
+import com.eibrahim67.gympro.core.data.writtenData.model.Coach
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVTrainers(

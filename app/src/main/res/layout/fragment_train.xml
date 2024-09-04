@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintBottom_toTopOf="@id/workoutFinishLayout"
     app:layout_constraintTop_toTopOf="parent"
+    android:background="@color/white"
     tools:context=".train.view.TrainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/workoutPio"
+            android:id="@+id/trainPio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#0067"
@@ -71,13 +71,13 @@
             layout="@layout/state_active_line"/>
 
         <TextView
-            android:id="@+id/workoutTitle"
+            android:id="@+id/trainTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="20dp"
             android:text="Low Volume, High Intensity"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/stateActiveLine"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewWorkoutsExercises"
+            android:id="@+id/recyclerviewTrainPlanWorkouts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -94,7 +94,7 @@
             android:layout_marginEnd="20dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/workoutTitle"
+            app:layout_constraintTop_toBottomOf="@id/trainTitle"
             tools:itemCount="2"
             tools:listitem="@layout/item_rv_workout" />
 

@@ -30,4 +30,19 @@
         android:name="com.eibrahim67.gympro.news.view.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/action_exercise"
+        android:name="com.eibrahim67.gympro.showExercise.view.ExerciseFragment"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/action_showTrainPlan"
+        android:name="com.eibrahim67.gympro.showTrainPlan.view.ShowTrainPlanFragment"
+        android:label="fragment_show_train_plan"
+        tools:layout="@layout/fragment_show_train_plan" />
+    <fragment
+        android:id="@+id/action_workout"
+        android:name="com.eibrahim67.gympro.workout.view.WorkoutFragment"
+        android:label="fragment_workout"
+        tools:layout="@layout/fragment_workout" />
 </navigation>

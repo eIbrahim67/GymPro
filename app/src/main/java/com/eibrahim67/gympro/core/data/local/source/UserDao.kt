@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.eibrahim67.gympro.core.data.local.model.User
-import com.eibrahim67.gympro.home.model.TrainPlan
 
 @Dao
 interface UserDao {
