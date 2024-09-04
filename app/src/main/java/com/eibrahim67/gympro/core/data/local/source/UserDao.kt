@@ -32,4 +32,10 @@ interface UserDao {
 
     @Query("UPDATE user SET password = :newPassword WHERE email = :email")
     suspend fun updatePassword(email: String, newPassword: String)
+
+    @Query("SELECT trainPlanId FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun getTrainPlan(): Int?
+
+    @Query("SELECT haveCoach FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun isLoggedInUserHaveTrainer(): Boolean
 }

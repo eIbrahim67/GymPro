@@ -16,11 +16,10 @@
         app:strokeWidth="0dp">
 
         <TextView
-            android:id="@+id/itemNum"
+            android:id="@+id/itemExerciseNum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="1"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -32,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Bench press"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -42,13 +40,14 @@
 
     <TextView
         android:id="@+id/itemExerciseHint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Dumbbell"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/gray"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/itemExerciseOpenBtn"
         app:layout_constraintStart_toStartOf="@id/itemExerciseTitle"
         app:layout_constraintTop_toBottomOf="@id/itemExerciseTitle" />
 
@@ -57,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="70 %"
         android:textColor="@color/gray"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -69,7 +67,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="3 Sets"
         android:textColor="@color/gray"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -83,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:text="8-10 Reps"
         android:textColor="@color/gray"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -93,11 +89,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        app:layout_constraintTop_toBottomOf="@id/itemExerciseReps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/gray_v2"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:background="@color/gray_v2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemExerciseReps" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemExerciseOpenBtn"

@@ -1,28 +1,27 @@
-package com.eibrahim67.gympro.home.view.adapters
+package com.eibrahim67.gympro.train.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.writtenData.model.Workout
+import com.google.android.material.card.MaterialCardView
 
-class AdapterRVOtherWorkouts(
-    private val goToSearch: ((id: String) -> Unit)? = null
+class AdapterRVWorkouts(
+    private val goToWorkout: (id: Int) -> Unit
 ) :
-    RecyclerView.Adapter<AdapterRVOtherWorkouts.CategoryViewHolder>() {
+    RecyclerView.Adapter<AdapterRVWorkouts.CategoryViewHolder>() {
 
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_rv_others_workouts, parent, false)
+            .inflate(R.layout.item_rv_workout, parent, false)
         parent.context
         return CategoryViewHolder(view)
     }
@@ -34,28 +33,29 @@ class AdapterRVOtherWorkouts(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
 
-        differ.currentList[position].imageUrl?.let { url ->
-            Glide
-                .with(context)
-                .load(url)
-                .centerCrop()
-                //.placeholder(R.drawable.placeholder_image_svg)
-                .into(holder.imageOthersWorkout)
-            //itemView.setOnClickListener { goToSearch?.let { it(category.strCategory) } }
+        holder.workoutNum.text = (position + 1).toString()
+
+        differ.currentList[position].name.let { data ->
+            holder.workoutTitle.text = data
         }
 
-        differ.currentList[position].name.let { title ->
-            holder.titleOthersWorkout.text = title
+//        differ.currentList[position].targetedMuscleGroups.let { data ->
+//            holder.workoutTargetedMuscle.text = data[0]
+//        }
+
+        differ.currentList[position].difficultyLevel.let { data ->
+            holder.workoutDifficult.text = data
         }
 
-        differ.currentList[position].durationMinutes.let { durationMinutes ->
-            holder.avgTimeOthersWorkout.text = durationMinutes.toString()
+        differ.currentList[position].durationMinutes.let { data ->
+            holder.workoutTime.text = data.toString()
         }
 
-        differ.currentList[position].equipment.let { title ->
-            holder.equipmentOthersWorkout.text = title
-        }
+        holder.workoutShowBtn.setOnClickListener {
 
+            goToWorkout(differ.currentList[position].id)
+
+        }
 
     }
 
@@ -85,12 +85,12 @@ class AdapterRVOtherWorkouts(
     override fun getItemCount(): Int = differ.currentList.size
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageOthersWorkout: ImageView = itemView.findViewById(R.id.itemImageOthersWorkout)
-        val titleOthersWorkout: TextView = itemView.findViewById(R.id.itemTitleOthersWorkout)
-        val equipmentOthersWorkout: TextView =
-            itemView.findViewById(R.id.itemEquipmentOthersWorkout)
-        val avgTimeOthersWorkout: TextView =
-            itemView.findViewById(R.id.itemAvgTimeOthersWorkout)
+        val workoutNum: TextView = itemView.findViewById(R.id.itemWorkoutNum)
+        val workoutTitle: TextView = itemView.findViewById(R.id.itemWorkoutTitle)
+        val workoutTargetedMuscle: TextView = itemView.findViewById(R.id.itemWorkoutTargetedMuscle)
+        val workoutDifficult: TextView = itemView.findViewById(R.id.itemWorkoutDifficult)
+        val workoutTime: TextView = itemView.findViewById(R.id.itemWorkoutTime)
+        val workoutShowBtn: MaterialCardView = itemView.findViewById(R.id.itemWorkoutShowBtn)
 
     }
 }

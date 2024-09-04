@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+    android:background="@color/white"
     tools:context=".workout.view.WorkoutFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -53,6 +54,7 @@
                 app:strokeWidth="0dp">
 
                 <TextView
+                    android:id="@+id/workoutCoachName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -60,7 +62,6 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="By Ibrahim Mohamed"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -72,7 +73,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Chest and Triceps"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -81,12 +81,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/workoutBackBtn" />
 
             <TextView
-                android:id="@+id/workoutPio"
+                android:id="@+id/workoutDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Low Volume, High Intensity #0067"
                 android:textColor="@color/gray_v3"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -95,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@id/workoutTitle" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewWorkoutsExercises"
+                android:id="@+id/recyclerviewWorkoutExercises"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -103,7 +102,7 @@
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/workoutPio"
+                app:layout_constraintTop_toBottomOf="@id/workoutDescription"
                 tools:itemCount="6"
                 tools:listitem="@layout/item_rv_workout_exercise" />
 
@@ -119,6 +118,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/workoutFinish"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

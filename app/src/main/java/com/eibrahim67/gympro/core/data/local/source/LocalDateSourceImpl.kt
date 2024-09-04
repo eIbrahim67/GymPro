@@ -22,4 +22,8 @@ class LocalDateSourceImpl(
     override suspend fun updatePassword(email: String, newPassword: String) =
         userDao.updatePassword(email, newPassword)
 
+    override suspend fun getTrainPlanId() = userDao.getTrainPlan()
+
+    override suspend fun isLoggedInUserHaveTrainer() = userDao.isLoggedInUserHaveTrainer()
+
 }

@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.home.model.TrainingCategory
+import com.eibrahim67.gympro.core.data.writtenData.model.TrainPlan
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVFeaturedPlans(
-    private val goToSearch: ((id: String) -> Unit)? = null
+    private val goToTrainPlan: ((id: Int) -> Unit)
 ) :
     RecyclerView.Adapter<AdapterRVFeaturedPlans.CategoryViewHolder>() {
 
@@ -35,7 +36,7 @@ class AdapterRVFeaturedPlans(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
 
-        differ.currentList[position].iconUrl?.let { url ->
+        differ.currentList[position].imageUrl?.let { url ->
             Glide
                 .with(context)
                 .load(url)
@@ -49,33 +50,35 @@ class AdapterRVFeaturedPlans(
             holder.titleFeaturePlan.text = title
         }
 
-        differ.currentList[position].description.let { title ->
-            holder.infoFeaturePlan.text = title
+        differ.currentList[position].durationDaysPerTrainingWeek.let { data ->
+            holder.infoFeaturePlan.text = "$data Day per training week"
         }
 
-        holder.seeDetailsFeaturePlan.setOnClickListener { }
+        holder.seeDetailsFeaturePlan.setOnClickListener {
+            goToTrainPlan(differ.currentList[position].id)
+        }
 
     }
 
-    private val differ: AsyncListDiffer<TrainingCategory> =
+    private val differ: AsyncListDiffer<TrainPlan> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
 
-    fun submitList(articleList: List<TrainingCategory>) {
+    fun submitList(articleList: List<TrainPlan>) {
         differ.submitList(articleList)
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrainingCategory>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TrainPlan>() {
             override fun areItemsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: TrainPlan,
+                newItem: TrainPlan
             ): Boolean =
                 oldItem === newItem // this is data class
 
             override fun areContentsTheSame(
-                oldItem: TrainingCategory,
-                newItem: TrainingCategory
+                oldItem: TrainPlan,
+                newItem: TrainPlan
             ): Boolean = oldItem == newItem
         }
     }
@@ -85,7 +88,7 @@ class AdapterRVFeaturedPlans(
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageFeaturePlan: ImageView = itemView.findViewById(R.id.itemImageFeaturePlan)
         val titleFeaturePlan: TextView = itemView.findViewById(R.id.itemTitleFeaturePlan)
-        val infoFeaturePlan: TextView = itemView.findViewById(R.id.itemInfoFeaturePlan)
+        val infoFeaturePlan: TextView = itemView.findViewById(R.id.itemDurationFeaturePlan)
         val seeDetailsFeaturePlan: MaterialCardView =
             itemView.findViewById(R.id.itemSeeDetailsFeaturePlan)
 

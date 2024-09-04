@@ -49,7 +49,7 @@ data class User(
     @ColumnInfo(name = "haveCoach")
     val haveCoach: Boolean = false,
 
-    @ColumnInfo(name = "coachId")
-    val coachId: Int? = null
+    @ColumnInfo(name = "trainPlanId")
+    val trainPlanId: Int? = null
 
 )

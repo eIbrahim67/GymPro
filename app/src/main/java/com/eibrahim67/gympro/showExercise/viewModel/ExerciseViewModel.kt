@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.exercise.viewModel
+package com.eibrahim67.gympro.showExercise.viewModel
 
 import androidx.lifecycle.ViewModel
 

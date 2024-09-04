@@ -20,4 +20,8 @@ interface UserRepository {
 
     suspend fun updatePassword(email: String, newPassword: String)
 
+    suspend fun getTrainPlanId(): Int?
+
+    suspend fun isLoggedInUserHaveTrainer(): Boolean
+
 }
