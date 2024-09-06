@@ -3,7 +3,7 @@ package com.eibrahim67.gympro.core.data.writtenData.model
 data class Coach(
     val id: Int,
     val name: String,
-    val specialization: String, // e.g., "Strength Training", "Cardio", "Yoga"
+    val specializationIds:List<Int>, // e.g., "Strength Training", "Cardio", "Yoga"
     val experienceYears: Int, // Number of years of experience
     val certifications: List<String>?, // List of certifications the coach has
     val bio: String, // A brief biography of the coach
@@ -11,5 +11,5 @@ data class Coach(
     val contactEmail: String? = null, // Optional: Contact email for the coach
     val contactPhone: String? = null, // Optional: Contact phone number for the coach
     val price: Double,
-    val rate : Double
+    val rate: Double
 )

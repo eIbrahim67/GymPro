@@ -1,15 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Base.Theme.GymPro" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
-
     <style name="CustomHelperTextStyle" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="helperTextTextColor">@color/warning</item>
     </style>
-
     <style name="Theme.GymPro" parent="Base.Theme.GymPro" />
 </resources>

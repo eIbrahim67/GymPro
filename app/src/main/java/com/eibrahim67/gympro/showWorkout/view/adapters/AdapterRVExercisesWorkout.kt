@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.train.view.adapters
+package com.eibrahim67.gympro.showWorkout.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,10 +12,10 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.writtenData.model.Exercise
 import com.google.android.material.card.MaterialCardView
 
-class AdapterRVExercises(
+class AdapterRVExercisesWorkout(
     private val goToExercise: ((id: Int) -> Unit)
 ) :
-    RecyclerView.Adapter<AdapterRVExercises.CategoryViewHolder>() {
+    RecyclerView.Adapter<AdapterRVExercisesWorkout.CategoryViewHolder>() {
 
     private lateinit var context: Context
 
@@ -43,7 +43,7 @@ class AdapterRVExercises(
             holder.exerciseHint.text = data
         }
 
-        differ.currentList[position].exerciseSet.let { data ->
+        differ.currentList[position].exerciseIntensity.let { data ->
             holder.exerciseIntensity.text = data.toString() + " %"
         }
 

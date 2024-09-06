@@ -1,7 +1,6 @@
 package com.eibrahim67.gympro.showTrainPlan.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +17,14 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
-import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
+import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOkCancel
+import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.showTrainPlan.view.adapters.AdapterRVWorkoutsTrainingPlan
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModel
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModelFactory
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 
 class ShowTrainPlanFragment : Fragment() {
 
@@ -37,6 +38,7 @@ class ShowTrainPlanFragment : Fragment() {
     private lateinit var trainPlanDaysPerTrainingWeek: TextView
     private lateinit var recyclerviewWorkoutsTrainPlans: RecyclerView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var trainPlanSetAsDefaultBtn: MaterialCardView
 
     private val adapterRVWorkouts = AdapterRVWorkoutsTrainingPlan { id -> gotoWorkout(id) }
 
@@ -53,62 +55,61 @@ class ShowTrainPlanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUi(view)
-
         initObservers()
+        iniListeners()
+    }
 
+    private fun iniListeners() {
+        trainPlanSetAsDefaultBtn.setOnClickListener {
+            createMaterialAlertDialogBuilderOkCancel(
+                requireContext(),
+                "Change train plan",
+                "You will use this train plan as default?",
+                "OK",
+                "Cancel",
+            ) {
+                sharedViewModel.updateMyTrainPlan()
+                sharedViewModel.updateMyCoachState(true)
+            }
+        }
     }
 
     private fun initObservers() {
         sharedViewModel.trainPlanId.observe(viewLifecycleOwner) { id ->
             viewModel.getTrainingPlanById(id)
         }
-
         viewModel.trainPlan.observe(viewLifecycleOwner) { trainPlan ->
             when (trainPlan) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-
                     Glide
                         .with(requireContext())
                         .load(trainPlan.data?.imageUrl)
                         .into(trainPlanImage)
-
                     sharedViewModel.getCoachById(trainPlan.data?.coachId ?: 0)
-
                     trainPlanTitle.text = trainPlan.data?.name
                     trainPlanDescription.text = trainPlan.data?.description
-
                     sharedViewModel.getTargetedMusclesByIds(
                         trainPlan.data?.targetedMuscleIds ?: emptyList()
                     )
-
                     trainPlanDifficulty.text = trainPlan.data?.difficultyLevel
-
                     trainPlanAvgTime.text =
                         "${trainPlan.data?.avgTimeMinPerWorkout.toString()} min"
-
                     trainPlanDaysPerTrainingWeek.text =
                         "${trainPlan.data?.durationDaysPerTrainingWeek.toString()} Days"
-
                     trainPlan.data?.workoutsIds?.let { ids -> sharedViewModel.getWorkoutsByIds(ids) }
-                    Log.e("error5", trainPlan.data?.workoutsIds.toString())
-
                 }
 
                 is Response.Failure -> {
                     createFailureResponse(Response.Failure(trainPlan.reason), requireContext())
                 }
             }
-
         }
-
         sharedViewModel.coachById.observe(viewLifecycleOwner) { coach ->
             when (coach) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-
                     trainPlanCoachName.text = "by ${coach.data?.name}"
                 }
 
@@ -116,9 +117,7 @@ class ShowTrainPlanFragment : Fragment() {
                     createFailureResponse(Response.Failure(coach.reason), requireContext())
                 }
             }
-
         }
-
         sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { muscles ->
             when (muscles) {
                 is Response.Loading -> {}
@@ -130,24 +129,18 @@ class ShowTrainPlanFragment : Fragment() {
                     createFailureResponse(Response.Failure(muscles.reason), requireContext())
                 }
             }
-
         }
-
         sharedViewModel.workoutsByIds.observe(viewLifecycleOwner) { workouts ->
-
             when (workouts) {
                 is Response.Loading -> {}
                 is Response.Success -> {
                     adapterRVWorkouts.submitList(workouts.data ?: emptyList())
-                    Log.e("error5", workouts.data.toString())
                 }
 
                 is Response.Failure -> {
                     createFailureResponse(Response.Failure(workouts.reason), requireContext())
                 }
             }
-
-
         }
     }
 
@@ -160,13 +153,11 @@ class ShowTrainPlanFragment : Fragment() {
         trainPlanDifficulty = view.findViewById(R.id.trainPlanDifficulty)
         trainPlanAvgTime = view.findViewById(R.id.trainPlanAvgTime)
         trainPlanDaysPerTrainingWeek = view.findViewById(R.id.trainPlanDaysPerTrainingWeek)
-
+        trainPlanSetAsDefaultBtn = view.findViewById(R.id.trainPlanSetAsDefaultBtn)
         bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
         bottomNavigationView.visibility = View.GONE
-
         recyclerviewWorkoutsTrainPlans = view.findViewById(R.id.recyclerviewWorkoutsTrainPlans)
         recyclerviewWorkoutsTrainPlans.adapter = adapterRVWorkouts
-
     }
 
     override fun onCreateView(
@@ -177,11 +168,12 @@ class ShowTrainPlanFragment : Fragment() {
     }
 
     private fun gotoWorkout(id: Int) {
-
         sharedViewModel.setWorkoutId(id)
-
         sharedViewModel.navigateTo(R.id.action_workout)
-
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sharedViewModel.navigateTo(null)
+    }
 }

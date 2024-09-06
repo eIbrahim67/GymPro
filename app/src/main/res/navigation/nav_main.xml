@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/action_exercise"
-        android:name="com.eibrahim67.gympro.showExercise.view.ExerciseFragment"
+        android:name="com.eibrahim67.gympro.showExercise.view.fragments.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise" />
     <fragment
@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_show_train_plan" />
     <fragment
         android:id="@+id/action_workout"
-        android:name="com.eibrahim67.gympro.workout.view.WorkoutFragment"
+        android:name="com.eibrahim67.gympro.showWorkout.view.WorkoutFragment"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" />
 </navigation>

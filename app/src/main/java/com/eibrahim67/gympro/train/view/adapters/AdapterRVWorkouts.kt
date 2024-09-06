@@ -39,22 +39,20 @@ class AdapterRVWorkouts(
             holder.workoutTitle.text = data
         }
 
-//        differ.currentList[position].targetedMuscleGroups.let { data ->
-//            holder.workoutTargetedMuscle.text = data[0]
-//        }
+        differ.currentList[position].targetedMusclesAsString.let { data ->
+            holder.workoutTargetedMuscle.text = data
+        }
 
         differ.currentList[position].difficultyLevel.let { data ->
             holder.workoutDifficult.text = data
         }
 
         differ.currentList[position].durationMinutes.let { data ->
-            holder.workoutTime.text = data.toString()
+            holder.workoutTime.text = "$data min"
         }
 
         holder.workoutShowBtn.setOnClickListener {
-
             goToWorkout(differ.currentList[position].id)
-
         }
 
     }

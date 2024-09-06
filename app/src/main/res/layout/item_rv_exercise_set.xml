@@ -95,9 +95,8 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/itemExerciseRepsCard"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/itemExerciseTimeCard"
@@ -134,9 +133,8 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/itemExerciseWeightCard"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/itemExerciseSetCard"
