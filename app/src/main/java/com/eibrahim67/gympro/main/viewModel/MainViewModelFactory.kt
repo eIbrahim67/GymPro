@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.mainActivity.viewModel
+package com.eibrahim67.gympro.main.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

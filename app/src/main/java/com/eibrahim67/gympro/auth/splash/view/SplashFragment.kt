@@ -2,6 +2,8 @@ package com.eibrahim67.gympro.auth.splash.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,7 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
-import com.eibrahim67.gympro.mainActivity.view.activities.MainActivity
+import com.eibrahim67.gympro.main.view.activities.MainActivity
 
 class SplashFragment : Fragment() {
 
@@ -47,12 +49,15 @@ class SplashFragment : Fragment() {
                 is Response.Loading -> {}
 
                 is Response.Success -> {
-                    if (response.data) {
-                        startActivity(Intent(requireActivity(), MainActivity::class.java))
-                        requireActivity().finish()
-                    } else {
-                        findNavController().navigate(R.id.action_splashFragment_to_signinFragment)
-                    }
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (response.data) {
+                            startActivity(Intent(requireActivity(), MainActivity::class.java))
+                            requireActivity().finish()
+                        } else {
+                            findNavController().navigate(R.id.action_splashFragment_to_signinFragment)
+                        }
+                    }, 2000)
                 }
 
                 is Response.Failure -> {

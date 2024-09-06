@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.core.data.local.source
 
+import androidx.room.Query
 import com.eibrahim67.gympro.core.data.local.model.User
 
 interface LocalDateSource {
@@ -20,7 +21,16 @@ interface LocalDateSource {
 
     suspend fun updatePassword(email: String, newPassword: String)
 
-    suspend fun getTrainPlanId() : Int?
+    suspend fun getTrainPlanId(): Int?
 
-    suspend fun isLoggedInUserHaveTrainer():Boolean
+    suspend fun isLoggedInUserHaveTrainer(): Boolean
+
+    suspend fun getUserExerciseData(): String?
+
+    suspend fun updateUserExerciseData(data: Map<Int, Map<String, String>>)
+
+    suspend fun updateHaveCoach(data: Boolean)
+
+    suspend fun updateTrainPlanId(data: Int?)
+
 }

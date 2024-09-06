@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.mainActivity.view.activities
+package com.eibrahim67.gympro.main.view.activities
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -13,8 +13,8 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
-import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModelFactory
+import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

@@ -10,6 +10,6 @@ data class Workout(
     val coachId: Int, // The coach who designed the workout
     val difficultyLevel: String, // e.g., "Beginner", "0", "Advanced"
     val imageUrl: String, // Optional: URL for an image representing the workout
-    val equipment : String?,
+    val equipment: String?,
     var targetedMusclesAsString: String? = null
 )

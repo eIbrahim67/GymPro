@@ -13,9 +13,9 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:cardCornerRadius="500dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/itemCategoryImage"
@@ -31,13 +31,13 @@
         android:id="@+id/itemCategoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategoryImageLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:textColor="@color/gray_v3"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemCategoryImageLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

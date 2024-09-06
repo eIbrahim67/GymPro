@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context=".showExercise.view.bottomSheets.BottomSheetAddNewSet">
 
     <TextView
-        android:id="@+id/itemExerciseSetTitle"
+        android:id="@+id/itemExerciseImpSetsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:text="Set"
+        android:text="Improving in weight"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -19,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/itemExerciseSetCard"
+        android:id="@+id/itemExerciseImpSetsCard"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
@@ -29,15 +30,15 @@
         app:layout_constraintEnd_toStartOf="@+id/itemExerciseTimeCard"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemExerciseSetTitle"
+        app:layout_constraintTop_toBottomOf="@id/itemExerciseImpSetsTitle"
         app:strokeWidth="0dp">
 
         <TextView
-            android:id="@+id/itemExerciseSet"
+            android:id="@+id/itemExerciseImpSets"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="1"
+            android:text="--"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -49,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Time"
+        android:text="Improving in reps"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -66,16 +67,16 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/itemExerciseSetCard"
+        app:layout_constraintStart_toEndOf="@+id/itemExerciseImpSetsCard"
         app:layout_constraintTop_toBottomOf="@id/itemExerciseTimeTitle"
         app:strokeWidth="0dp">
 
         <TextView
-            android:id="@+id/itemExerciseTime"
+            android:id="@+id/itemExerciseImpReps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="5 mins"
+            android:text="--"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -92,7 +93,7 @@
         app:layout_constraintEnd_toStartOf="@+id/itemExerciseRepsCard"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemExerciseSetCard">
+        app:layout_constraintTop_toBottomOf="@id/itemExerciseImpSetsCard">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itemExerciseWeight"
@@ -115,21 +116,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/itemExerciseWeightCard"
-        app:layout_constraintTop_toBottomOf="@id/itemExerciseSetCard">
+        app:layout_constraintTop_toBottomOf="@id/itemExerciseImpSetsCard">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itemExerciseReps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Reps"
-            android:textSize="20sp"
-            android:text="10"
             android:textColor="@color/black"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSheetAddNewSetBtn"
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Finish"
+            android:text="Add"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />

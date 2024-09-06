@@ -38,4 +38,17 @@ interface UserDao {
 
     @Query("SELECT haveCoach FROM user WHERE isLoggedIn = 1 LIMIT 1")
     suspend fun isLoggedInUserHaveTrainer(): Boolean
+
+    @Query("SELECT userExerciseData FROM user WHERE isLoggedIn = 1 LIMIT 1")
+    suspend fun getUserExerciseData(): String?
+
+    @Query("UPDATE user SET userExerciseData = :date WHERE isLoggedIn = 1")
+    suspend fun updateUserExerciseData(date : Map<Int, Map<String, String>>)
+
+    @Query("UPDATE user SET haveCoach = :data WHERE isLoggedIn = 1")
+    suspend fun updateHaveCoach(data : Boolean)
+
+    @Query("UPDATE user SET trainPlanId = :data WHERE isLoggedIn = 1")
+    suspend fun updateTrainPlanId(data : Int?)
+
 }

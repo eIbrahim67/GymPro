@@ -84,12 +84,12 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:scaleType="centerCrop"
                         android:id="@+id/trainPlanImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/gray"
-                        android:backgroundTint="@color/gray_v5" />
+                        android:backgroundTint="@color/gray_v5"
+                        android:scaleType="centerCrop" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/workoutTrainerNameCard"
@@ -240,6 +240,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/trainPlanSetAsDefaultBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -252,7 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Done"
+                android:text="Set as Default"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />

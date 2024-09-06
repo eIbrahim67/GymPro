@@ -25,5 +25,12 @@ class LocalDateSourceImpl(
     override suspend fun getTrainPlanId() = userDao.getTrainPlan()
 
     override suspend fun isLoggedInUserHaveTrainer() = userDao.isLoggedInUserHaveTrainer()
+    override suspend fun getUserExerciseData() = userDao.getUserExerciseData()
+
+    override suspend fun updateUserExerciseData(data: Map<Int, Map<String, String>>) = userDao.updateUserExerciseData(data)
+    override suspend fun updateHaveCoach(data: Boolean) = userDao.updateHaveCoach(data)
+
+    override suspend fun updateTrainPlanId(data: Int?) = userDao.updateTrainPlanId(data)
+
 
 }

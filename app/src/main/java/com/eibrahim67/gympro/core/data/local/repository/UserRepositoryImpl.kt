@@ -26,6 +26,12 @@ class UserRepositoryImpl(
     override suspend fun getTrainPlanId() = localDateSource.getTrainPlanId()
 
     override suspend fun isLoggedInUserHaveTrainer() = localDateSource.isLoggedInUserHaveTrainer()
+    override suspend fun getUserExerciseData() = localDateSource.getUserExerciseData()
 
+    override suspend fun updateUserExerciseData(data: Map<Int, Map<String, String>>) =
+        localDateSource.updateUserExerciseData(data)
 
+    override suspend fun updateHaveCoach(data: Boolean) = localDateSource.updateHaveCoach(data)
+
+    override suspend fun updateTrainPlanId(data: Int?) = localDateSource.updateTrainPlanId(data)
 }

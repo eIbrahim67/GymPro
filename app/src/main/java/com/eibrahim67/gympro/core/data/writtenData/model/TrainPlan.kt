@@ -11,6 +11,6 @@ data class TrainPlan(
     val difficultyLevel: String, // e.g., "Beginner", "Intermediate", "Advanced"
     val imageUrl: String, // Optional: URL for an image representing the workout
     val trainingCategoriesIds: List<Int>,
-    val avgTimeMinPerWorkout : Int
+    val avgTimeMinPerWorkout: Int
 
 )

@@ -53,7 +53,7 @@ class AdapterRVWorkoutsTrainingPlan(
 
         holder.workoutShowBtn.setOnClickListener {
 
-            goToWorkout(differ.currentList[position].id)
+            //goToWorkout(differ.currentList[position].id)
 
         }
 

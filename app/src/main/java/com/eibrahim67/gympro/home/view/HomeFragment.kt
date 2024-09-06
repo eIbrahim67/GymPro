@@ -19,7 +19,7 @@ import com.eibrahim67.gympro.home.view.adapters.AdapterRVFeaturedPlans
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVOtherWorkouts
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.home.viewModel.HomeViewModel
-import com.eibrahim67.gympro.mainActivity.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
-    private val adapterRVFeaturedPlans = AdapterRVFeaturedPlans(){id-> goToTrainPlan(id)}
+    private val adapterRVFeaturedPlans = AdapterRVFeaturedPlans() { id -> goToTrainPlan(id) }
     private val adapterRVTrainers = AdapterRVTrainers()
     private val adapterRVCategories = AdapterRVCategories()
     private val adapterRVOtherWorkouts = AdapterRVOtherWorkouts()
@@ -162,7 +162,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun goToTrainPlan(id : Int){
+    private fun goToTrainPlan(id: Int) {
         sharedViewModel.setTrainPlanId(id)
         sharedViewModel.navigateTo(R.id.action_showTrainPlan)
     }
