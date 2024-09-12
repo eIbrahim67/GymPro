@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
@@ -39,6 +40,7 @@ class ShowTrainPlanFragment : Fragment() {
     private lateinit var recyclerviewWorkoutsTrainPlans: RecyclerView
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var trainPlanSetAsDefaultBtn: MaterialCardView
+    private lateinit var backBtn: MaterialCardView
 
     private val adapterRVWorkouts = AdapterRVWorkoutsTrainingPlan { id -> gotoWorkout(id) }
 
@@ -72,6 +74,9 @@ class ShowTrainPlanFragment : Fragment() {
                 sharedViewModel.updateMyTrainPlan()
                 sharedViewModel.updateMyCoachState(true)
             }
+        }
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -145,6 +150,9 @@ class ShowTrainPlanFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
+        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
+        bottomNavigationView.visibility = View.GONE
+
         trainPlanImage = view.findViewById(R.id.trainPlanImage)
         trainPlanCoachName = view.findViewById(R.id.trainPlanCoachName)
         trainPlanTitle = view.findViewById(R.id.trainPlanTitle)
@@ -154,8 +162,8 @@ class ShowTrainPlanFragment : Fragment() {
         trainPlanAvgTime = view.findViewById(R.id.trainPlanAvgTime)
         trainPlanDaysPerTrainingWeek = view.findViewById(R.id.trainPlanDaysPerTrainingWeek)
         trainPlanSetAsDefaultBtn = view.findViewById(R.id.trainPlanSetAsDefaultBtn)
-        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
-        bottomNavigationView.visibility = View.GONE
+        backBtn = view.findViewById(R.id.trainPlanBackBtn)
+
         recyclerviewWorkoutsTrainPlans = view.findViewById(R.id.recyclerviewWorkoutsTrainPlans)
         recyclerviewWorkoutsTrainPlans.adapter = adapterRVWorkouts
     }

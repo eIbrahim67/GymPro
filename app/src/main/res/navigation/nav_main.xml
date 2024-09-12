@@ -16,10 +16,10 @@
         android:label="fragment_train"
         tools:layout="@layout/fragment_train" />
     <fragment
-        android:id="@+id/action_my_trainer"
-        android:name="com.eibrahim67.gympro.myTrainer.view.MyTrainerFragment"
+        android:id="@+id/action_profile"
+        android:name="com.eibrahim67.gympro.profile.view.ProfileFragment"
         android:label="fragment_my_trainer"
-        tools:layout="@layout/fragment_my_trainer" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/action_chats"
         android:name="com.eibrahim67.gympro.chats.view.ChatsFragment"

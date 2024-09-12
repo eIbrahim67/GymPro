@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -22,6 +23,7 @@ import com.eibrahim67.gympro.home.viewModel.HomeViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
 
@@ -30,6 +32,8 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerviewFeaturePlan: RecyclerView
     private lateinit var recyclerviewOurTrainers: RecyclerView
     private lateinit var recyclerviewOthersWorkout: RecyclerView
+    private lateinit var currentDate: TextView
+    private lateinit var textViewHello: TextView
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -57,7 +61,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUi(view)
         updateUi()
         initObservers()
@@ -76,6 +79,9 @@ class HomeFragment : Fragment() {
         recyclerviewOurTrainers = view.findViewById(R.id.recyclerviewOurTrainers)
         recyclerviewOthersWorkout =
             view.findViewById(R.id.recyclerviewOthersWorkout)
+
+        textViewHello = view.findViewById(R.id.textViewHello)
+        currentDate = view.findViewById(R.id.currentDate)
 
         bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
         bottomNavigationView.visibility = View.VISIBLE
@@ -156,6 +162,42 @@ class HomeFragment : Fragment() {
 
                 is Response.Failure -> {
                     utils.createFailureResponse(response, requireContext())
+                }
+            }
+
+        }
+
+        viewModel.getCurrentDate()
+        viewModel.currentDate.observe(viewLifecycleOwner) { date ->
+
+
+            when (date) {
+                is Response.Loading -> {}
+
+                is Response.Success -> {
+                    currentDate.text = date.data
+                }
+
+                is Response.Failure -> {
+                    utils.createFailureResponse(date, requireContext())
+                }
+            }
+
+        }
+
+        viewModel.getHelloSate()
+        viewModel.helloSate.observe(viewLifecycleOwner) { date ->
+
+
+            when (date) {
+                is Response.Loading -> {}
+
+                is Response.Success -> {
+                    textViewHello.text = date.data
+                }
+
+                is Response.Failure -> {
+                    utils.createFailureResponse(date, requireContext())
                 }
             }
 

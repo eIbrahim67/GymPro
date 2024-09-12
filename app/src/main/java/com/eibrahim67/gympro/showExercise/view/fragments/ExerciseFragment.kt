@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -30,6 +31,7 @@ class ExerciseFragment : Fragment() {
     private lateinit var recyclerviewExerciseSetsDetails: RecyclerView
     private lateinit var exerciseDoneBtn: MaterialCardView
     private lateinit var addNewSetBtn: MaterialCardView
+    private lateinit var backBtn: MaterialCardView
 
     private val adapterRVExercisesResults = AdapterRVExercisesResults()
 
@@ -59,6 +61,9 @@ class ExerciseFragment : Fragment() {
                 BottomSheetAddNewSet.TAG
             )
         }
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initObservers() {
@@ -70,11 +75,11 @@ class ExerciseFragment : Fragment() {
             when (response) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-                    val weights = response.data[sharedViewModel.exerciseId.value]?.keys?.toList()
-                    val reps = response.data[sharedViewModel.exerciseId.value]?.values?.toList()
-                    adapterRVExercisesResults.submitListWeight(weights)
-                    adapterRVExercisesResults.submitListReps(reps)
-
+                    val list = response.data[sharedViewModel.exerciseId.value]
+                    if (!list.isNullOrEmpty()) {
+                        adapterRVExercisesResults.submitList(list)
+                        exerciseHintFirstSet.text = getText(R.string.your_exercise_sets_details)
+                    }
                 }
 
                 is Response.Failure -> {}
@@ -85,7 +90,7 @@ class ExerciseFragment : Fragment() {
             when (exercise) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-                    //exerciseVideoPlayer.setVideoURI(exercise.data?.videoUrl)
+                    //exerciseVideoPlayer.setVideoURI()
                     exerciseTitle.text = exercise.data?.name
                     exerciseHint.text = exercise.data?.exerciseHint
                 }
@@ -104,6 +109,8 @@ class ExerciseFragment : Fragment() {
         exerciseHintFirstSet = view.findViewById(R.id.exerciseHintFirstSet)
         addNewSetBtn = view.findViewById(R.id.addNewSetBtn)
         exerciseDoneBtn = view.findViewById(R.id.exerciseDoneBtn)
+        backBtn = view.findViewById(R.id.exerciseBackBtn)
+
         recyclerviewExerciseSetsDetails = view.findViewById(R.id.recyclerviewExerciseSetsDetails)
         recyclerviewExerciseSetsDetails.adapter = adapterRVExercisesResults
     }

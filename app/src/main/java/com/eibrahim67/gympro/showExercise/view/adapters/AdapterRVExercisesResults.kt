@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Workout
-import com.google.android.material.card.MaterialCardView
+import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
 
 class AdapterRVExercisesResults(
 
@@ -33,30 +32,32 @@ class AdapterRVExercisesResults(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
 
-        differWeight.currentList[position].let { data ->
-            holder.itemExerciseWeight.text = data
-        }
+        holder.itemExerciseSet.text = (position + 1).toString()
 
-        differReps.currentList[position].let { data ->
-            holder.itemExerciseReps.text = data
+        differ.currentList[position].let { data ->
+
+            try {
+                val sData: List<String?> = data.split("#")
+                holder.itemExerciseWeight.text = "${sData[0] ?: " error "} kg"
+                holder.itemExerciseReps.text = "${sData[1] ?: " error "}"
+            } catch (e: Exception) {
+                createMaterialAlertDialogBuilderOk(
+                    context,
+                    "Error in data",
+                    e.message.toString(),
+                    "Ok"
+                ) {}
+            }
         }
 
     }
 
-    private val differWeight: AsyncListDiffer<String> =
+    private val differ: AsyncListDiffer<String> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
 
-    fun submitListWeight(articleList: List<String>?) {
-        differWeight.submitList(articleList)
-    }
-
-    private val differReps: AsyncListDiffer<String> =
-        AsyncListDiffer(this, DIFF_CALLBACK)
-
-
-    fun submitListReps(articleList: List<String>?) {
-        differReps.submitList(articleList)
+    fun submitList(articleList: List<String>?) {
+        differ.submitList(articleList)
     }
 
     companion object {
@@ -74,11 +75,12 @@ class AdapterRVExercisesResults(
         }
     }
 
-    override fun getItemCount(): Int = differWeight.currentList.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemExerciseWeight: TextView = itemView.findViewById(R.id.itemExerciseWeight)
         val itemExerciseReps: TextView = itemView.findViewById(R.id.itemExerciseReps)
+        val itemExerciseSet: TextView = itemView.findViewById(R.id.itemExerciseSet)
 
     }
 }

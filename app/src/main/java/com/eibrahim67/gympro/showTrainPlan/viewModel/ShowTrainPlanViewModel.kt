@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.response.Response
-import com.eibrahim67.gympro.core.data.writtenData.model.TrainPlan
+import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 

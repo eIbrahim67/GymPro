@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Exercise
+import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVExercisesWorkout(
@@ -92,7 +92,7 @@ class AdapterRVExercisesWorkout(
         val exerciseHint: TextView = itemView.findViewById(R.id.itemExerciseHint)
         val exerciseIntensity: TextView = itemView.findViewById(R.id.itemExerciseIntensity)
         val exerciseSet: TextView = itemView.findViewById(R.id.itemExerciseSet)
-        val exerciseReps: TextView = itemView.findViewById(R.id.itemExerciseReps)
+        val exerciseReps: TextView = itemView.findViewById(R.id.newExerciseReps)
         val exerciseOpenBtn: MaterialCardView = itemView.findViewById(R.id.itemExerciseOpenBtn)
 
     }

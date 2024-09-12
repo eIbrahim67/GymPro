@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_v1"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/itemExerciseOpenBtn"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_v1"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/itemExerciseHint"
@@ -67,20 +67,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_v1"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/itemExerciseReps"
+        app:layout_constraintEnd_toStartOf="@id/newExerciseReps"
         app:layout_constraintStart_toEndOf="@id/itemExerciseIntensity"
         app:layout_constraintTop_toBottomOf="@id/itemExerciseHint" />
 
     <TextView
-        android:id="@+id/itemExerciseReps"
+        android:id="@+id/newExerciseReps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_v1"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
         android:layout_marginBottom="10dp"
         android:background="@color/gray_v2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemExerciseReps" />
+        app:layout_constraintTop_toBottomOf="@id/newExerciseReps" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemExerciseOpenBtn"
@@ -102,7 +102,7 @@
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/gray_v2"
         app:cardCornerRadius="500dp"
-        app:layout_constraintBottom_toTopOf="@id/itemExerciseReps"
+        app:layout_constraintBottom_toTopOf="@id/newExerciseReps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeWidth="0dp">

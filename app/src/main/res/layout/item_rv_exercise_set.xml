@@ -42,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="15 kg"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -79,7 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="8"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -91,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Time"
+            android:text="Improvement"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -113,11 +111,11 @@
             app:strokeWidth="0dp">
 
             <TextView
-                android:id="@+id/itemExerciseTime"
+                android:id="@+id/itemExerciseImprove"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="5 mins"
+
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -155,7 +153,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="1"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -65,7 +65,6 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
                 is Response.Loading -> {}
                 is Response.Success -> {
                     sharedViewModel.fetchDateExerciseData()
-                    dismiss()
                 }
 
                 is Response.Failure -> {
@@ -82,14 +81,15 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
             sharedViewModel.exerciseId.value?.let { id ->
                 sharedViewModel.updateUserExercise(id, weight, reps)
             }
+            dismiss()
         }
     }
 
     private fun initUi(view: View) {
         itemExerciseImpSets = view.findViewById(R.id.itemExerciseImpSets)
         itemExerciseImpReps = view.findViewById(R.id.itemExerciseImpReps)
-        itemExerciseWeight = view.findViewById(R.id.itemExerciseWeight)
-        itemExerciseReps = view.findViewById(R.id.itemExerciseReps)
+        itemExerciseWeight = view.findViewById(R.id.newExerciseWeight)
+        itemExerciseReps = view.findViewById(R.id.newExerciseReps)
         bottomSheetAddNewSetBtn = view.findViewById(R.id.bottomSheetAddNewSetBtn)
     }
 

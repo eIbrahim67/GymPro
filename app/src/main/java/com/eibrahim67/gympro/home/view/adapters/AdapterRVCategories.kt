@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Category
+import com.eibrahim67.gympro.core.data.remote.model.Category
 
 class AdapterRVCategories(
     private val goToSearch: ((id: String) -> Unit)? = null

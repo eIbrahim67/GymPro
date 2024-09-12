@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Workout
+import com.eibrahim67.gympro.core.data.remote.model.Workout
 
 class AdapterRVOtherWorkouts(
     private val goToSearch: ((id: String) -> Unit)? = null
@@ -34,14 +34,12 @@ class AdapterRVOtherWorkouts(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
 
-        differ.currentList[position].imageUrl?.let { url ->
+        differ.currentList[position].imageUrl.let { url ->
             Glide
                 .with(context)
                 .load(url)
                 .centerCrop()
-                //.placeholder(R.drawable.placeholder_image_svg)
                 .into(holder.imageOthersWorkout)
-            //itemView.setOnClickListener { goToSearch?.let { it(category.strCategory) } }
         }
 
         differ.currentList[position].name.let { title ->
@@ -49,7 +47,7 @@ class AdapterRVOtherWorkouts(
         }
 
         differ.currentList[position].durationMinutes.let { durationMinutes ->
-            holder.avgTimeOthersWorkout.text = durationMinutes.toString()
+            holder.avgTimeOthersWorkout.text = "$durationMinutes min"
         }
 
         differ.currentList[position].equipment.let { title ->

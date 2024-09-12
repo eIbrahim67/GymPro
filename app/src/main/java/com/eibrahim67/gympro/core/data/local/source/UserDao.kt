@@ -43,12 +43,14 @@ interface UserDao {
     suspend fun getUserExerciseData(): String?
 
     @Query("UPDATE user SET userExerciseData = :date WHERE isLoggedIn = 1")
-    suspend fun updateUserExerciseData(date : Map<Int, Map<String, String>>)
+    suspend fun updateUserExerciseData(date: Map<Int, MutableList<String>>)
 
     @Query("UPDATE user SET haveCoach = :data WHERE isLoggedIn = 1")
-    suspend fun updateHaveCoach(data : Boolean)
+    suspend fun updateHaveCoach(data: Boolean)
 
     @Query("UPDATE user SET trainPlanId = :data WHERE isLoggedIn = 1")
-    suspend fun updateTrainPlanId(data : Int?)
+    suspend fun updateTrainPlanId(data: Int?)
 
+    @Query("SELECT trainPlanId FROM USER WHERE isLoggedIn = 1")
+    suspend fun getUserTrainPlanId(): Int?
 }

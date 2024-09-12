@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/icon_home"
-        android:title="@string/home"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/icon_selector_home"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/action_train"
-        android:icon="@drawable/icon_home"
-        android:title="@string/train"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_my_trainer"
-        android:icon="@drawable/icon_home"
-        android:title="@string/my_trainer"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_chats"
-        android:icon="@drawable/icon_home"
-        android:title="@string/chat"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/icon_selector_train"
+        android:title="@string/train" />
 
     <item
         android:id="@+id/action_news"
-        android:icon="@drawable/icon_home"
-        android:title="@string/news"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/icon_selector_news"
+        android:title="@string/news" />
+
+
+    <item
+        android:id="@+id/action_chats"
+        android:icon="@drawable/icon_selector_chat"
+        android:title="@string/chat" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/icon_selector_profile"
+        android:title="@string/profile" />
 
 </menu>
