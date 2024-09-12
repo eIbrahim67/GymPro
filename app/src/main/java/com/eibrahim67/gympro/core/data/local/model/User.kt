@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import com.eibrahim67.gympro.core.utils.Converters
 
 @Entity(
 
@@ -55,6 +53,6 @@ data class User(
     val trainPlanId: Int? = null,
 
     @ColumnInfo(name = "userExerciseData")
-    val userExerciseData: Map<Int, Map<String, String>> = emptyMap()
+    val userExerciseData: Map<Int, MutableList<String>> = emptyMap()
 
 )

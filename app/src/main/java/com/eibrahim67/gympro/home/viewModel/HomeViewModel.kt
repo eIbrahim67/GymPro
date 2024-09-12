@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.response.Response
-import com.eibrahim67.gympro.core.data.writtenData.model.Category
-import com.eibrahim67.gympro.core.data.writtenData.model.Coach
-import com.eibrahim67.gympro.core.data.writtenData.model.Exercise
-import com.eibrahim67.gympro.core.data.writtenData.model.Workout
+import com.eibrahim67.gympro.core.data.remote.model.Category
+import com.eibrahim67.gympro.core.data.remote.model.Coach
+import com.eibrahim67.gympro.core.data.remote.model.Exercise
+import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class HomeViewModel : ViewModel() {
 
@@ -43,4 +47,23 @@ class HomeViewModel : ViewModel() {
     fun getCoaches() =
         applyResponse(_coaches, viewModelScope) { SourceWrittenData.getCoachesData() }
 
+    private val _currentDate = MutableLiveData<Response<String>>()
+    val currentDate: LiveData<Response<String>> get() = _currentDate
+    fun getCurrentDate() = applyResponse(_currentDate, viewModelScope) {
+        SimpleDateFormat("EEEE, d MMMM", Locale.ENGLISH).format(Date())
+    }
+
+    private val _helloSate = MutableLiveData<Response<String>>()
+    val helloSate: LiveData<Response<String>> get() = _helloSate
+    fun getHelloSate() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        applyResponse(_helloSate, viewModelScope) {
+            when (hour) {
+                in 4..11 -> "Good morning"
+                in 12..17 -> "Good afternoon"
+                else -> "Good evening"
+            }
+        }
+    }
 }

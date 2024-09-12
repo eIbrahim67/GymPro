@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -28,6 +29,7 @@ class WorkoutFragment : Fragment() {
     private lateinit var recyclerviewWorkoutExercises: RecyclerView
     private lateinit var workoutFinish: MaterialCardView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var backBtn: MaterialCardView
 
     private val adapterRVExercisesWorkout = AdapterRVExercisesWorkout { id -> goToExercise(id) }
 
@@ -42,6 +44,13 @@ class WorkoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUi(view)
         initObservers()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initObservers() {
@@ -98,6 +107,7 @@ class WorkoutFragment : Fragment() {
         workoutFinish = view.findViewById(R.id.workoutFinish)
         recyclerviewWorkoutExercises = view.findViewById(R.id.recyclerviewWorkoutExercises)
         recyclerviewWorkoutExercises.adapter = adapterRVExercisesWorkout
+        backBtn = view.findViewById(R.id.workoutBackBtn)
     }
 
     override fun onCreateView(

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Coach
+import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVTrainers(
@@ -40,9 +40,7 @@ class AdapterRVTrainers(
                 .with(context)
                 .load(url)
                 .centerCrop()
-                //.placeholder(R.drawable.placeholder_image_svg)
                 .into(holder.imageTrainer)
-            //itemView.setOnClickListener { goToSearch?.let { it(category.strCategory) } }
         }
 
         differ.currentList[position].name.let { name ->
@@ -54,7 +52,7 @@ class AdapterRVTrainers(
         }
 
         differ.currentList[position].price.let { price ->
-            holder.trainerPrice.text = price.toString()
+            holder.trainerPrice.text = "$price EG"
         }
 
         holder.btnOffer.setOnClickListener { }

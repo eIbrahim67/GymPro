@@ -21,12 +21,12 @@ object Converters {
     }
 
     @TypeConverter
-    fun fromMap(map: Map<Int, Map<String, String>>): String = Gson().toJson(map)
+    fun fromMap(map: Map<Int, MutableList<String>>): String = Gson().toJson(map)
 
     @TypeConverter
-    fun toMap(value: String): Map<Int, Map<String, String>> {
+    fun toMap(value: String): Map<Int, MutableList<String>> {
 
-        val mapType = object : TypeToken<Map<Int, Map<String, String>>>() {}.type
+        val mapType = object : TypeToken<Map<Int, MutableList<String>>>() {}.type
 
         return Gson().fromJson(value, mapType)
 

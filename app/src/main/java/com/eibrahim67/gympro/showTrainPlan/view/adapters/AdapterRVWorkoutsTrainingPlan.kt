@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.core.data.writtenData.model.Workout
+import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVWorkoutsTrainingPlan(

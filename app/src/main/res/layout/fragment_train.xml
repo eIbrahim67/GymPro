@@ -8,100 +8,93 @@
     app:layout_constraintTop_toTopOf="parent"
     tools:context=".train.view.TrainFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/moreLayout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="20sp"
-        app:cardBackgroundColor="@color/gray_v2"
-        app:cardCornerRadius="500dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="0dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:src="@drawable/icon_vert_more"
-            app:tint="@color/black" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/trainPio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Training Plan"
-        android:textColor="@color/gray_v3"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/moreLayout"
-        app:layout_constraintEnd_toStartOf="@id/moreLayout"
-        app:layout_constraintStart_toEndOf="@id/trainerLayout"
-        app:layout_constraintTop_toTopOf="@id/trainerLayout" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/trainerLayout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="20sp"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="500dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="0dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:src="@drawable/icon_star"
-            app:tint="@color/white" />
-
-    </com.google.android.material.card.MaterialCardView>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/trainerLayout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/stateActiveLineTrain"
-                layout="@layout/state_active_line"
-                android:visibility="gone" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/moreLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20sp"
+                app:cardBackgroundColor="@color/gray_v2"
+                app:cardCornerRadius="500dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/icon_vert_more"
+                    app:tint="@color/black" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/trainPio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Training Plan"
+                android:textColor="@color/gray_v3"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/moreLayout"
+                app:layout_constraintEnd_toStartOf="@id/moreLayout"
+                app:layout_constraintStart_toEndOf="@id/trainerLayout"
+                app:layout_constraintTop_toTopOf="@id/trainerLayout" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/trainerLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20sp"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="500dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:rotation="-20"
+                    android:src="@drawable/icon_whistle"
+                    app:tint="@color/white" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/trainTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stateActiveLineTrain" />
+                app:layout_constraintTop_toBottomOf="@id/trainerLayout" />
 
             <TextView
-                android:id="@+id/trainTargetedMuscles"
+                android:id="@+id/trainDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginEnd="20dp"
-                android:text="Targeted Muscles:"
-                android:textColor="@color/gray_v3"
-                android:textSize="20sp"
+                android:textColor="@color/gray_v1"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,14 +102,31 @@
                 app:layout_constraintTop_toBottomOf="@id/trainTitle" />
 
             <TextView
+                android:id="@+id/trainTargetedMuscles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Targeted Muscles"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trainDescription" />
+
+            <TextView
                 android:id="@+id/trainTargetedMusclesText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/gray_v3"
-                android:textSize="16sp"
-                android:visibility="gone"
+                android:textColor="@color/gray_v1"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trainTargetedMuscles" />

@@ -25,13 +25,13 @@ import com.google.android.material.card.MaterialCardView
 
 class TrainFragment : Fragment() {
 
-    private lateinit var stateActiveLineTrain: View
     private lateinit var trainTitle: TextView
     private lateinit var trainTargetedMuscles: TextView
     private lateinit var trainTargetedMusclesText: TextView
     private lateinit var recyclerviewWorkoutsExercises: RecyclerView
     private lateinit var cardViewGetYourTrainer: MaterialCardView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var trainDescription: TextView
 
     private val adapterRVWorkouts = AdapterRVWorkouts { id -> gotoWorkout(id) }
     private val utils = UtilsFunctions
@@ -60,9 +60,9 @@ class TrainFragment : Fragment() {
         bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
         bottomNavigationView.visibility = View.VISIBLE
         trainTitle = view.findViewById(R.id.trainTitle)
-        stateActiveLineTrain = view.findViewById(R.id.stateActiveLineTrain)
         cardViewGetYourTrainer = view.findViewById(R.id.cardViewGetYourTrainer)
         trainTargetedMuscles = view.findViewById(R.id.trainTargetedMuscles)
+        trainDescription = view.findViewById(R.id.trainDescription)
         trainTargetedMusclesText = view.findViewById(R.id.trainTargetedMusclesText)
         recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewMyTrainPlanWorkouts)
         recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
@@ -93,11 +93,11 @@ class TrainFragment : Fragment() {
                 is Response.Success -> {
                     trainTitle.visibility = View.VISIBLE
                     recyclerviewWorkoutsExercises.visibility = View.VISIBLE
-                    stateActiveLineTrain.visibility = View.VISIBLE
                     trainTargetedMuscles.visibility = View.VISIBLE
                     trainTargetedMusclesText.visibility = View.VISIBLE
-                    stateActiveLineTrain.visibility = View.VISIBLE
+                    trainDescription.visibility = View.VISIBLE
                     trainTitle.text = response.data?.name
+                    trainDescription.text = response.data?.description
                     response.data?.let { sharedViewModel.getTargetedMusclesByIds(it.targetedMuscleIds) }
                     response.data?.let { sharedViewModel.getWorkoutsByIds(it.workoutsIds) }
                 }

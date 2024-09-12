@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.eibrahim67.gympro" />
+                  <option name="mobileSdkAppId" value="1:876436428697:android:754ab77546ecbfb76e2508" />
+                  <option name="projectId" value="gympro-eibrahim" />
+                  <option name="projectNumber" value="876436428697" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

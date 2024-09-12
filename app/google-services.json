@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876436428697",
+    "project_id": "gympro-eibrahim",
+    "storage_bucket": "gympro-eibrahim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876436428697:android:754ab77546ecbfb76e2508",
+        "android_client_info": {
+          "package_name": "com.eibrahim67.gympro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaMz8UM5miJPc_TQsln8T-tG5f0Gi6vQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

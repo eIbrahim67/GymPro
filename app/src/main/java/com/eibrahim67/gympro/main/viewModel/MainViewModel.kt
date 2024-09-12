@@ -1,15 +1,16 @@
 package com.eibrahim67.gympro.main.viewModel
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.response.Response
-import com.eibrahim67.gympro.core.data.writtenData.model.Coach
-import com.eibrahim67.gympro.core.data.writtenData.model.Exercise
-import com.eibrahim67.gympro.core.data.writtenData.model.TrainPlan
-import com.eibrahim67.gympro.core.data.writtenData.model.Workout
+import com.eibrahim67.gympro.core.data.remote.model.Coach
+import com.eibrahim67.gympro.core.data.remote.model.Exercise
+import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
+import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.Converters
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
@@ -23,6 +24,11 @@ class MainViewModel(
     val navigateToFragment: LiveData<Int?> get() = _navigateToFragment
     fun navigateTo(fragmentName: Int?) {
         _navigateToFragment.value = fragmentName
+    }
+    private val _navigateToFragment2 = MutableLiveData<Fragment?>()
+    val navigateToFragment2: LiveData<Fragment?> get() = _navigateToFragment2
+    fun navigateTo2(fragmentName: Fragment?) {
+        _navigateToFragment2.value = fragmentName
     }
 
     private val _workoutId = MutableLiveData<Int>()
@@ -46,8 +52,10 @@ class MainViewModel(
     private val _myTrainPlans = MutableLiveData<Response<TrainPlan?>>()
     val myTrainPlan: LiveData<Response<TrainPlan?>> get() = _myTrainPlans
     fun getMyTrainPlan() {
-        applyResponse(_myTrainPlans, viewModelScope) { SourceWrittenData.getTrainingPlansById(1) }
-        //TODO:Update to be real, get saved data in room
+        applyResponse(_myTrainPlans, viewModelScope) {
+            userRepository.getUserTrainPlanId()
+                ?.let { SourceWrittenData.getTrainingPlansById(it) }
+        }
     }
 
     private val _trainPlans = MutableLiveData<Response<List<TrainPlan>>>()
@@ -96,8 +104,8 @@ class MainViewModel(
         viewModelScope
     ) { SourceWrittenData.getExerciseById(id) }
 
-    private val _userDataExercise = MutableLiveData<Response<Map<Int, Map<String, String>>>>()
-    val userDataExercise: LiveData<Response<Map<Int, Map<String, String>>>> get() = _userDataExercise
+    private val _userDataExercise = MutableLiveData<Response<Map<Int, MutableList<String>>>>()
+    val userDataExercise: LiveData<Response<Map<Int, MutableList<String>>>> get() = _userDataExercise
     fun fetchDateExerciseData() {
         applyResponse(_userDataExercise, viewModelScope) {
             val json = userRepository.getUserExerciseData()
@@ -115,15 +123,10 @@ class MainViewModel(
 
             is Response.Success -> {
 
-                val updatedMap: MutableMap<Int, MutableMap<String, String>> =
-                    currentExerciseData.data as MutableMap<Int, MutableMap<String, String>>
+                val updatedMap: MutableMap<Int, MutableList<String>> =
+                    currentExerciseData.data as MutableMap<Int, MutableList<String>>
 
-                if (updatedMap[id].isNullOrEmpty()) {
-                    val newMap = mutableMapOf(Pair(weight, reps))
-                    updatedMap[id] = newMap
-                } else {
-                    updatedMap[id]?.set(weight, reps)
-                }
+                updatedMap.getOrPut(id) { mutableListOf() }.add("$weight#$reps")
                 _updateUserExerciseState.value = Response.Success(Unit)
                 updateExerciseMap(updatedMap)
             }
@@ -138,13 +141,14 @@ class MainViewModel(
 
     private val _updateUserExercise = MutableLiveData<Response<Unit>>()
     val updateUserExercise: LiveData<Response<Unit>> get() = _updateUserExercise
-    private fun updateExerciseMap(updatedData: Map<Int, Map<String, String>>) {
+    private fun updateExerciseMap(updatedData: Map<Int, MutableList<String>>) {
         applyResponse(_updateUserExercise, viewModelScope) {
             userRepository.updateUserExerciseData(updatedData)
         }
     }
 
     private val _updateMyTrainPlan = MutableLiveData<Response<Unit>>()
+
     //val updateMyTrainPlan: LiveData<Response<Unit>> get() = _updateMyTrainPlan
     fun updateMyTrainPlan() {
         applyResponse(
@@ -154,6 +158,7 @@ class MainViewModel(
     }
 
     private val _myCoachState = MutableLiveData<Response<Unit>>()
+
     //val myCoachState: LiveData<Response<Unit>> get() = _myCoachState
     fun updateMyCoachState(data: Boolean) {
         applyResponse(

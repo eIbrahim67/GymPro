@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.core.data.local.repository
 
-import androidx.room.Query
 import com.eibrahim67.gympro.core.data.local.model.User
 
 interface UserRepository {
@@ -27,11 +26,11 @@ interface UserRepository {
 
     suspend fun getUserExerciseData(): String?
 
-    suspend fun updateUserExerciseData(data: Map<Int, Map<String, String>>)
+    suspend fun updateUserExerciseData(data: Map<Int, MutableList<String>>)
 
-    suspend fun updateHaveCoach(data : Boolean)
+    suspend fun updateHaveCoach(data: Boolean)
 
-    suspend fun updateTrainPlanId(data : Int?)
+    suspend fun updateTrainPlanId(data: Int?)
 
-
+    suspend fun getUserTrainPlanId(): Int?
 }
