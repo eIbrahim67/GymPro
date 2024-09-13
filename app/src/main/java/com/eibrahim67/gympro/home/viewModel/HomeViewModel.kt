@@ -4,27 +4,49 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.Workout
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
+import com.eibrahim67.gympro.core.data.response.FailureReason
+import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
-    private val _categories = MutableLiveData<Response<List<Category>>>()
+    private val _categories = MutableLiveData<Response<List<Category>?>>()
 
-    val categories: LiveData<Response<List<Category>>> get() = _categories
+    val categories: LiveData<Response<List<Category>?>> get() = _categories
 
-    fun getCategories() = applyResponse(_categories, viewModelScope) {
-        SourceWrittenData.getCategoriesData()
+//    fun getCategories() = applyResponse(_categories, viewModelScope) {
+//        remoteRepository.getCategories().value
+//    }
+
+//    private val _categories = MutableLiveData<List<Category>>()
+//    val categories: LiveData<List<Category>> get() = _categories
+
+    fun getCategories() {
+        _categories.value = Response.Loading
+        try {
+            viewModelScope.launch {
+                remoteRepository.getCategories().observeForever { fetchedCategories ->
+                    _categories.value = Response.Success(fetchedCategories)
+                }
+            }
+        } catch (e: Exception) {
+            _categories.value = Response.Failure(FailureReason.UnknownError(e.message.toString()))
+        }
     }
+
 
     private val _exercises = MutableLiveData<Response<List<Exercise>>>()
 

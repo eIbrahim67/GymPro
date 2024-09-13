@@ -1,16 +1,16 @@
 package com.eibrahim67.gympro.main.viewModel
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
-import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
+import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.Converters
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
@@ -24,11 +24,6 @@ class MainViewModel(
     val navigateToFragment: LiveData<Int?> get() = _navigateToFragment
     fun navigateTo(fragmentName: Int?) {
         _navigateToFragment.value = fragmentName
-    }
-    private val _navigateToFragment2 = MutableLiveData<Fragment?>()
-    val navigateToFragment2: LiveData<Fragment?> get() = _navigateToFragment2
-    fun navigateTo2(fragmentName: Fragment?) {
-        _navigateToFragment2.value = fragmentName
     }
 
     private val _workoutId = MutableLiveData<Int>()

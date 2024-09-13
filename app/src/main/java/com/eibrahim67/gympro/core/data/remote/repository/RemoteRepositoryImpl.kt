@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.core.data.remote.repository
 
+import androidx.lifecycle.LiveData
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -24,5 +25,7 @@ class RemoteRepositoryImpl(
 
     override suspend fun addTrainPlan(trainPlan: Map<Int, TrainPlan>) =
         remoteDataSource.addTrainPlan(trainPlan)
+
+    override suspend fun getCategories(): LiveData<List<Category>> = remoteDataSource.getCategories()
 
 }
