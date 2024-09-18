@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.VideoView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
@@ -24,16 +26,20 @@ import com.google.android.material.card.MaterialCardView
 
 class ExerciseFragment : Fragment() {
 
-    private lateinit var exerciseVideoPlayer: VideoView
+    private lateinit var exerciseImage: ImageView
+    private lateinit var exerciseHistoryBtnSrc: ImageView
     private lateinit var exerciseTitle: TextView
     private lateinit var exerciseHint: TextView
     private lateinit var exerciseHintFirstSet: TextView
     private lateinit var recyclerviewExerciseSetsDetails: RecyclerView
+    private lateinit var recyclerviewExerciseHistory: RecyclerView
     private lateinit var exerciseDoneBtn: MaterialCardView
     private lateinit var addNewSetBtn: MaterialCardView
     private lateinit var backBtn: MaterialCardView
+    private lateinit var exerciseHistory: MaterialCardView
 
-    private val adapterRVExercisesResults = AdapterRVExercisesResults()
+    private val adapterRVExercisesCurrent = AdapterRVExercisesResults()
+    private val adapterRVExercisesHistory = AdapterRVExercisesResults()
 
     private val sharedViewModel: MainViewModel by activityViewModels {
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
@@ -64,6 +70,15 @@ class ExerciseFragment : Fragment() {
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+        exerciseHistoryBtnSrc.setOnClickListener {
+            if (exerciseHistory.visibility == View.VISIBLE) {
+                exerciseHistory.visibility = View.GONE
+                exerciseHistoryBtnSrc.setImageResource(R.drawable.icon_history)
+            } else {
+                exerciseHistory.visibility = View.VISIBLE
+                exerciseHistoryBtnSrc.setImageResource(R.drawable.icon_close)
+            }
+        }
     }
 
     private fun initObservers() {
@@ -77,7 +92,7 @@ class ExerciseFragment : Fragment() {
                 is Response.Success -> {
                     val list = response.data[sharedViewModel.exerciseId.value]
                     if (!list.isNullOrEmpty()) {
-                        adapterRVExercisesResults.submitList(list)
+                        adapterRVExercisesHistory.submitList(list)
                         exerciseHintFirstSet.text = getText(R.string.your_exercise_sets_details)
                     }
                 }
@@ -90,9 +105,11 @@ class ExerciseFragment : Fragment() {
             when (exercise) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-                    //exerciseVideoPlayer.setVideoURI()
+                    Glide.with(requireContext())
+                        .load(exercise.data?.imageUrl).into(exerciseImage)
                     exerciseTitle.text = exercise.data?.name
                     exerciseHint.text = exercise.data?.exerciseHint
+                    Toast.makeText(requireContext(), exercise.data?.imageUrl, Toast.LENGTH_SHORT).show()
                 }
 
                 is Response.Failure -> {
@@ -103,16 +120,21 @@ class ExerciseFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
-        exerciseVideoPlayer = view.findViewById(R.id.exerciseVideoPlayer)
+        exerciseImage = view.findViewById(R.id.exerciseImage)
+        exerciseHistoryBtnSrc = view.findViewById(R.id.exerciseHistoryBtnSrc)
         exerciseTitle = view.findViewById(R.id.exerciseTitle)
         exerciseHint = view.findViewById(R.id.exerciseHint)
         exerciseHintFirstSet = view.findViewById(R.id.exerciseHintFirstSet)
         addNewSetBtn = view.findViewById(R.id.addNewSetBtn)
         exerciseDoneBtn = view.findViewById(R.id.exerciseDoneBtn)
         backBtn = view.findViewById(R.id.exerciseBackBtn)
+        exerciseHistory = view.findViewById(R.id.exerciseHistory)
 
         recyclerviewExerciseSetsDetails = view.findViewById(R.id.recyclerviewExerciseSetsDetails)
-        recyclerviewExerciseSetsDetails.adapter = adapterRVExercisesResults
+        recyclerviewExerciseSetsDetails.adapter = adapterRVExercisesCurrent
+
+        recyclerviewExerciseHistory = view.findViewById(R.id.recyclerviewExerciseHistory)
+        recyclerviewExerciseHistory.adapter = adapterRVExercisesHistory
     }
 
     override fun onCreateView(
