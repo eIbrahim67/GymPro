@@ -1,5 +1,8 @@
 package com.eibrahim67.gympro.core.data.remote.source
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -121,4 +124,39 @@ class RemoteDataSourceImpl(
                 }
             )
     }
+
+    override suspend fun getCategories(): LiveData<List<Category>> {
+        val categoriesLiveData = MutableLiveData<List<Category>>()
+        db.collection("Data").document("categories")
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Convert Firestore data to Map<String, Category>
+                    val categoriesMap = document.data
+                    val categoriesList = categoriesMap?.map { entry ->
+                        val categoryData = entry.value as Map<*, *>
+                        Category(
+                            id = (categoryData["id"] as Long).toInt(),
+                            name = categoryData["name"] as String,
+                            description = categoryData["description"] as String,
+                            iconUrl = categoryData["iconUrl"] as String
+                        )
+                    } ?: emptyList()
+
+                    categoriesLiveData.value = categoriesList
+                    Log.d("Firestore", categoriesList.toString())
+                } else {
+                    Log.d("Firestore", "No categories found")
+                    categoriesLiveData.value = emptyList()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Firestore", "Error getting categories", exception)
+                categoriesLiveData.value = emptyList()
+            }
+
+        return categoriesLiveData
+    }
+
+
 }

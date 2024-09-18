@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.home.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
+import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVCategories
@@ -20,6 +23,7 @@ import com.eibrahim67.gympro.home.view.adapters.AdapterRVFeaturedPlans
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVOtherWorkouts
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.home.viewModel.HomeViewModel
+import com.eibrahim67.gympro.home.viewModel.HomeViewModelFactory
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -44,7 +48,11 @@ class HomeFragment : Fragment() {
 
     private val utils = UtilsFunctions
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
+        HomeViewModelFactory(remoteRepository)
+    }
 
     private val sharedViewModel: MainViewModel by activityViewModels {
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
@@ -98,14 +106,26 @@ class HomeFragment : Fragment() {
                 }
 
                 is Response.Success -> {
-                    adapterRVCategories.submitList(response.data)
+                    response.data?.let { adapterRVCategories.submitList(it) }
                 }
 
                 is Response.Failure -> {
-                    utils.createFailureResponse(response, requireContext())
+
                 }
             }
         }
+
+//        viewModel.getCategories()
+//
+//        viewModel.categories.observe(viewLifecycleOwner) { data ->
+//            if (data != null && data.isNotEmpty()) {
+//                adapterRVCategories.submitList(data)
+//            } else {
+//                Log.e("Category", "No categories found or an error occurred")
+//                //TODO:Add some design
+//            }
+//        }
+
 
         sharedViewModel.getTrainPlans()
 

@@ -39,7 +39,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exerciseMoreBtn"
+                android:id="@+id/exerciseHistoryBtn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="20dp"
@@ -50,11 +50,12 @@
                 app:strokeWidth="0dp">
 
                 <ImageView
+                    android:id="@+id/exerciseHistoryBtnSrc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="12dp"
-                    android:contentDescription="Back Button"
-                    android:src="@drawable/icon_vert_more"
+                    android:layout_margin="10dp"
+                    android:contentDescription="History Button"
+                    android:src="@drawable/icon_history"
                     app:tint="@color/black" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -79,11 +80,11 @@
                 app:layout_constraintTop_toBottomOf="@id/exerciseBackBtn"
                 app:strokeWidth="0dp">
 
-                <VideoView
-                    android:id="@+id/exerciseVideoPlayer"
+                <ImageView
+                    android:id="@+id/exerciseImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/gray_v5" />
+                    android:background="@color/gray_v5" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -167,6 +168,32 @@
                     android:textColor="@color/gray_v3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/exerciseHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardBackgroundColor="@color/gray_v5"
+                android:layout_margin="20dp"
+                app:layout_constraintTop_toBottomOf="@id/exerciseBackBtn"
+                app:strokeWidth="0dp"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewExerciseHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_rv_exercise_set" />
 
             </com.google.android.material.card.MaterialCardView>
 

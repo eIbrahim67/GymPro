@@ -1,5 +1,7 @@
 package com.eibrahim67.gympro.core.data.remote.source
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -20,5 +22,7 @@ interface RemoteDataSource {
     suspend fun addWorkout(workout: Map<Int, Workout>)
 
     suspend fun addTrainPlan(trainPlan: Map<Int, TrainPlan>)
+
+    suspend fun getCategories(): LiveData<List<Category>>
 
 }
