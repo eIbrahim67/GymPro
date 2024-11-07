@@ -11,6 +11,7 @@
         android:id="@+id/image_gym_pro"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:contentDescription="TODO"
         android:src="@mipmap/gym_pro_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -111,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
+            android:contentDescription="TODO"
             android:rotation="90"
             android:src="@drawable/icon_arrow"
             app:tint="@color/black" />

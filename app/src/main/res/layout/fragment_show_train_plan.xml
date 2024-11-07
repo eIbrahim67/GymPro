@@ -89,6 +89,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/gray_v1"
                         android:backgroundTint="@color/gray_v5"
+                        android:contentDescription="TODO"
                         android:scaleType="centerCrop" />
 
                     <com.google.android.material.card.MaterialCardView

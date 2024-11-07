@@ -133,7 +133,7 @@
                 android:layout_gravity="center"
                 android:text="Finish"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>

@@ -25,6 +25,7 @@
                 android:id="@+id/itemImageTrainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="TODO"
                 android:scaleType="centerCrop" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -54,6 +55,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginEnd="5dp"
+            android:contentDescription="TODO"
             android:src="@drawable/icon_star"
             app:layout_constraintBottom_toBottomOf="@id/itemRateTrainer"
             app:layout_constraintEnd_toStartOf="@id/itemRateTrainer"
@@ -148,6 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
+                android:contentDescription="TODO"
                 android:src="@drawable/icon_outline_chat"
                 app:tint="@color/gray_v1" />
 
