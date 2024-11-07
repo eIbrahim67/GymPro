@@ -84,7 +84,8 @@
                     android:id="@+id/exerciseImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_v5" />
+                    android:background="@color/gray_v5"
+                    android:contentDescription="TODO" />
 
             </com.google.android.material.card.MaterialCardView>
 

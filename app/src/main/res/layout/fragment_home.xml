@@ -59,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/icon_outline_notification" />
 
             </com.google.android.material.card.MaterialCardView>

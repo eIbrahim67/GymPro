@@ -33,6 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/icon_vert_more"
                     app:tint="@color/black" />
 
@@ -66,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
+                    android:contentDescription="TODO"
                     android:rotation="-20"
                     android:src="@drawable/icon_whistle"
                     app:tint="@color/white" />
@@ -172,7 +174,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:text="You don't have a coach"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
