@@ -1,5 +1,7 @@
 # GymPro
 
+![GymPro](https://github.com/eIbrahim67/GymPro/blob/master/images/part1_gym.jpg)
+
 GymPro is a comprehensive fitness tracking app designed to support users in achieving their health and fitness goals. With personalized training plans, access to certified trainers, and tools for tracking workouts, GymPro makes it easy to stay committed to a healthier lifestyle.
 
 ---
