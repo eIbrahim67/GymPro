@@ -1,7 +1,8 @@
-
 # GymPro
 
 GymPro is a comprehensive fitness tracking app designed to support users in achieving their health and fitness goals. With personalized training plans, access to certified trainers, and tools for tracking workouts, GymPro makes it easy to stay committed to a healthier lifestyle.
+
+---
 
 ## Features
 
@@ -11,6 +12,8 @@ GymPro is a comprehensive fitness tracking app designed to support users in achi
 - **Workout Tracking**: Track reps, weights, and other workout data to monitor progress over time.
 - **Fitness News and Articles**: Stay updated with the latest in fitness science and training techniques. Access articles and tips related to gym training and overall fitness.
 - **User Profile**: Manage account details and view progress through a personalized profile page.
+
+---
 
 ## App Pages Overview
 
@@ -29,6 +32,8 @@ GymPro is a comprehensive fitness tracking app designed to support users in achi
 5. **Profile Page**: 
    - The Profile page provides a centralized view of each user’s account details, training history, and goals. Users can view and edit their information, review workout logs, and track overall progress.
 
+---
+
 ## Getting Started
 
 To get started with GymPro, follow these steps:
@@ -43,6 +48,8 @@ To get started with GymPro, follow these steps:
 3. **Run the Application**:
    (Provide instructions for launching the app)
 
+---
+
 ## Usage
 
 1. **Account Creation**: Register for an account to begin using GymPro.
@@ -51,6 +58,8 @@ To get started with GymPro, follow these steps:
 4. **Tracking Workouts**: Log your reps, weights, and other details for each exercise to monitor your progress.
 5. **Explore Articles**: Stay informed with articles and updates related to fitness and gym training.
 
+---
+
 ## Future Enhancements
 
 We’re actively working on new features to enhance the GymPro experience. Some ideas include:
@@ -58,6 +67,23 @@ We’re actively working on new features to enhance the GymPro experience. Some 
 - Group challenges and community engagement features
 - Nutrition tracking and meal plans
 
+---
+
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+```
+MIT License © 2025 Ibrahim Mohamed Ibrahim
+```
+
+---
+
+## Author & Contact
+
+```
+Developed by: Ibrahim Mohamed Ibrahim
+GitHub: https://github.com/eIbrahim67
+LinkedIn: https://www.linkedin.com/in/eibrahim67
+Email: ibrahim.mohamed.ibrahim.t@gmail.com
+```
+
+---
