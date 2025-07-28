@@ -5,7 +5,7 @@
     android:id="@+id/passcodeFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     tools:context=".auth.newPassword.checkEmail.view.CheckEmailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -144,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/primary_black"
             android:text="@string/_continue"
             android:textAlignment="center"
             android:textSize="21sp"

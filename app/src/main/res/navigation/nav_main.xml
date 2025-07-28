@@ -9,7 +9,18 @@
         android:id="@+id/action_home"
         android:name="com.eibrahim67.gympro.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            app:destination="@+id/action_train"
+            android:id="@+id/action_action_home_to_action_train"/>
+
+        <action
+            app:destination="@+id/chatbotFragment"
+            android:id="@+id/action_action_home_to_chatbot"/>
+
+
+    </fragment>
     <fragment
         android:id="@+id/action_train"
         android:name="com.eibrahim67.gympro.train.view.TrainFragment"
@@ -22,9 +33,9 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/action_chats"
-        android:name="com.eibrahim67.gympro.chats.view.ChatsFragment"
+        android:name="com.eibrahim67.gympro.chat.view.ChatFragment"
         android:label="fragment_chats"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/action_news"
         android:name="com.eibrahim67.gympro.news.view.NewsFragment"
@@ -45,4 +56,62 @@
         android:name="com.eibrahim67.gympro.showWorkout.view.WorkoutFragment"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" />
+
+    <fragment
+        android:id="@+id/chatbotFragment"
+        android:name="com.eibrahim67.gympro.chatbot.presentation.view.ChatbotFragment"
+        android:label="Chatbot"/>
+
+
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="com.eibrahim67.gympro.personalData.PersonalDataFragment"
+        android:label="PersonalData" />
+
+    <fragment
+        android:id="@+id/becomeTrainerFragment"
+        android:name="com.eibrahim67.gympro.becomeTrainer.BecomeTrainerFragment"
+        android:label="BecomeTrainer" />
+
+    <fragment
+        android:id="@+id/myChatsFragment"
+        android:name="com.eibrahim67.gympro.myChats.MyChatsFragment"
+        android:label="MyChats" />
+
+    <fragment
+        android:id="@+id/myClientsFragment"
+        android:name="com.eibrahim67.gympro.myClients.MyClientsFragment"
+        android:label="MyClients" />
+
+    <fragment
+        android:id="@+id/myTrainingPlansFragment"
+        android:name="com.eibrahim67.gympro.myTrainingPlans.MyTrainingPlansFragment"
+        android:label="MyTrainingPlans" />
+
+    <fragment
+        android:id="@+id/myProgressFragment"
+        android:name="com.eibrahim67.gympro.myProgress.MyProgressFragment"
+        android:label="MyProgress" />
+
+    <fragment
+        android:id="@+id/mostImprovedMusclesFragment"
+        android:name="com.eibrahim67.gympro.mostImprovedMuscles.MostImprovedMusclesFragment"
+        android:label="MostImprovedMuscles" />
+
+    <fragment
+        android:id="@+id/securityPoliciesFragment"
+        android:name="com.eibrahim67.gympro.securityPolicies.SecurityPoliciesFragment"
+        android:label="SecurityPolicies" />
+
+    <fragment
+        android:id="@+id/helpFeedbackFragment"
+        android:name="com.eibrahim67.gympro.helpFeedback.HelpFeedbackFragment"
+        android:label="HelpFeedback" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.eibrahim67.gympro.about.AboutFragment"
+        android:label="About" />
+
+
 </navigation>

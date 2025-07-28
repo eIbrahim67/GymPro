@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     tools:context=".showTrainPlan.view.ShowTrainPlanFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -22,7 +22,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/black"
+                app:cardBackgroundColor="@color/primary_black"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
                     android:layout_margin="12dp"
                     android:contentDescription="Back Button"
                     android:src="@drawable/icon_back_arrow"
-                    app:tint="@color/white" />
+                    app:tint="@color/primary_color" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -55,7 +55,7 @@
                     android:layout_margin="12dp"
                     android:contentDescription="Back Button"
                     android:src="@drawable/icon_vert_more"
-                    app:tint="@color/black" />
+                    app:tint="@color/primary_black" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Train Plan Details"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/trainPlanBackBtn"
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        app:cardBackgroundColor="@color/black"
+                        app:cardBackgroundColor="@color/primary_black"
                         app:cardCornerRadius="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/primary_color"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="Targeted Muscles"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -236,7 +236,7 @@
         android:id="@+id/trainPlanDoneBtnLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
@@ -245,7 +245,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            app:cardBackgroundColor="@color/black"
+            app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="10dp"
             app:strokeWidth="0dp">
 
@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Set as Default"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

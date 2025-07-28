@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -20,7 +21,6 @@ import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.view.adapters.AdapterRVWorkouts
 import com.eibrahim67.gympro.train.viewModel.TrainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 
 class TrainFragment : Fragment() {
@@ -30,9 +30,8 @@ class TrainFragment : Fragment() {
     private lateinit var trainTargetedMusclesText: TextView
     private lateinit var recyclerviewWorkoutsExercises: RecyclerView
     private lateinit var cardViewGetYourTrainer: MaterialCardView
-    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var trainDescription: TextView
-
+    private lateinit var backBtn: MaterialCardView
     private val adapterRVWorkouts = AdapterRVWorkouts { id -> gotoWorkout(id) }
     private val utils = UtilsFunctions
 
@@ -57,8 +56,6 @@ class TrainFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
-        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
-        bottomNavigationView.visibility = View.VISIBLE
         trainTitle = view.findViewById(R.id.trainTitle)
         cardViewGetYourTrainer = view.findViewById(R.id.cardViewGetYourTrainer)
         trainTargetedMuscles = view.findViewById(R.id.trainTargetedMuscles)
@@ -66,6 +63,12 @@ class TrainFragment : Fragment() {
         trainTargetedMusclesText = view.findViewById(R.id.trainTargetedMusclesText)
         recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewMyTrainPlanWorkouts)
         recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
+
+        backBtn = view.findViewById(R.id.trainBackBtn)
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
     }
 
     private fun initObservers() {
@@ -142,6 +145,6 @@ class TrainFragment : Fragment() {
 
     private fun gotoWorkout(id: Int) {
         sharedViewModel.setWorkoutId(id)
-        sharedViewModel.navigateTo(R.id.action_workout)
+        sharedViewModel.navigateRightTo(R.id.action_workout)
     }
 }

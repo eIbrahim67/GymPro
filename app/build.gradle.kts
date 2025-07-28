@@ -24,8 +24,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -35,6 +34,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -59,9 +61,8 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
 
     // ViewModel
-    val lifecycle_version = "2.8.4"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Navigation
     val nav_version = "2.7.7"
@@ -77,6 +78,31 @@ dependencies {
     // Gson
     implementation("com.google.code.gson:gson:2.11.0")
 
-    //splash
-    implementation("androidx.core:core-splashscreen:1.0.0")
+// 🚀 Core Dependencies
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.activity:activity-ktx:1.9.0")
+
+// 🔗 Retrofit & Converters
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+// 🌐 OkHttp Networking
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+// 📦 Kotlin Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+// 🔄 Kotlin Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
+// 🖼 Glide for Image Loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.16.0")
+
+
+    implementation(libs.core)
+
 }

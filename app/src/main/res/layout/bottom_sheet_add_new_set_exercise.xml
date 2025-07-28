@@ -13,7 +13,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="Improving in weight"
-        android:textColor="@color/black"
+        android:textColor="@color/primary_black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/itemExerciseWeightCard"
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="--"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Improving in reps"
-        android:textColor="@color/black"
+        android:textColor="@color/primary_black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/itemExerciseRepsCard"
@@ -77,7 +77,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="--"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Weight"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Reps"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="@color/primary_black"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemExerciseRepsCard"
@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Add"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 

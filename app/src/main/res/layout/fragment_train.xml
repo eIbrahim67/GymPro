@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     app:layout_constraintTop_toTopOf="parent"
     tools:context=".train.view.TrainFragment">
 
@@ -35,7 +35,7 @@
                     android:layout_margin="10dp"
                     android:contentDescription="TODO"
                     android:src="@drawable/icon_vert_more"
-                    app:tint="@color/black" />
+                    app:tint="@color/primary_black" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -49,16 +49,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/moreLayout"
                 app:layout_constraintEnd_toStartOf="@id/moreLayout"
-                app:layout_constraintStart_toEndOf="@id/trainerLayout"
-                app:layout_constraintTop_toTopOf="@id/trainerLayout" />
+                app:layout_constraintStart_toEndOf="@id/trainBackBtn"
+                app:layout_constraintTop_toTopOf="@id/trainBackBtn" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/trainerLayout"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20sp"
-                app:cardBackgroundColor="@color/black"
-                app:cardCornerRadius="500dp"
+                android:id="@+id/trainBackBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="20dp"
+                app:cardBackgroundColor="@color/primary_black"
+                app:cardCornerRadius="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeWidth="0dp">
@@ -66,11 +66,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:contentDescription="TODO"
-                    android:rotation="-20"
-                    android:src="@drawable/icon_whistle"
-                    app:tint="@color/white" />
+                    android:layout_margin="12dp"
+                    android:contentDescription="Back Button"
+                    android:src="@drawable/icon_back_arrow"
+                    app:tint="@color/primary_color" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -81,13 +80,13 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trainerLayout" />
+                app:layout_constraintTop_toBottomOf="@id/trainBackBtn" />
 
             <TextView
                 android:id="@+id/trainDescription"
@@ -111,7 +110,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="Targeted Muscles"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"

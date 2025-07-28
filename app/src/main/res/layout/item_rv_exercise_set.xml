@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Weight"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/itemExerciseWeightCard"
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reps"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/itemExerciseRepsCard"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Improvement"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/itemExerciseRepsCard"
@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="--"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Set"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/itemExerciseWeightCard"
@@ -153,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

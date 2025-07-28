@@ -24,7 +24,6 @@ import com.eibrahim67.gympro.showTrainPlan.view.adapters.AdapterRVWorkoutsTraini
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModel
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModelFactory
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 
 class ShowTrainPlanFragment : Fragment() {
@@ -38,7 +37,6 @@ class ShowTrainPlanFragment : Fragment() {
     private lateinit var trainPlanAvgTime: TextView
     private lateinit var trainPlanDaysPerTrainingWeek: TextView
     private lateinit var recyclerviewWorkoutsTrainPlans: RecyclerView
-    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var trainPlanSetAsDefaultBtn: MaterialCardView
     private lateinit var backBtn: MaterialCardView
 
@@ -150,9 +148,6 @@ class ShowTrainPlanFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
-        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
-        bottomNavigationView.visibility = View.GONE
-
         trainPlanImage = view.findViewById(R.id.trainPlanImage)
         trainPlanCoachName = view.findViewById(R.id.trainPlanCoachName)
         trainPlanTitle = view.findViewById(R.id.trainPlanTitle)
@@ -177,11 +172,11 @@ class ShowTrainPlanFragment : Fragment() {
 
     private fun gotoWorkout(id: Int) {
         sharedViewModel.setWorkoutId(id)
-        sharedViewModel.navigateTo(R.id.action_workout)
+        sharedViewModel.navigateRightTo(R.id.action_workout)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sharedViewModel.navigateTo(null)
+        sharedViewModel.navigateRightTo(null)
     }
 }

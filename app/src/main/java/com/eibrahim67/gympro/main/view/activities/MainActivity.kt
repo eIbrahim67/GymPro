@@ -8,24 +8,27 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigationView: BottomNavigationView
     private var navController: NavController? = null
 
-    private val navOptions = NavOptions.Builder()
+    private val navOptionsRight = NavOptions.Builder()
         .setEnterAnim(R.anim.slide_in_right)
         .setPopExitAnim(R.anim.slide_out_right)
         .build()
+
+    private val navOptionsLeft = NavOptions.Builder()
+        .setEnterAnim(R.anim.slide_in_left)
+        .setPopExitAnim(R.anim.slide_out_left)
+        .build()
+
 
     private val viewModel: MainViewModel by viewModels {
         val dao = UserDatabase.getDatabaseInstance(this).userDao()
@@ -44,21 +47,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        viewModel.navigateToFragment.observe(this) { fragmentId ->
+        viewModel.navigateRightToFragment.observe(this) { fragmentId ->
             fragmentId?.let {
-                navController?.navigate(fragmentId, null, navOptions)
+                navController?.navigate(fragmentId, null, navOptionsRight)
             }
         }
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        viewModel.navigateLeftToFragment.observe(this) { fragmentId ->
+            fragmentId?.let {
+                navController?.navigate(fragmentId, null, navOptionsLeft)
+            }
+        }
+
 
         navController =
             supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment)
                 ?.findNavController()
-
-        navController?.let {
-            bottomNavigationView.setupWithNavController(it)
-        }
 
     }
 }

@@ -56,7 +56,6 @@ class AdapterRVTrainers(
         }
 
         holder.btnOffer.setOnClickListener { }
-        holder.btnMsg.setOnClickListener { }
 
     }
 
@@ -92,8 +91,6 @@ class AdapterRVTrainers(
         val textViewTrainer: TextView = itemView.findViewById(R.id.itemTextViewTrainer)
         val trainerPrice: TextView = itemView.findViewById(R.id.itemTrainerPrice)
         val btnOffer: MaterialCardView = itemView.findViewById(R.id.itemBtnOffer)
-        val btnMsg: MaterialCardView = itemView.findViewById(R.id.itemBtnMsg)
-
 
     }
 }

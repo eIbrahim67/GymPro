@@ -5,7 +5,7 @@
     android:id="@+id/loginScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     android:fillViewport="true"
 
     tools:context=".auth.signin.view.SigninFragment">
@@ -62,7 +62,7 @@
             android:layout_marginTop="20dp"
             app:boxBackgroundColor="@color/white_v2"
             app:boxStrokeWidth="0dp"
-            app:counterTextColor="@color/black"
+            app:counterTextColor="@color/primary_black"
             app:endIconMode="password_toggle"
             app:helperTextTextAppearance="@style/CustomHelperTextStyle"
             app:helperTextTextColor="@color/warning"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/forget_password"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/passwordLayout2"
             app:layout_constraintHorizontal_bias="1.0"
@@ -102,7 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/primary_black"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +114,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:text="@string/sign_in"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_color"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -127,7 +127,7 @@
             android:layout_marginTop="8dp"
             android:gravity="start"
             android:text="@string/don_t_have_an_account"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/signInButton"
             app:layout_constraintHorizontal_bias="0.008"

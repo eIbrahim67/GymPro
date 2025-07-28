@@ -9,7 +9,6 @@ import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
-import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.data.response.Response
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.Converters
@@ -20,10 +19,16 @@ class MainViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _navigateToFragment = MutableLiveData<Int?>()
-    val navigateToFragment: LiveData<Int?> get() = _navigateToFragment
-    fun navigateTo(fragmentName: Int?) {
-        _navigateToFragment.value = fragmentName
+    private val _navigateRightToFragment = MutableLiveData<Int?>()
+    val navigateRightToFragment: LiveData<Int?> get() = _navigateRightToFragment
+    fun navigateRightTo(fragmentName: Int?) {
+        _navigateRightToFragment.value = fragmentName
+    }
+
+    private val _navigateLeftToFragment = MutableLiveData<Int?>()
+    val navigateLeftToFragment: LiveData<Int?> get() = _navigateLeftToFragment
+    fun navigateLeftTo(fragmentName: Int?) {
+        _navigateLeftToFragment.value = fragmentName
     }
 
     private val _workoutId = MutableLiveData<Int>()

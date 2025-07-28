@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/black"
+    app:cardBackgroundColor="@color/primary_black"
     app:cardCornerRadius="15dp"
     app:strokeWidth="0dp">
 
@@ -32,7 +32,7 @@
             android:gravity=""
             android:maxWidth="150dp"
             android:text="Massive Upper Body"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_color"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:maxWidth="150dp"
             android:text="4 days per week"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_color"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemTitleFeaturePlan" />
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="See Details"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

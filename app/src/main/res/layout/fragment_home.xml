@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     android:scrollbars="none"
     tools:context=".home.view.HomeFragment">
 
@@ -17,6 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/profileLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/gray_v2"
+                app:cardCornerRadius="500dp"
+                app:layout_constraintBottom_toBottomOf="@id/textViewHello"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/currentDate">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/icon_outline_profile" />
+
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/currentDate"
                 android:layout_width="wrap_content"
@@ -27,24 +48,26 @@
                 android:textColor="@color/gray_v1"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileLayout"
+                app:layout_constraintEnd_toStartOf="@id/chatbotLayout"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewHello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/profileLayout"
+                app:layout_constraintEnd_toStartOf="@id/chatbotLayout"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/currentDate" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notificationLayout"
+                android:id="@+id/chatbotLayout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -60,49 +83,77 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:contentDescription="TODO"
-                    android:src="@drawable/icon_outline_notification" />
+                    android:src="@drawable/icon_outline_chat" />
 
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/textViewCategories"
+                android:id="@+id/textViewYourPlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="Categories"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Today's Workout"
+                android:textColor="@color/primary_black"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notificationLayout" />
+                app:layout_constraintTop_toBottomOf="@id/profileLayout" />
 
-            <TextView
-                android:id="@+id/textViewCategoriesSeeMore"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/yourPlanCard"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="See all"
-                android:textColor="@color/blue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textViewCategories"
-                app:layout_constraintBottom_toBottomOf="@id/textViewCategories"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewCategories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/textViewCategories"
-                tools:listitem="@layout/item_rv_categories" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@id/textViewYourPlan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/primary_black"
+                app:cardBackgroundColor="@color/primary_color">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/todayWorkoutTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Let’s get started!"
+                        android:textColor="@color/primary_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/beginTraining"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Begin Training"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="10dp"
+                        app:backgroundTint="@color/primary_black"
+                        android:textColor="@color/primary_color"
+                        app:iconPadding="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/todayWorkoutTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/textViewFeaturePlan"
@@ -112,11 +163,11 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="Featured plan"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewCategories" />
+                app:layout_constraintTop_toBottomOf="@id/yourPlanCard" />
 
 
             <TextView
@@ -131,7 +182,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewCategories" />
+                app:layout_constraintTop_toBottomOf="@id/yourPlanCard" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewFeaturePlan"
@@ -153,7 +204,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="Our Trainers"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -186,46 +237,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewOurTrainers"
                 tools:listitem="@layout/item_rv_our_trainer" />
 
-            <TextView
-                android:id="@+id/textViewOthersWorkout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="Others Workouts"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewOurTrainers" />
-
-
-            <TextView
-                android:id="@+id/textViewOthersWorkoutMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="See all"
-                android:textColor="@color/blue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewOurTrainers" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewOthersWorkout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/textViewOthersWorkout"
-                tools:listitem="@layout/item_rv_others_workouts" />
 
             <TextView
                 android:layout_width="0dp"
@@ -242,7 +253,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewOthersWorkout" />
+                app:layout_constraintTop_toBottomOf="@id/recyclerviewOurTrainers" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -146,6 +146,6 @@ class ExerciseFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sharedViewModel.navigateTo(null)
+        sharedViewModel.navigateRightTo(null)
     }
 }

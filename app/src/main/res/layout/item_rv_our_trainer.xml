@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="000.00 EG"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_black"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,9 +113,10 @@
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            app:cardBackgroundColor="@color/black"
+            android:layout_marginStart="5dp"
+            app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="5dp"
-            app:layout_constraintEnd_toStartOf="@id/itemBtnMsg"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemTrainerPrice"
             app:strokeWidth="0dp">
@@ -124,37 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Add offer"
-                android:textColor="@color/white"
+                android:text="Start Chat"
+                android:textColor="@color/primary_color"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/itemBtnMsg"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/itemBtnOffer"
-            app:layout_constraintTop_toBottomOf="@id/itemTrainerPrice"
-            app:strokeColor="@color/gray_v1"
-            app:strokeWidth="1dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/icon_outline_chat"
-                app:tint="@color/gray_v1" />
-
-        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

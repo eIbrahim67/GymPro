@@ -18,7 +18,6 @@ import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.showWorkout.view.adapters.AdapterRVExercisesWorkout
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 
 class WorkoutFragment : Fragment() {
@@ -28,7 +27,6 @@ class WorkoutFragment : Fragment() {
     private lateinit var workoutDescription: TextView
     private lateinit var recyclerviewWorkoutExercises: RecyclerView
     private lateinit var workoutFinish: MaterialCardView
-    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var backBtn: MaterialCardView
 
     private val adapterRVExercisesWorkout = AdapterRVExercisesWorkout { id -> goToExercise(id) }
@@ -99,8 +97,6 @@ class WorkoutFragment : Fragment() {
     }
 
     private fun initUi(view: View) {
-        bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
-        bottomNavigationView.visibility = View.GONE
         workoutCoachName = view.findViewById(R.id.workoutCoachName)
         workoutTitle = view.findViewById(R.id.workoutTitle)
         workoutDescription = view.findViewById(R.id.workoutDescription)
@@ -119,11 +115,11 @@ class WorkoutFragment : Fragment() {
 
     private fun goToExercise(id: Int) {
         sharedViewModel.setExerciseId(id)
-        sharedViewModel.navigateTo(R.id.action_exercise)
+        sharedViewModel.navigateRightTo(R.id.action_exercise)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sharedViewModel.navigateTo(null)
+        sharedViewModel.navigateRightTo(null)
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/primary_color"
     android:scrollbars="none"
     tools:context=".showWorkout.view.WorkoutFragment">
 
@@ -25,7 +25,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/black"
+                app:cardBackgroundColor="@color/primary_black"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
                     android:layout_margin="12dp"
                     android:contentDescription="Back Button"
                     android:src="@drawable/icon_back_arrow"
-                    app:tint="@color/white" />
+                    app:tint="@color/primary_color" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                app:cardBackgroundColor="@color/black"
+                app:cardBackgroundColor="@color/primary_black"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/workoutBackBtn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/workoutTrainerNameCard"
@@ -114,7 +114,7 @@
         android:id="@+id/workoutFinishLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
@@ -123,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            app:cardBackgroundColor="@color/black"
+            app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="10dp"
             app:strokeWidth="0dp">
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Finish"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
