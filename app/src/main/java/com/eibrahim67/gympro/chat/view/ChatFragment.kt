@@ -5,10 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.chat.viewModel.ChatsViewModel
+import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
+import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
+import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentChatBinding
+import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class ChatFragment : Fragment() {
 
@@ -16,6 +25,13 @@ class ChatFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ChatsViewModel by viewModels()
+
+    private val sharedViewModel: MainViewModel by activityViewModels {
+        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val localDateSource = LocalDateSourceImpl(dao)
+        val userRepository = UserRepositoryImpl(localDateSource)
+        TrainViewModelFactory(userRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +44,35 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedViewModel.chatWithId.observe(viewLifecycleOwner) { id ->
+
+            sharedViewModel.getCoachById(id)
+
+        }
+
+        sharedViewModel.coachById.observe(viewLifecycleOwner) { coach ->
+            when (coach) {
+                is ResponseEI.Loading -> {
+
+                }
+                is ResponseEI.Success -> {
+
+                    Glide.with(view).load(coach.data?.profileImageUrl).into(binding.chatWithUserImage)
+                    binding.chatWithUserName.text = coach.data?.name
+                }
+
+                is ResponseEI.Failure -> {
+                    Snackbar.make(view, "Something Wrong", Snackbar.LENGTH_LONG).show()
+                    findNavController().popBackStack()
+                }
+            }
+
+        }
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
 
         // TODO: Use viewModel to load and display chat messages
     }

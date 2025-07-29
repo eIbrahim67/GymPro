@@ -10,7 +10,7 @@ import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.data.response.FailureReason
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 import kotlinx.coroutines.launch
@@ -23,9 +23,9 @@ class HomeViewModel(
     private val remoteRepository: RemoteRepository
 ) : ViewModel() {
 
-    private val _categories = MutableLiveData<Response<List<Category>?>>()
+    private val _categories = MutableLiveData<ResponseEI<List<Category>?>>()
 
-    val categories: LiveData<Response<List<Category>?>> get() = _categories
+    val categories: LiveData<ResponseEI<List<Category>?>> get() = _categories
 
 //    fun getCategories() = applyResponse(_categories, viewModelScope) {
 //        remoteRepository.getCategories().value
@@ -35,48 +35,48 @@ class HomeViewModel(
 //    val categories: LiveData<List<Category>> get() = _categories
 
     fun getCategories() {
-        _categories.value = Response.Loading
+        _categories.value = ResponseEI.Loading
         try {
             viewModelScope.launch {
                 remoteRepository.getCategories().observeForever { fetchedCategories ->
-                    _categories.value = Response.Success(fetchedCategories)
+                    _categories.value = ResponseEI.Success(fetchedCategories)
                 }
             }
         } catch (e: Exception) {
-            _categories.value = Response.Failure(FailureReason.UnknownError(e.message.toString()))
+            _categories.value = ResponseEI.Failure(FailureReason.UnknownError(e.message.toString()))
         }
     }
 
 
-    private val _exercises = MutableLiveData<Response<List<Exercise>>>()
+    private val _exercises = MutableLiveData<ResponseEI<List<Exercise>>>()
 
-    val exercises: LiveData<Response<List<Exercise>>> get() = _exercises
+    val exercises: LiveData<ResponseEI<List<Exercise>>> get() = _exercises
 
     fun getExercises() =
         applyResponse(_exercises, viewModelScope) { SourceWrittenData.getExercisesData() }
 
-    private val _workouts = MutableLiveData<Response<List<Workout>>>()
+    private val _workouts = MutableLiveData<ResponseEI<List<Workout>>>()
 
-    val workouts: LiveData<Response<List<Workout>>> get() = _workouts
+    val workouts: LiveData<ResponseEI<List<Workout>>> get() = _workouts
 
     fun getWorkouts() =
         applyResponse(_workouts, viewModelScope) { SourceWrittenData.getWorkoutsData() }
 
-    private val _coaches = MutableLiveData<Response<List<Coach>>>()
+    private val _coaches = MutableLiveData<ResponseEI<List<Coach>>>()
 
-    val coaches: LiveData<Response<List<Coach>>> get() = _coaches
+    val coaches: LiveData<ResponseEI<List<Coach>>> get() = _coaches
 
     fun getCoaches() =
         applyResponse(_coaches, viewModelScope) { SourceWrittenData.getCoachesData() }
 
-    private val _currentDate = MutableLiveData<Response<String>>()
-    val currentDate: LiveData<Response<String>> get() = _currentDate
+    private val _currentDate = MutableLiveData<ResponseEI<String>>()
+    val currentDate: LiveData<ResponseEI<String>> get() = _currentDate
     fun getCurrentDate() = applyResponse(_currentDate, viewModelScope) {
         SimpleDateFormat("EEEE, d MMMM", Locale.ENGLISH).format(Date())
     }
 
-    private val _helloSate = MutableLiveData<Response<String>>()
-    val helloSate: LiveData<Response<String>> get() = _helloSate
+    private val _helloSate = MutableLiveData<ResponseEI<String>>()
+    val helloSate: LiveData<ResponseEI<String>> get() = _helloSate
     fun getHelloSate() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)

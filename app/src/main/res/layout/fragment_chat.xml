@@ -26,56 +26,52 @@
             android:src="@drawable/icon_arrow"
             app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="500dp"
-            app:layout_constraintBottom_toBottomOf="@id/botImageLayout"
+            app:layout_constraintBottom_toBottomOf="@id/imageLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/botImageLayout"
+            app:layout_constraintTop_toTopOf="@id/imageLayout"
             app:strokeColor="@color/gray_v4"
             app:strokeWidth="2dp"
             app:tint="@color/primary_black" />
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/botImageLayout"
+            android:id="@+id/imageLayout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_black"
+            app:cardBackgroundColor="@color/primary_gray"
             app:cardCornerRadius="500dp"
             app:layout_constraintStart_toEndOf="@id/backBtn"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/gray_v4"
+            app:strokeColor="@color/primary_gray"
             app:strokeWidth="2dp">
 
             <ImageView
+                android:id="@+id/chatWith_user_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:contentDescription="TODO"
-                android:padding="10dp"
-                android:src="@drawable/icon_outline_chat"
-                app:tint="@color/primary_color" />
+                android:scaleType="centerCrop"/>
 
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/botName"
+            android:id="@+id/chatWith_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Mohamed"
             android:textColor="@color/primary_black"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/botImageLayout"
-            app:layout_constraintStart_toEndOf="@id/botImageLayout"
-            app:layout_constraintTop_toTopOf="@id/botImageLayout" />
+            app:layout_constraintBottom_toBottomOf="@id/imageLayout"
+            app:layout_constraintStart_toEndOf="@id/imageLayout"
+            app:layout_constraintTop_toTopOf="@id/imageLayout" />
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/botSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="500dp"
             app:cardBackgroundColor="@color/primary_color"
             app:layout_constraintBottom_toBottomOf="@id/backBtn"

@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
 class NewPasswordViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _password = MutableLiveData<Response<Unit>>()
-    val password: LiveData<Response<Unit>> = _password
+    private val _password = MutableLiveData<ResponseEI<Unit>>()
+    val password: LiveData<ResponseEI<Unit>> = _password
 
     private val _passwordMessage = MutableLiveData<ValidateCredentials>()
     val passwordMessage: LiveData<ValidateCredentials> = _passwordMessage

@@ -107,7 +107,7 @@
             app:layout_constraintTop_toBottomOf="@id/itemLine1" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/itemBtnOffer"
+            android:id="@+id/itemBtnStartChat"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
             android:layout_height="30dp"

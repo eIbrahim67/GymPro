@@ -15,7 +15,7 @@ import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVTrainers(
-    private val goToSearch: ((id: String) -> Unit)? = null
+    private val chatWithTrainer: ((id: Int) -> Unit)
 ) :
     RecyclerView.Adapter<AdapterRVTrainers.CategoryViewHolder>() {
 
@@ -55,7 +55,9 @@ class AdapterRVTrainers(
             holder.trainerPrice.text = "$price EG"
         }
 
-        holder.btnOffer.setOnClickListener { }
+        holder.itemBtnStartChat.setOnClickListener {
+            chatWithTrainer(differ.currentList[position].id)
+        }
 
     }
 
@@ -90,7 +92,7 @@ class AdapterRVTrainers(
         val rateTrainer: TextView = itemView.findViewById(R.id.itemRateTrainer)
         val textViewTrainer: TextView = itemView.findViewById(R.id.itemTextViewTrainer)
         val trainerPrice: TextView = itemView.findViewById(R.id.itemTrainerPrice)
-        val btnOffer: MaterialCardView = itemView.findViewById(R.id.itemBtnOffer)
+        val itemBtnStartChat: MaterialCardView = itemView.findViewById(R.id.itemBtnStartChat)
 
     }
 }

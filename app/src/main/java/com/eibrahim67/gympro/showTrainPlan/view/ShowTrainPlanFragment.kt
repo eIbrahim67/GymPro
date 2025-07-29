@@ -16,7 +16,7 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOkCancel
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
@@ -84,8 +84,8 @@ class ShowTrainPlanFragment : Fragment() {
         }
         viewModel.trainPlan.observe(viewLifecycleOwner) { trainPlan ->
             when (trainPlan) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     Glide
                         .with(requireContext())
                         .load(trainPlan.data?.imageUrl)
@@ -104,44 +104,44 @@ class ShowTrainPlanFragment : Fragment() {
                     trainPlan.data?.workoutsIds?.let { ids -> sharedViewModel.getWorkoutsByIds(ids) }
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(trainPlan.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(trainPlan.reason), requireContext())
                 }
             }
         }
         sharedViewModel.coachById.observe(viewLifecycleOwner) { coach ->
             when (coach) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     trainPlanCoachName.text = "by ${coach.data?.name}"
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(coach.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(coach.reason), requireContext())
                 }
             }
         }
         sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { muscles ->
             when (muscles) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     targetedMusclesText.text = muscles.data
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(muscles.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(muscles.reason), requireContext())
                 }
             }
         }
         sharedViewModel.workoutsByIds.observe(viewLifecycleOwner) { workouts ->
             when (workouts) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     adapterRVWorkouts.submitList(workouts.data ?: emptyList())
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(workouts.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(workouts.reason), requireContext())
                 }
             }
         }

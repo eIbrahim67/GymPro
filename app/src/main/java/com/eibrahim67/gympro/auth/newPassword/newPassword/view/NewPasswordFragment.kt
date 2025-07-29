@@ -20,7 +20,7 @@ import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
 import com.google.android.material.textfield.TextInputEditText
@@ -68,17 +68,17 @@ class NewPasswordFragment : Fragment() {
     private fun observers() {
         viewModel.password.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {
+                is ResponseEI.Loading -> {
                     //TODO:show progress bar
                 }
 
-                is Response.Success -> {
+                is ResponseEI.Success -> {
                     backToLoginTv.callOnClick()
                 }
 
-                is Response.Failure -> (
+                is ResponseEI.Failure -> (
                         utils.createFailureResponse(
-                            Response.Failure(response.reason),
+                            ResponseEI.Failure(response.reason),
                             requireContext()
                         )
                         )

@@ -17,7 +17,6 @@ import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.profile.viewModel.ProfileViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import kotlin.getValue
-import kotlin.jvm.Throws
 
 class ProfileFragment : Fragment() {
 
@@ -51,43 +50,43 @@ class ProfileFragment : Fragment() {
 
         binding.apply {
             btnPersonalData.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.personalDataFragment)
+                sharedViewModel.navigateRightTo(R.id.action_personalDataFragment)
             }
 
             btnBeComeATrainer.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.becomeTrainerFragment)
+                sharedViewModel.navigateRightTo(R.id.action_becomeTrainerFragment)
             }
 
             btnMyChats.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.myChatsFragment)
+                sharedViewModel.navigateRightTo(R.id.action_myChatsFragment)
             }
 
             btnMyClients.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.myClientsFragment)
+                sharedViewModel.navigateRightTo(R.id.action_myClientsFragment)
             }
 
             btnMyPlans.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.myTrainingPlansFragment)
+                sharedViewModel.navigateRightTo(R.id.action_myTrainingPlansFragment)
             }
 
             btnMyProgress.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.myProgressFragment)
+                sharedViewModel.navigateRightTo(R.id.action_myProgressFragment)
             }
 
             btnMostImprovedMuscles.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.mostImprovedMusclesFragment)
+                sharedViewModel.navigateRightTo(R.id.action_mostImprovedMusclesFragment)
             }
 
             btnSecurityPolicies.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.securityPoliciesFragment)
+                sharedViewModel.navigateRightTo(R.id.action_securityPoliciesFragment)
             }
 
             btnHelpFeedback.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.helpFeedbackFragment)
+                sharedViewModel.navigateRightTo(R.id.action_helpFeedbackFragment)
             }
 
             btnAbout.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.aboutFragment)
+                sharedViewModel.navigateRightTo(R.id.action_aboutFragment)
             }
 
             btnLogOut.setOnClickListener {

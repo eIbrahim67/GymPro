@@ -11,50 +11,50 @@ import com.eibrahim67.gympro.core.data.remote.model.Muscles
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
 class AddDataViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
 
-    private val _addCategoryResponse = MutableLiveData<Response<Unit>>()
-    val addCategoryResponse: LiveData<Response<Unit>> get() = _addCategoryResponse
+    private val _addCategoryResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addCategoryResponseEI: LiveData<ResponseEI<Unit>> get() = _addCategoryResponseEI
     fun addCategory(category: Map<Int, Category>) =
-        applyResponse(_addCategoryResponse, viewModelScope) {
+        applyResponse(_addCategoryResponseEI, viewModelScope) {
             remoteRepository.addCategory(category)
         }
 
-    private val _addMuscleResponse = MutableLiveData<Response<Unit>>()
-    val addMuscleResponse: LiveData<Response<Unit>> get() = _addMuscleResponse
+    private val _addMuscleResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addMuscleResponseEI: LiveData<ResponseEI<Unit>> get() = _addMuscleResponseEI
     fun addMuscle(muscles: Map<Int, Muscles>) =
-        applyResponse(_addMuscleResponse, viewModelScope) {
+        applyResponse(_addMuscleResponseEI, viewModelScope) {
             remoteRepository.addMuscle(muscles)
         }
 
-    private val _addCoachResponse = MutableLiveData<Response<Unit>>()
-    val addCoachResponse: LiveData<Response<Unit>> get() = _addMuscleResponse
+    private val _addCoachResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addCoachResponseEI: LiveData<ResponseEI<Unit>> get() = _addMuscleResponseEI
     fun addCoach(coach: Map<Int, Coach>) =
-        applyResponse(_addCoachResponse, viewModelScope) {
+        applyResponse(_addCoachResponseEI, viewModelScope) {
             remoteRepository.addCoach(coach)
         }
 
-    private val _addExerciseResponse = MutableLiveData<Response<Unit>>()
-    val addExerciseResponse: LiveData<Response<Unit>> get() = _addExerciseResponse
+    private val _addExerciseResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addExerciseResponseEI: LiveData<ResponseEI<Unit>> get() = _addExerciseResponseEI
     fun addExercise(exercise: Map<Int, Exercise>) =
-        applyResponse(_addCoachResponse, viewModelScope) {
+        applyResponse(_addCoachResponseEI, viewModelScope) {
             remoteRepository.addExercise(exercise)
         }
 
-    private val _addWorkoutResponse = MutableLiveData<Response<Unit>>()
-    val addWorkoutResponse: LiveData<Response<Unit>> get() = _addWorkoutResponse
+    private val _addWorkoutResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addWorkoutResponseEI: LiveData<ResponseEI<Unit>> get() = _addWorkoutResponseEI
     fun addWorkout(workout: Map<Int, Workout>) =
-        applyResponse(_addCoachResponse, viewModelScope) {
+        applyResponse(_addCoachResponseEI, viewModelScope) {
             remoteRepository.addWorkout(workout)
         }
 
-    private val _addTrainPlanResponse = MutableLiveData<Response<Unit>>()
-    val addTrainPlanResponse: LiveData<Response<Unit>> get() = _addTrainPlanResponse
+    private val _addTrainPlanResponseEI = MutableLiveData<ResponseEI<Unit>>()
+    val addTrainPlanResponseEI: LiveData<ResponseEI<Unit>> get() = _addTrainPlanResponseEI
     fun addTrainPlan(trainPlan: Map<Int, TrainPlan>) =
-        applyResponse(_addCoachResponse, viewModelScope) {
+        applyResponse(_addCoachResponseEI, viewModelScope) {
             remoteRepository.addTrainPlan(trainPlan)
         }
 

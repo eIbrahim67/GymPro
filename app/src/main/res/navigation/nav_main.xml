@@ -16,7 +16,7 @@
             android:id="@+id/action_action_home_to_action_train"/>
 
         <action
-            app:destination="@+id/chatbotFragment"
+            app:destination="@+id/action_chatbotFragment"
             android:id="@+id/action_action_home_to_chatbot"/>
 
 
@@ -32,15 +32,10 @@
         android:label="fragment_my_trainer"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/action_chats"
+        android:id="@+id/action_chat"
         android:name="com.eibrahim67.gympro.chat.view.ChatFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chat" />
-    <fragment
-        android:id="@+id/action_news"
-        android:name="com.eibrahim67.gympro.news.view.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/action_exercise"
         android:name="com.eibrahim67.gympro.showExercise.view.fragments.ExerciseFragment"
@@ -58,58 +53,58 @@
         tools:layout="@layout/fragment_workout" />
 
     <fragment
-        android:id="@+id/chatbotFragment"
+        android:id="@+id/action_chatbotFragment"
         android:name="com.eibrahim67.gympro.chatbot.presentation.view.ChatbotFragment"
         android:label="Chatbot"/>
 
 
     <fragment
-        android:id="@+id/personalDataFragment"
+        android:id="@+id/action_personalDataFragment"
         android:name="com.eibrahim67.gympro.personalData.PersonalDataFragment"
         android:label="PersonalData" />
 
     <fragment
-        android:id="@+id/becomeTrainerFragment"
+        android:id="@+id/action_becomeTrainerFragment"
         android:name="com.eibrahim67.gympro.becomeTrainer.BecomeTrainerFragment"
         android:label="BecomeTrainer" />
 
     <fragment
-        android:id="@+id/myChatsFragment"
+        android:id="@+id/action_myChatsFragment"
         android:name="com.eibrahim67.gympro.myChats.MyChatsFragment"
         android:label="MyChats" />
 
     <fragment
-        android:id="@+id/myClientsFragment"
+        android:id="@+id/action_myClientsFragment"
         android:name="com.eibrahim67.gympro.myClients.MyClientsFragment"
         android:label="MyClients" />
 
     <fragment
-        android:id="@+id/myTrainingPlansFragment"
+        android:id="@+id/action_myTrainingPlansFragment"
         android:name="com.eibrahim67.gympro.myTrainingPlans.MyTrainingPlansFragment"
         android:label="MyTrainingPlans" />
 
     <fragment
-        android:id="@+id/myProgressFragment"
+        android:id="@+id/action_myProgressFragment"
         android:name="com.eibrahim67.gympro.myProgress.MyProgressFragment"
         android:label="MyProgress" />
 
     <fragment
-        android:id="@+id/mostImprovedMusclesFragment"
+        android:id="@+id/action_mostImprovedMusclesFragment"
         android:name="com.eibrahim67.gympro.mostImprovedMuscles.MostImprovedMusclesFragment"
         android:label="MostImprovedMuscles" />
 
     <fragment
-        android:id="@+id/securityPoliciesFragment"
+        android:id="@+id/action_securityPoliciesFragment"
         android:name="com.eibrahim67.gympro.securityPolicies.SecurityPoliciesFragment"
         android:label="SecurityPolicies" />
 
     <fragment
-        android:id="@+id/helpFeedbackFragment"
+        android:id="@+id/action_helpFeedbackFragment"
         android:name="com.eibrahim67.gympro.helpFeedback.HelpFeedbackFragment"
         android:label="HelpFeedback" />
 
     <fragment
-        android:id="@+id/aboutFragment"
+        android:id="@+id/action_aboutFragment"
         android:name="com.eibrahim67.gympro.about.AboutFragment"
         android:label="About" />
 

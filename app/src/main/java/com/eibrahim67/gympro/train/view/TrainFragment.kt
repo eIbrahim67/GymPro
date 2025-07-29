@@ -4,34 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
+import com.eibrahim67.gympro.databinding.FragmentTrainBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.view.adapters.AdapterRVWorkouts
 import com.eibrahim67.gympro.train.viewModel.TrainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
-import com.google.android.material.card.MaterialCardView
 
 class TrainFragment : Fragment() {
 
-    private lateinit var trainTitle: TextView
-    private lateinit var trainTargetedMuscles: TextView
-    private lateinit var trainTargetedMusclesText: TextView
-    private lateinit var recyclerviewWorkoutsExercises: RecyclerView
-    private lateinit var cardViewGetYourTrainer: MaterialCardView
-    private lateinit var trainDescription: TextView
-    private lateinit var backBtn: MaterialCardView
+    private var _binding: FragmentTrainBinding? = null
+    private val binding get() = _binding!!
+
     private val adapterRVWorkouts = AdapterRVWorkouts { id -> gotoWorkout(id) }
     private val utils = UtilsFunctions
 
@@ -49,26 +42,26 @@ class TrainFragment : Fragment() {
         TrainViewModelFactory(userRepository)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTrainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi(view)
+        initUi()
         initObservers()
     }
 
-    private fun initUi(view: View) {
-        trainTitle = view.findViewById(R.id.trainTitle)
-        cardViewGetYourTrainer = view.findViewById(R.id.cardViewGetYourTrainer)
-        trainTargetedMuscles = view.findViewById(R.id.trainTargetedMuscles)
-        trainDescription = view.findViewById(R.id.trainDescription)
-        trainTargetedMusclesText = view.findViewById(R.id.trainTargetedMusclesText)
-        recyclerviewWorkoutsExercises = view.findViewById(R.id.recyclerviewMyTrainPlanWorkouts)
-        recyclerviewWorkoutsExercises.adapter = adapterRVWorkouts
+    private fun initUi() {
+        binding.recyclerviewMyTrainPlanWorkouts.adapter = adapterRVWorkouts
 
-        backBtn = view.findViewById(R.id.trainBackBtn)
-        backBtn.setOnClickListener {
+        binding.trainBackBtn?.setOnClickListener {
             findNavController().popBackStack()
         }
-
     }
 
     private fun initObservers() {
@@ -76,75 +69,76 @@ class TrainFragment : Fragment() {
 
         viewModel.userHaveTrainer.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     if (response.data) {
                         sharedViewModel.getMyTrainPlan()
                     } else {
-                        cardViewGetYourTrainer.visibility = View.VISIBLE
+                        binding.cardViewGetYourTrainer.visibility = View.VISIBLE
                     }
                 }
-
-                is Response.Failure -> {
+                is ResponseEI.Failure -> {
                     utils.createFailureResponse(response, requireContext())
                 }
             }
         }
+
         sharedViewModel.myTrainPlan.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {
-                    trainTitle.visibility = View.VISIBLE
-                    recyclerviewWorkoutsExercises.visibility = View.VISIBLE
-                    trainTargetedMuscles.visibility = View.VISIBLE
-                    trainTargetedMusclesText.visibility = View.VISIBLE
-                    trainDescription.visibility = View.VISIBLE
-                    trainTitle.text = response.data?.name
-                    trainDescription.text = response.data?.description
-                    response.data?.let { sharedViewModel.getTargetedMusclesByIds(it.targetedMuscleIds) }
-                    response.data?.let { sharedViewModel.getWorkoutsByIds(it.workoutsIds) }
-                }
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
+                    binding.trainTitle.visibility = View.VISIBLE
+                    binding.recyclerviewMyTrainPlanWorkouts.visibility = View.VISIBLE
+                    binding.trainTargetedMuscles.visibility = View.VISIBLE
+                    binding.trainTargetedMusclesText.visibility = View.VISIBLE
+                    binding.trainDescription.visibility = View.VISIBLE
 
-                is Response.Failure -> {
+                    binding.trainTitle.text = response.data?.name
+                    binding.trainDescription.text = response.data?.description
+
+                    response.data?.let {
+                        sharedViewModel.getTargetedMusclesByIds(it.targetedMuscleIds)
+                        sharedViewModel.getWorkoutsByIds(it.workoutsIds)
+                    }
+                }
+                is ResponseEI.Failure -> {
                     utils.createFailureResponse(response, requireContext())
                 }
             }
         }
+
         sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { muscles ->
             when (muscles) {
-                is Response.Loading -> {}
-                is Response.Success -> {
-                    trainTargetedMusclesText.text = muscles.data
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
+                    binding.trainTargetedMusclesText.text = muscles.data
                 }
-
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(muscles.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(muscles.reason), requireContext())
                 }
             }
         }
+
         sharedViewModel.workoutsByIds.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     response.data?.let { adapterRVWorkouts.submitList(it) }
                 }
-
-                is Response.Failure -> {
+                is ResponseEI.Failure -> {
                     utils.createFailureResponse(response, requireContext())
                 }
             }
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_train, container, false)
     }
 
     private fun gotoWorkout(id: Int) {
         sharedViewModel.setWorkoutId(id)
-        sharedViewModel.navigateRightTo(R.id.action_workout)
+        sharedViewModel.navigateRightTo(com.eibrahim67.gympro.R.id.action_workout)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

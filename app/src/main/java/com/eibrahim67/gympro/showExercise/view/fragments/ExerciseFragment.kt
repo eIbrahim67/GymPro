@@ -16,7 +16,7 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.showExercise.view.adapters.AdapterRVExercisesResults
@@ -88,8 +88,8 @@ class ExerciseFragment : Fragment() {
         }
         sharedViewModel.userDataExercise.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     val list = response.data[sharedViewModel.exerciseId.value]
                     if (!list.isNullOrEmpty()) {
                         adapterRVExercisesHistory.submitList(list)
@@ -97,14 +97,14 @@ class ExerciseFragment : Fragment() {
                     }
                 }
 
-                is Response.Failure -> {}
+                is ResponseEI.Failure -> {}
             }
         }
 
         sharedViewModel.exerciseById.observe(viewLifecycleOwner) { exercise ->
             when (exercise) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     Glide.with(requireContext())
                         .load(exercise.data?.imageUrl).into(exerciseImage)
                     exerciseTitle.text = exercise.data?.name
@@ -112,8 +112,8 @@ class ExerciseFragment : Fragment() {
                     Toast.makeText(requireContext(), exercise.data?.imageUrl, Toast.LENGTH_SHORT).show()
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(exercise.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(exercise.reason), requireContext())
                 }
             }
         }

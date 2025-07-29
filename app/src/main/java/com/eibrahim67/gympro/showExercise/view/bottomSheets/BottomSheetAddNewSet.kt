@@ -10,7 +10,7 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.Response
+import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
@@ -44,31 +44,31 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
         sharedViewModel.fetchDateExerciseData()
         sharedViewModel.userDataExercise.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {}
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(response.reason), requireContext())
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {}
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
                 }
             }
         }
         sharedViewModel.updateUserExerciseState.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {}
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(response.reason), requireContext())
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {}
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
                 }
             }
         }
         sharedViewModel.updateUserExercise.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Loading -> {}
-                is Response.Success -> {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
                     sharedViewModel.fetchDateExerciseData()
                 }
 
-                is Response.Failure -> {
-                    createFailureResponse(Response.Failure(response.reason), requireContext())
+                is ResponseEI.Failure -> {
+                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
                 }
             }
         }
