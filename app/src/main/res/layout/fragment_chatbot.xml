@@ -39,21 +39,17 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_black"
+            app:cardBackgroundColor="@color/primary_gray"
             app:cardCornerRadius="500dp"
             app:layout_constraintStart_toEndOf="@id/backLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/gray_v4"
+            app:strokeColor="@color/primary_gray"
             app:strokeWidth="2dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:contentDescription="TODO"
-                android:padding="10dp"
-                android:src="@drawable/icon_outline_chat"
-                app:tint="@color/primary_color" />
+                android:src="@drawable/ic_chatbot_logo" />
 
         </com.google.android.material.card.MaterialCardView>
 
