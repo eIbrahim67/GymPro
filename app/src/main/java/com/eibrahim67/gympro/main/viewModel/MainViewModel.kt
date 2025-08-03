@@ -56,15 +56,6 @@ class MainViewModel(
     }
 
 
-    private val _myTrainPlans = MutableLiveData<ResponseEI<TrainPlan?>>()
-    val myTrainPlan: LiveData<ResponseEI<TrainPlan?>> get() = _myTrainPlans
-    fun getMyTrainPlan() {
-        applyResponse(_myTrainPlans, viewModelScope) {
-            userRepository.getUserTrainPlanId()
-                ?.let { SourceWrittenData.getTrainingPlansById(it) }
-        }
-    }
-
     private val _trainPlans = MutableLiveData<ResponseEI<List<TrainPlan>>>()
     val trainPlans: LiveData<ResponseEI<List<TrainPlan>>> get() = _trainPlans
     fun getTrainPlans() {

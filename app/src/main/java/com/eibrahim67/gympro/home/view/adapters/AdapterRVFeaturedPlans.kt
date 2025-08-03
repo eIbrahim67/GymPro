@@ -34,30 +34,21 @@ class AdapterRVFeaturedPlans(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        val item = differ.currentList[position]
 
-        differ.currentList[position].imageUrl?.let { url ->
-            Glide
-                .with(context)
-                .load(url)
-                .centerCrop()
-                //.placeholder(R.drawable.placeholder_image_svg)
-                .into(holder.imageFeaturePlan)
-            //itemView.setOnClickListener { goToSearch?.let { it(category.strCategory) } }
-        }
+        Glide.with(holder.itemView.context)
+            .load(item.imageUrl)
+            .centerCrop()
+            .into(holder.imageFeaturePlan)
 
-        differ.currentList[position].name.let { title ->
-            holder.titleFeaturePlan.text = title
-        }
-
-        differ.currentList[position].durationDaysPerTrainingWeek.let { data ->
-            holder.infoFeaturePlan.text = "$data Day per training week"
-        }
+        holder.titleFeaturePlan.text = item.name
+        holder.infoFeaturePlan.text = "${item.durationDaysPerTrainingWeek} Day per training week"
 
         holder.seeDetailsFeaturePlan.setOnClickListener {
-            goToTrainPlan(differ.currentList[position].id)
+            goToTrainPlan(item.id)
         }
-
     }
+
 
     private val differ: AsyncListDiffer<TrainPlan> =
         AsyncListDiffer(this, DIFF_CALLBACK)

@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
+import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
 class TrainViewModel(
@@ -20,5 +22,14 @@ class TrainViewModel(
         _userHaveTrainer,
         viewModelScope
     ) { userRepository.isLoggedInUserHaveTrainer() }
+
+    private val _myTrainPlans = MutableLiveData<ResponseEI<TrainPlan?>>()
+    val myTrainPlan: LiveData<ResponseEI<TrainPlan?>> get() = _myTrainPlans
+    fun getMyTrainPlan() {
+        applyResponse(_myTrainPlans, viewModelScope) {
+            userRepository.getUserTrainPlanId()
+                ?.let { SourceWrittenData.getTrainingPlansById(it) }
+        }
+    }
 
 }

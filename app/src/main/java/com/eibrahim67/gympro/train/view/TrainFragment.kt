@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.train.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,6 @@ class TrainFragment : Fragment() {
 
     private fun initUi() {
         binding.recyclerviewMyTrainPlanWorkouts.adapter = adapterRVWorkouts
-
         binding.trainBackBtn?.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -72,7 +72,7 @@ class TrainFragment : Fragment() {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
                     if (response.data) {
-                        sharedViewModel.getMyTrainPlan()
+                        viewModel.getMyTrainPlan()
                     } else {
                         binding.cardViewGetYourTrainer.visibility = View.VISIBLE
                     }
@@ -83,10 +83,14 @@ class TrainFragment : Fragment() {
             }
         }
 
-        sharedViewModel.myTrainPlan.observe(viewLifecycleOwner) { response ->
+        viewModel.myTrainPlan.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is ResponseEI.Loading -> {}
+                is ResponseEI.Loading -> {
+                    Log.e("test", "test")
+
+                }
                 is ResponseEI.Success -> {
+                    Log.e("test", response.data.toString())
                     binding.trainTitle.visibility = View.VISIBLE
                     binding.recyclerviewMyTrainPlanWorkouts.visibility = View.VISIBLE
                     binding.trainTargetedMuscles.visibility = View.VISIBLE

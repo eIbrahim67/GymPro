@@ -86,6 +86,7 @@ class WorkoutFragment : Fragment() {
             when (exercises) {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
+
                     adapterRVExercisesWorkout.submitList(exercises.data ?: emptyList())
                 }
 

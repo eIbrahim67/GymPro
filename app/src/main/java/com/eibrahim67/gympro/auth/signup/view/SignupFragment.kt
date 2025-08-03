@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.auth.signup.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -215,6 +216,7 @@ class SignupFragment : Fragment() {
                 val phone = phoneField.text.toString()
                 val email = emailField.text.toString()
                 val password = passwordField.text.toString()
+
                 viewModel.registerUser(
                     name,
                     username,

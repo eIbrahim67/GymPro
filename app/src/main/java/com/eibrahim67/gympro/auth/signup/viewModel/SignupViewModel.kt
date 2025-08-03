@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.auth.signup.viewModel
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -50,10 +51,12 @@ class SignupViewModel(
                 email = email,
                 password = password
             )
+        Log.e("test", "here")
         addUser(createdUser)
     }
 
     private fun addUser(user: User) {
+        Log.e("test", "Ibrahim@12345.com")
         viewModelScope.launch {
             userRepository.addUser(user)
         }.invokeOnCompletion {

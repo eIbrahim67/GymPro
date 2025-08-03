@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
+import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.data.response.FailureReason
@@ -20,12 +22,22 @@ import java.util.Date
 import java.util.Locale
 
 class HomeViewModel(
-    private val remoteRepository: RemoteRepository
+    private val remoteRepository: RemoteRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResponseEI<List<Category>?>>()
 
     val categories: LiveData<ResponseEI<List<Category>?>> get() = _categories
+
+    private val _myTrainPlans = MutableLiveData<ResponseEI<TrainPlan?>>()
+    val myTrainPlan: LiveData<ResponseEI<TrainPlan?>> get() = _myTrainPlans
+    fun getMyTrainPlan() {
+        applyResponse(_myTrainPlans, viewModelScope) {
+            userRepository.getUserTrainPlanId()
+                ?.let { SourceWrittenData.getTrainingPlansById(it) }
+        }
+    }
 
 //    fun getCategories() = applyResponse(_categories, viewModelScope) {
 //        remoteRepository.getCategories().value

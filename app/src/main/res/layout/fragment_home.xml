@@ -34,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:contentDescription="TODO"
-                    android:src="@drawable/icon_outline_profile" />
+                    android:src="@drawable/icon_solid_profile" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -81,7 +81,9 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_chatbot_logo" />
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_chatbot"
+                    app:tint="@color/primary_black" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -92,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="Today's Workout"
+                android:text="Training Overview"
                 android:textColor="@color/primary_black"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -119,207 +121,196 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp">
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="15dp">
 
                     <TextView
                         android:id="@+id/todayWorkoutTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Today's\nWorkout:"
+                        android:layout_marginEnd="10dp"
                         android:textColor="@color/primary_white"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/workoutProgressIndicatorLayout"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/todayWorkoutName"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/TodayWorkout"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
-                        android:text="Back and Biceps"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/google_sans"
+                        android:text="Today's Workout:"
                         android:textColor="@color/primary_gray"
                         android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/workoutProgressIndicatorLayout"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/todayWorkoutTitle" />
 
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/workoutProgressIndicator"
+                    <TextView
+                        android:id="@+id/todayWorkoutName"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/google_sans"
+                        android:textColor="@color/primary_gray"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@+id/workoutProgressIndicatorLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/TodayWorkout" />
+
+                    <RelativeLayout
+                        android:id="@+id/workoutProgressIndicatorLayout"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:progress="70"
-                        app:indicatorColor="@color/primary_color"
-                        app:indicatorSize="80dp"
-                        app:indicatorTrackGapSize="5dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/todayWorkoutName"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/todayWorkoutTitle"
-                        app:trackColor="@color/gray_v3"
-                        app:trackThickness="7dp" />
+                        app:layout_constraintTop_toTopOf="@id/todayWorkoutTitle">
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/workoutProgressIndicator"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            app:indicatorColor="@color/primary_color"
+                            app:indicatorSize="80dp"
+                            app:indicatorTrackGapSize="5dp"
+                            app:trackColor="@color/gray_v3"
+                            app:trackThickness="7dp" />
+
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/workoutProgressText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7/9\nWorkout"
                         android:gravity="center"
-                        android:textStyle="bold"
                         android:textColor="@color/primary_gray"
                         android:textSize="10sp"
-                        app:layout_constraintStart_toStartOf="@id/workoutProgressIndicator"
-                        app:layout_constraintEnd_toEndOf="@id/workoutProgressIndicator"
-                        app:layout_constraintBottom_toBottomOf="@id/workoutProgressIndicator"
-                        app:layout_constraintTop_toTopOf="@id/workoutProgressIndicator"/>
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/workoutProgressIndicatorLayout"
+                        app:layout_constraintEnd_toEndOf="@id/workoutProgressIndicatorLayout"
+                        app:layout_constraintStart_toStartOf="@id/workoutProgressIndicatorLayout"
+                        app:layout_constraintTop_toTopOf="@id/workoutProgressIndicatorLayout" />
 
                     <LinearLayout
+                        android:id="@+id/status_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@id/workoutProgressIndicator">
+                        app:layout_constraintTop_toBottomOf="@id/workoutProgressIndicatorLayout">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_margin="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
                             android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/todayNumOfExercises"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10 Exercises"
+                                android:gravity="center"
                                 android:textColor="@color/primary_white"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
-                                android:gravity="center"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/todayExercises"
-                                app:layout_constraintEnd_toEndOf="@id/todayExercises"/>
-
-                            <TextView
-                                android:id="@+id/todayExercises"
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Exercises Done"
-                                android:textColor="@color/primary_gray"
-                                android:textSize="15sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayNumOfExercises" />
+                                app:layout_constraintTop_toTopOf="parent" />
+
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
                                 android:id="@+id/todayExercisesLinearProgressIndicator"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:progress="30"
+                                android:layout_marginTop="10dp"
                                 app:indicatorColor="@color/primary_color"
-
-
-                                app:trackStopIndicatorSize="0dp"
                                 app:indicatorTrackGapSize="0dp"
-                                app:trackColor="@color/gray_v3"
-                                android:layout_marginTop="5dp"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayExercises" />
+                                app:layout_constraintTop_toBottomOf="@id/todayNumOfExercises"
+                                app:trackColor="@color/gray_v3"
+                                app:trackStopIndicatorSize="0dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_margin="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
                             android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/todayNumOfReps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="120 Reps"
+
+                                android:gravity="center"
                                 android:textColor="@color/primary_white"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/todayReps"
-                                app:layout_constraintEnd_toEndOf="@id/todayReps"/>
-
-                            <TextView
-                                android:id="@+id/todayReps"
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Reps Done"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                android:textColor="@color/primary_gray"
-                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayNumOfReps" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
                                 android:id="@+id/todayRepsLinearProgressIndicator"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:progress="80"
+                                android:layout_marginTop="10dp"
                                 app:indicatorColor="@color/primary_color"
-                                app:trackStopIndicatorSize="0dp"
                                 app:indicatorTrackGapSize="0dp"
-                                app:trackColor="@color/gray_v3"
-                                android:layout_marginTop="5dp"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayReps" />
+                                app:layout_constraintTop_toBottomOf="@id/todayNumOfReps"
+                                app:trackColor="@color/gray_v3"
+                                app:trackStopIndicatorSize="0dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_margin="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
                             android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/todayNumOfTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="03:00 hr"
+
+                                android:gravity="center"
                                 android:textColor="@color/primary_white"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/todayTime"
-                                app:layout_constraintEnd_toEndOf="@id/todayTime"/>
-
-                            <TextView
-                                android:id="@+id/todayTime"
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                android:text="Time"
-                                android:textColor="@color/primary_gray"
-                                android:textSize="15sp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayNumOfTime" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
                                 android:id="@+id/todayTimeLinearProgressIndicator"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:progress="20"
+                                android:layout_marginTop="10dp"
                                 app:indicatorColor="@color/primary_color"
-                                app:trackStopIndicatorSize="0dp"
                                 app:indicatorTrackGapSize="0dp"
-                                app:trackColor="@color/gray_v3"
-                                android:layout_marginTop="5dp"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/todayTime" />
+                                app:layout_constraintTop_toBottomOf="@id/todayNumOfTime"
+                                app:trackColor="@color/gray_v3"
+                                app:trackStopIndicatorSize="0dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -329,19 +320,19 @@
                         android:id="@+id/beginTraining"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Begin Training"
+                        android:layout_marginTop="10dp"
+                        android:text="Let’s Get Started!"
                         android:textColor="@color/primary_color"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:visibility="gone"
                         app:backgroundTint="@color/primary_black"
                         app:cornerRadius="10dp"
-                        app:iconPadding="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/todayWorkoutTitle" />
+                        app:layout_constraintTop_toBottomOf="@id/status_layout"
+                        app:strokeColor="@color/primary_color"
+                        app:strokeWidth="1dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
