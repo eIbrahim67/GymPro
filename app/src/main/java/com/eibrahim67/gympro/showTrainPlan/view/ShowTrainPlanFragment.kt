@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -19,26 +16,18 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOkCancel
+import com.eibrahim67.gympro.databinding.FragmentShowTrainPlanBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.showTrainPlan.view.adapters.AdapterRVWorkoutsTrainingPlan
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModel
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModelFactory
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
-import com.google.android.material.card.MaterialCardView
 
 class ShowTrainPlanFragment : Fragment() {
 
-    private lateinit var trainPlanImage: ImageView
-    private lateinit var trainPlanCoachName: TextView
-    private lateinit var trainPlanTitle: TextView
-    private lateinit var trainPlanDescription: TextView
-    private lateinit var targetedMusclesText: TextView
-    private lateinit var trainPlanDifficulty: TextView
-    private lateinit var trainPlanAvgTime: TextView
-    private lateinit var trainPlanDaysPerTrainingWeek: TextView
-    private lateinit var recyclerviewWorkoutsTrainPlans: RecyclerView
-    private lateinit var trainPlanSetAsDefaultBtn: MaterialCardView
-    private lateinit var backBtn: MaterialCardView
+
+    private var _binding: FragmentShowTrainPlanBinding? = null
+    private val binding get() = _binding!!
 
     private val adapterRVWorkouts = AdapterRVWorkoutsTrainingPlan { id -> gotoWorkout(id) }
 
@@ -53,122 +42,94 @@ class ShowTrainPlanFragment : Fragment() {
         TrainViewModelFactory(userRepository)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUi(view)
-        initObservers()
-        iniListeners()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentShowTrainPlanBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun iniListeners() {
-        trainPlanSetAsDefaultBtn.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+        initObservers()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.trainPlanSetAsDefaultBtn.setOnClickListener {
             createMaterialAlertDialogBuilderOkCancel(
                 requireContext(),
                 "Change train plan",
                 "You will use this train plan as default?",
                 "OK",
-                "Cancel",
+                "Cancel"
             ) {
                 sharedViewModel.updateMyTrainPlan()
                 sharedViewModel.updateMyCoachState(true)
             }
         }
-        backBtn.setOnClickListener {
+
+        // Common back button handler
+        binding.trainPlanBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun initUI() {
+        binding.recyclerviewWorkoutsTrainPlans.adapter = adapterRVWorkouts
     }
 
     private fun initObservers() {
         sharedViewModel.trainPlanId.observe(viewLifecycleOwner) { id ->
             viewModel.getTrainingPlanById(id)
         }
-        viewModel.trainPlan.observe(viewLifecycleOwner) { trainPlan ->
-            when (trainPlan) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {
-                    Glide
-                        .with(requireContext())
-                        .load(trainPlan.data?.imageUrl)
-                        .into(trainPlanImage)
-                    sharedViewModel.getCoachById(trainPlan.data?.coachId ?: 0)
-                    trainPlanTitle.text = trainPlan.data?.name
-                    trainPlanDescription.text = trainPlan.data?.description
-                    sharedViewModel.getTargetedMusclesByIds(
-                        trainPlan.data?.targetedMuscleIds ?: emptyList()
-                    )
-                    trainPlanDifficulty.text = trainPlan.data?.difficultyLevel
-                    trainPlanAvgTime.text =
-                        "${trainPlan.data?.avgTimeMinPerWorkout.toString()} min"
-                    trainPlanDaysPerTrainingWeek.text =
-                        "${trainPlan.data?.durationDaysPerTrainingWeek.toString()} Days"
-                    trainPlan.data?.workoutsIds?.let { ids -> sharedViewModel.getWorkoutsByIds(ids) }
+
+        viewModel.trainPlan.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResponseEI.Loading -> Unit
+                is ResponseEI.Success -> result.data?.let { plan ->
+                    Glide.with(requireContext()).load(plan.imageUrl).into(binding.trainPlanImage)
+                    binding.trainPlanTitle.text = plan.name
+                    binding.trainPlanDescription.text = plan.description
+                    binding.trainPlanDifficulty.text = plan.difficultyLevel
+                    binding.trainPlanAvgTime.text = "${plan.avgTimeMinPerWorkout} min"
+                    binding.trainPlanDaysPerTrainingWeek.text = "${plan.durationDaysPerTrainingWeek} Days"
+                    sharedViewModel.getCoachById(plan.coachId ?: 0)
+                    sharedViewModel.getTargetedMusclesByIds(plan.targetedMuscleIds ?: emptyList())
+                    plan.workoutsIds?.let { sharedViewModel.getWorkoutsByIds(it) }
                 }
 
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(trainPlan.reason), requireContext())
-                }
+                is ResponseEI.Failure -> createFailureResponse(result, requireContext())
             }
         }
-        sharedViewModel.coachById.observe(viewLifecycleOwner) { coach ->
-            when (coach) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {
-                    trainPlanCoachName.text = "by ${coach.data?.name}"
-                }
 
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(coach.reason), requireContext())
-                }
+        sharedViewModel.coachById.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResponseEI.Loading -> Unit
+                is ResponseEI.Success -> binding.trainPlanCoachName.text = "by ${result.data?.name.orEmpty()}"
+                is ResponseEI.Failure -> createFailureResponse(result, requireContext())
             }
         }
-        sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { muscles ->
-            when (muscles) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {
-                    targetedMusclesText.text = muscles.data
-                }
 
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(muscles.reason), requireContext())
-                }
+        sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResponseEI.Loading -> Unit
+                is ResponseEI.Success -> binding.targetedMusclesText.text = result.data
+                is ResponseEI.Failure -> createFailureResponse(result, requireContext())
             }
         }
-        sharedViewModel.workoutsByIds.observe(viewLifecycleOwner) { workouts ->
-            when (workouts) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {
-                    adapterRVWorkouts.submitList(workouts.data ?: emptyList())
-                }
 
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(workouts.reason), requireContext())
-                }
+        sharedViewModel.workoutsByIds.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResponseEI.Loading -> Unit
+                is ResponseEI.Success -> adapterRVWorkouts.submitList(result.data.orEmpty())
+                is ResponseEI.Failure -> createFailureResponse(result, requireContext())
             }
         }
     }
 
-    private fun initUi(view: View) {
-        trainPlanImage = view.findViewById(R.id.trainPlanImage)
-        trainPlanCoachName = view.findViewById(R.id.trainPlanCoachName)
-        trainPlanTitle = view.findViewById(R.id.trainPlanTitle)
-        targetedMusclesText = view.findViewById(R.id.targetedMusclesText)
-        trainPlanDescription = view.findViewById(R.id.trainPlanDescription)
-        trainPlanDifficulty = view.findViewById(R.id.trainPlanDifficulty)
-        trainPlanAvgTime = view.findViewById(R.id.trainPlanAvgTime)
-        trainPlanDaysPerTrainingWeek = view.findViewById(R.id.trainPlanDaysPerTrainingWeek)
-        trainPlanSetAsDefaultBtn = view.findViewById(R.id.trainPlanSetAsDefaultBtn)
-        backBtn = view.findViewById(R.id.trainPlanBackBtn)
-
-        recyclerviewWorkoutsTrainPlans = view.findViewById(R.id.recyclerviewWorkoutsTrainPlans)
-        recyclerviewWorkoutsTrainPlans.adapter = adapterRVWorkouts
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_show_train_plan, container, false)
-    }
 
     private fun gotoWorkout(id: Int) {
         sharedViewModel.setWorkoutId(id)
@@ -177,6 +138,7 @@ class ShowTrainPlanFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         sharedViewModel.navigateRightTo(null)
     }
 }

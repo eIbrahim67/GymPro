@@ -146,8 +146,7 @@ class MainViewModel(
     }
 
     private val _updateMyTrainPlan = MutableLiveData<ResponseEI<Unit>>()
-
-    //val updateMyTrainPlan: LiveData<Response<Unit>> get() = _updateMyTrainPlan
+    val updateMyTrainPlan: LiveData<ResponseEI<Unit>> get() = _updateMyTrainPlan
     fun updateMyTrainPlan() {
         applyResponse(
             _updateMyTrainPlan,
@@ -156,8 +155,7 @@ class MainViewModel(
     }
 
     private val _myCoachState = MutableLiveData<ResponseEI<Unit>>()
-
-    //val myCoachState: LiveData<Response<Unit>> get() = _myCoachState
+    val myCoachState: LiveData<ResponseEI<Unit>> get() = _myCoachState
     fun updateMyCoachState(data: Boolean) {
         applyResponse(
             _myCoachState,

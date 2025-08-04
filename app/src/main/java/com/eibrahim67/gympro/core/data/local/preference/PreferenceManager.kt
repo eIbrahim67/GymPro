@@ -88,23 +88,25 @@ class PreferenceManager(context: Context) {
         }
 
         if (getWorkoutDone()) {
-            incrementWorkoutDone(len=len)
+            incrementWorkoutDone(len = len)
             sharedPreferences.edit {
+                putBoolean(KEY_WORKOUT_DONE, false)
+
                 putInt(KEY_EXERCISES_NUMBER, 0)
-                    .putBoolean(KEY_WORKOUT_DONE, false)
-                    .putInt(KEY_REPS_NUMBER, 0)
-                    .putInt(KEY_TIME_SPENT, 0)
+                putInt(KEY_REPS_NUMBER, 0)
+                putInt(KEY_TIME_SPENT, 0)
             }
             return 0
         }
         if (getTimeSpent() > 0)
             return 1
+
         return 2
     }
 
     fun finishWorkout(len: Int) {
 
-        incrementWorkoutDone(len=len)
+        incrementWorkoutDone(len = len)
         sharedPreferences.edit()
             .putInt(KEY_DAY_NUMBER, getTodayKey())
             .putInt(KEY_EXERCISES_NUMBER, 0)

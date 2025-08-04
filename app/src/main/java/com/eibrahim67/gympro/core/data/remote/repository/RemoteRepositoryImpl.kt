@@ -12,20 +12,67 @@ import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSource
 class RemoteRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
 ) : RemoteRepository {
-    override suspend fun addCategory(categories: Map<Int, Category>) =
-        remoteDataSource.addCategory(categories)
 
-    override suspend fun addMuscle(muscles: Map<Int, Muscles>) = remoteDataSource.addMuscle(muscles)
+    override suspend fun addMuscles(muscles: Map<Int, Muscles>) {
+        remoteDataSource.addMuscles(muscles)
+    }
+
+    override suspend fun getMuscleById(id: Int): Muscles? {
+        return remoteDataSource.getMuscleById(id)
+    }
+
+    override suspend fun getAllMuscles(): Map<Int, Muscles> {
+        return remoteDataSource.getAllMuscles()
+    }
+
+    override suspend fun addExercises(exercises: Map<Int, Exercise>) {
+        remoteDataSource.addExercises(exercises)
+    }
+
+    override suspend fun getExerciseById(id: Int): Exercise? {
+        return remoteDataSource.getExerciseById(id)
+    }
+
+    override suspend fun getAllExercises(): Map<Int, Exercise> {
+        return remoteDataSource.getAllExercises()
+    }
+
+    override suspend fun addWorkouts(workouts: Map<Int, Workout>) {
+        remoteDataSource.addWorkouts(workouts)
+    }
+
+    override suspend fun getWorkoutById(id: Int): Workout? {
+        return remoteDataSource.getWorkoutById(id)
+    }
+
+    override suspend fun getAllWorkouts(): Map<Int, Workout> {
+        return remoteDataSource.getAllWorkouts()
+    }
+
+    override suspend fun addTrainPlans(trainPlans: TrainPlan) {
+        remoteDataSource.addTrainPlans(trainPlans)
+    }
+
+    override suspend fun getTrainPlanById(id: Int): TrainPlan? {
+        return remoteDataSource.getTrainPlanById(id)
+    }
+
+    override suspend fun getAllTrainPlans(): Map<Int, TrainPlan> {
+        return remoteDataSource.getAllTrainPlans()
+    }
+
+    override suspend fun getMyTrainPlans(id: Int): List<String>? {
+        return remoteDataSource.getMyTrainPlans(id)
+    }
+
     override suspend fun addCoach(coach: Map<Int, Coach>) = remoteDataSource.addCoach(coach)
-    override suspend fun addExercise(exercise: Map<Int, Exercise>) =
-        remoteDataSource.addExercise(exercise)
 
-    override suspend fun addWorkout(workout: Map<Int, Workout>) =
-        remoteDataSource.addWorkout(workout)
+    override suspend fun addCategory(categories: Map<Int, Category>) {
+        remoteDataSource.addCategories(categories)
+    }
 
-    override suspend fun addTrainPlan(trainPlan: Map<Int, TrainPlan>) =
-        remoteDataSource.addTrainPlan(trainPlan)
-
-    override suspend fun getCategories(): LiveData<List<Category>> = remoteDataSource.getCategories()
+    override suspend fun getAllCategories(): Map<Int, Category> {
+        return remoteDataSource.getAllCategories()
+    }
 
 }

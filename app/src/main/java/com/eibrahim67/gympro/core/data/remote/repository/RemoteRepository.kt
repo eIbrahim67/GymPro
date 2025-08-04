@@ -9,17 +9,27 @@ import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 
 interface RemoteRepository {
-    suspend fun addCategory(categories: Map<Int, Category>)
 
-    suspend fun addMuscle(muscles: Map<Int, Muscles>)
+    suspend fun addMuscles(muscles: Map<Int, Muscles>)
+    suspend fun getMuscleById(id: Int): Muscles?
+    suspend fun getAllMuscles(): Map<Int, Muscles>
+
+    suspend fun addExercises(exercises: Map<Int, Exercise>)
+    suspend fun getExerciseById(id: Int): Exercise?
+    suspend fun getAllExercises(): Map<Int, Exercise>
+
+    suspend fun addWorkouts(workouts: Map<Int, Workout>)
+    suspend fun getWorkoutById(id: Int): Workout?
+    suspend fun getAllWorkouts(): Map<Int, Workout>
+
+    suspend fun addTrainPlans(trainPlans: TrainPlan)
+    suspend fun getTrainPlanById(id: Int): TrainPlan?
+    suspend fun getAllTrainPlans(): Map<Int, TrainPlan>
+    suspend fun getMyTrainPlans(id: Int): List<String>?
+
+    suspend fun addCategory(categories: Map<Int, Category>)
+    suspend fun getAllCategories(): Map<Int, Category>
+
 
     suspend fun addCoach(coach: Map<Int, Coach>)
-
-    suspend fun addExercise(exercise: Map<Int, Exercise>)
-
-    suspend fun addWorkout(workout: Map<Int, Workout>)
-
-    suspend fun addTrainPlan(trainPlan: Map<Int, TrainPlan>)
-
-    suspend fun getCategories(): LiveData<List<Category>>
 }

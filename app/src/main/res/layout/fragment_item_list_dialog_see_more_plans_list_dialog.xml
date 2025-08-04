@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color"
-    tools:context=".home.view.bottomSheet.SeeMoreBottomSheet">
+    tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -106,8 +106,8 @@
             android:layout_marginBottom="20dp"
             android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@id/searchBar"
-            tools:context=".home.view.bottomSheet.SeeMoreBottomSheet"
-            tools:listitem="@layout/item_see_more_featured_plans" />
+            tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet"
+            tools:listitem="@layout/item_full_featured_plans" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

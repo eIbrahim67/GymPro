@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="5dp"
     app:cardBackgroundColor="@color/primary_black"
     app:cardCornerRadius="15dp"
-    app:strokeWidth="0dp"
-    tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet">
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -30,14 +28,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/google_sans"
-            android:textStyle="bold"
             android:text="Massive Upper Body"
             android:textColor="@color/primary_color"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,12 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:maxWidth="150dp"
             android:fontFamily="@font/google_sans"
-            android:textStyle="italic"
+            android:maxWidth="150dp"
             android:text="4 days per week"
             android:textColor="@color/primary_color"
             android:textSize="14sp"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemTitleFeaturePlan" />
 
@@ -66,6 +64,8 @@
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deletePlan"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemDurationFeaturePlan"
             app:strokeWidth="0dp">
@@ -75,6 +75,34 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="See Details"
+                android:textColor="@color/primary_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/deletePlan"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/itemSeeDetailsFeaturePlan"
+            app:layout_constraintTop_toBottomOf="@id/itemDurationFeaturePlan"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Delete"
                 android:textColor="@color/primary_black"
                 android:textSize="14sp"
                 android:textStyle="bold" />

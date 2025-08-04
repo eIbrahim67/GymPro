@@ -108,5 +108,10 @@
         android:name="com.eibrahim67.gympro.about.AboutFragment"
         android:label="About" />
 
+    <fragment
+        android:id="@+id/action_createPlanFragment"
+        android:name="com.eibrahim67.gympro.createPlan.CreatePlanFragment"
+        android:label="CreatePlanFragment" />
+
 
 </navigation>
