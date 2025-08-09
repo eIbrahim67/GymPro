@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.core.data.remote.repository
 
-import androidx.lifecycle.LiveData
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -21,7 +20,11 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getMuscleById(id)
     }
 
-    override suspend fun getAllMuscles(): Map<Int, Muscles> {
+    override suspend fun getMusclesByIds(ids: List<Int>): List<Muscles>? {
+        return remoteDataSource.getMusclesByIds(ids)
+    }
+
+    override suspend fun getAllMuscles(): List<Muscles?> {
         return remoteDataSource.getAllMuscles()
     }
 
@@ -31,6 +34,10 @@ class RemoteRepositoryImpl(
 
     override suspend fun getExerciseById(id: Int): Exercise? {
         return remoteDataSource.getExerciseById(id)
+    }
+
+    override suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>? {
+        return remoteDataSource.getExercisesByIds(ids)
     }
 
     override suspend fun getAllExercises(): Map<Int, Exercise> {
@@ -45,8 +52,16 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getWorkoutById(id)
     }
 
-    override suspend fun getAllWorkouts(): Map<Int, Workout> {
+    override suspend fun getWorkoutsByIds(ids: List<Int>): List<Workout>? {
+        return remoteDataSource.getWorkoutsByIds(ids)
+    }
+
+    override suspend fun getAllWorkouts(): List<Workout> {
         return remoteDataSource.getAllWorkouts()
+    }
+
+    override suspend fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+        remoteDataSource.addTrainPlanId(coachId, newPlanId)
     }
 
     override suspend fun addTrainPlans(trainPlans: TrainPlan) {
@@ -57,22 +72,34 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getTrainPlanById(id)
     }
 
-    override suspend fun getAllTrainPlans(): Map<Int, TrainPlan> {
+    override suspend fun getTrainPlanByIds(ids: List<Int>): List<TrainPlan>? {
+        return remoteDataSource.getTrainPlanByIds(ids)
+    }
+
+    override suspend fun getAllTrainPlans(): List<TrainPlan> {
         return remoteDataSource.getAllTrainPlans()
     }
 
-    override suspend fun getMyTrainPlans(id: Int): List<String>? {
-        return remoteDataSource.getMyTrainPlans(id)
+    override suspend fun getMyTrainPlansIds(id: Int): List<Int>? {
+        return remoteDataSource.getMyTrainPlansIds(id)
     }
 
-    override suspend fun addCoach(coach: Map<Int, Coach>) = remoteDataSource.addCoach(coach)
+    override suspend fun addCoach(coach: Coach) = remoteDataSource.addCoach(coach)
+
+    override suspend fun getCoachById(id: Int)  : Coach?{
+        return remoteDataSource.getCoachById(id)
+    }
 
     override suspend fun addCategory(categories: Map<Int, Category>) {
         remoteDataSource.addCategories(categories)
     }
 
-    override suspend fun getAllCategories(): Map<Int, Category> {
+    override suspend fun getAllCategories(): List<Category> {
         return remoteDataSource.getAllCategories()
+    }
+
+    override suspend fun getAllCoaches(): List<Coach> {
+        return remoteDataSource.getAllCoaches()
     }
 
 }

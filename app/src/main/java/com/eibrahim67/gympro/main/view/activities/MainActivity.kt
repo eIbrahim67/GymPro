@@ -12,8 +12,11 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
+import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,10 +34,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private val viewModel: MainViewModel by viewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(this).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        MainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

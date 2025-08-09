@@ -13,5 +13,5 @@ data class Exercise(
     val categoryIds: List<Int>,
     val effectedMusclesIds: List<Int>,
     val imageUrl: String,
-    val videoUrl: Uri?
+    val videoUrl: String?
 )

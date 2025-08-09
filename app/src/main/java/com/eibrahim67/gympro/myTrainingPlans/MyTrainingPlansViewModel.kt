@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.model.User
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
-import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
@@ -26,22 +25,23 @@ class MyTrainingPlansViewModel(
         }
     }
 
-    private val _myTrainPlans = MutableLiveData<ResponseEI<List<String>?>>()
-    val myTrainPlans: LiveData<ResponseEI<List<String>?>> get() = _myTrainPlans
+    private val _myTrainPlansIds = MutableLiveData<ResponseEI<List<Int>?>>()
+    val myTrainPlansIds: LiveData<ResponseEI<List<Int>?>> get() = _myTrainPlansIds
 
-    fun getMyTrainPlans(id:Int) {
-        applyResponse(_myTrainPlans, viewModelScope) {
-            remoteRepository.getMyTrainPlans(id)
+    fun getMyTrainPlansIds(id:Int) {
+        applyResponse(_myTrainPlansIds, viewModelScope) {
+            remoteRepository.getMyTrainPlansIds(id)
         }
     }
 
-    private val _trainPlanById = MutableLiveData<ResponseEI<TrainPlan?>>()
-    val trainPlanById: LiveData<ResponseEI<TrainPlan?>> get() = _trainPlanById
+    private val _trainPlans = MutableLiveData<ResponseEI<List<TrainPlan>?>>()
+    val trainPlans: LiveData<ResponseEI<List<TrainPlan>?>> get() = _trainPlans
 
-    fun getTrainPlanById(id: Int) {
-        applyResponse(_trainPlanById, viewModelScope) {
-            remoteRepository.getTrainPlanById(id)
+    fun getTrainPlans(ids: List<Int>) {
+        applyResponse(_trainPlans, viewModelScope) {
+            remoteRepository.getTrainPlanByIds(ids)
         }
     }
+
 
 }

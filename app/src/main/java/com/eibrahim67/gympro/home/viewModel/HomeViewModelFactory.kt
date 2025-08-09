@@ -11,7 +11,7 @@ class HomeViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(HomeViewModel::class.java))
-            return HomeViewModel(remoteRepository, userRepository) as T
+            return HomeViewModel(userRepository, remoteRepository) as T
         else
             throw IllegalArgumentException("Unknown view model")
     }

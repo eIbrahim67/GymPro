@@ -12,11 +12,15 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
+import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.databinding.FragmentMyChatsBinding
 import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.myChats.adapter.ChatMessagesAdapter
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.getValue
 
 class MyChatsFragment : Fragment() {
@@ -27,11 +31,14 @@ class MyChatsFragment : Fragment() {
     private val viewModel: MyChatsViewModel by viewModels()
 
     private val sharedViewModel: MainViewModel by activityViewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        TrainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
+
 
 
     override fun onCreateView(

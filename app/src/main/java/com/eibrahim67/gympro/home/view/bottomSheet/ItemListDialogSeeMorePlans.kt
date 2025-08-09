@@ -9,17 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
+import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentItemListDialogSeeMorePlansListDialogItemBinding
 import com.eibrahim67.gympro.databinding.FragmentItemListDialogSeeMorePlansListDialogBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.getValue
 
 
@@ -31,11 +36,14 @@ class ItemListDialogSeeMorePlans(
     private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        TrainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

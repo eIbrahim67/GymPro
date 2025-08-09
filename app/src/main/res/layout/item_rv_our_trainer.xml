@@ -13,7 +13,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/itemImageTrainerCard"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="120dp"
             app:cardBackgroundColor="@color/gray_v4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,6 @@
             android:id="@+id/itemRateTrainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.0"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/itemNameTrainer"
@@ -99,7 +98,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="000.00 EG"
             android:textColor="@color/primary_black"
             android:textSize="14sp"
             android:textStyle="bold"

@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.main.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,16 +8,18 @@ import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
+import com.eibrahim67.gympro.core.data.remote.model.Muscles
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.data.response.ResponseEI
-import com.eibrahim67.gympro.core.data.writtenData.source.SourceWrittenData
 import com.eibrahim67.gympro.core.utils.Converters
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
 
 class MainViewModel(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val remoteRepository: RemoteRepository
 ) : ViewModel() {
 
     private val _navigateRightToFragment = MutableLiveData<Int?>()
@@ -59,48 +62,57 @@ class MainViewModel(
     private val _trainPlans = MutableLiveData<ResponseEI<List<TrainPlan>>>()
     val trainPlans: LiveData<ResponseEI<List<TrainPlan>>> get() = _trainPlans
     fun getTrainPlans() {
-        applyResponse(_trainPlans, viewModelScope) { SourceWrittenData.getTrainingPlansData() }
+        applyResponse(_trainPlans, viewModelScope) {
+            remoteRepository.getAllTrainPlans()
+        }
     }
 
     private val _coachById = MutableLiveData<ResponseEI<Coach?>>()
     val coachById: LiveData<ResponseEI<Coach?>> get() = _coachById
     fun getCoachById(id: Int) =
-        applyResponse(_coachById, viewModelScope) { SourceWrittenData.getCoachById(id) }
+        applyResponse(_coachById, viewModelScope) { remoteRepository.getCoachById(id) }
 
-    private val _targetedMusclesByIds = MutableLiveData<ResponseEI<String>>()
-    val targetedMusclesByIds: LiveData<ResponseEI<String>> get() = _targetedMusclesByIds
-    fun getTargetedMusclesByIds(ids: List<Int>) = applyResponse(
-        _targetedMusclesByIds,
+    private val _musclesByIds = MutableLiveData<ResponseEI<List<Muscles>?>>()
+    val musclesByIds: LiveData<ResponseEI<List<Muscles>?>> get() = _musclesByIds
+    fun getmusclesByIds(ids: List<Int>) = applyResponse(
+        _musclesByIds,
         viewModelScope
-    ) { SourceWrittenData.getTargetedMusclesByIdsAsString(ids) }
+    ) { remoteRepository.getMusclesByIds(ids) }
 
     private val _workoutById = MutableLiveData<ResponseEI<Workout?>>()
     val workoutById: LiveData<ResponseEI<Workout?>> get() = _workoutById
     fun getWorkoutById(id: Int) = applyResponse(
         _workoutById,
         viewModelScope
-    ) { SourceWrittenData.getWorkoutById(id) }
+    ) { remoteRepository.getWorkoutById(id) }
 
     private val _workoutsByIds = MutableLiveData<ResponseEI<List<Workout>?>>()
     val workoutsByIds: LiveData<ResponseEI<List<Workout>?>> get() = _workoutsByIds
     fun getWorkoutsByIds(ids: List<Int>) = applyResponse(
         _workoutsByIds,
         viewModelScope
-    ) { SourceWrittenData.getWorkoutsByIds(ids) }
+    ) { remoteRepository.getWorkoutsByIds(ids) }
 
     private val _exercisesByIds = MutableLiveData<ResponseEI<List<Exercise>?>>()
     val exercisesByIds: LiveData<ResponseEI<List<Exercise>?>> get() = _exercisesByIds
     fun getExerciseByIds(ids: List<Int>) = applyResponse(
         _exercisesByIds,
         viewModelScope
-    ) { SourceWrittenData.getExercisesByIds(ids) }
+    ) { remoteRepository.getExercisesByIds(ids) }
 
     private val _exerciseById = MutableLiveData<ResponseEI<Exercise?>>()
     val exerciseById: LiveData<ResponseEI<Exercise?>> get() = _exerciseById
     fun getExerciseById(id: Int) = applyResponse(
         _exerciseById,
         viewModelScope
-    ) { SourceWrittenData.getExerciseById(id) }
+    ) { remoteRepository.getExerciseById(id) }
+
+
+
+
+
+
+
 
     private val _userDataExercise = MutableLiveData<ResponseEI<Map<Int, MutableList<String>>>>()
     val userDataExercise: LiveData<ResponseEI<Map<Int, MutableList<String>>>> get() = _userDataExercise

@@ -13,15 +13,18 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
+import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
+import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOkCancel
 import com.eibrahim67.gympro.databinding.FragmentShowTrainPlanBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.showTrainPlan.view.adapters.AdapterRVWorkoutsTrainingPlan
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModel
 import com.eibrahim67.gympro.showTrainPlan.viewModel.ShowTrainPlanViewModelFactory
-import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ShowTrainPlanFragment : Fragment() {
 
@@ -32,14 +35,18 @@ class ShowTrainPlanFragment : Fragment() {
     private val adapterRVWorkouts = AdapterRVWorkoutsTrainingPlan { id -> gotoWorkout(id) }
 
     private val viewModel: ShowTrainPlanViewModel by viewModels {
-        ShowTrainPlanViewModelFactory()
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
+        ShowTrainPlanViewModelFactory(remoteRepository)
     }
 
     private val sharedViewModel: MainViewModel by activityViewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        TrainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
 
     override fun onCreateView(
@@ -97,7 +104,7 @@ class ShowTrainPlanFragment : Fragment() {
                     binding.trainPlanAvgTime.text = "${plan.avgTimeMinPerWorkout} min"
                     binding.trainPlanDaysPerTrainingWeek.text = "${plan.durationDaysPerTrainingWeek} Days"
                     sharedViewModel.getCoachById(plan.coachId ?: 0)
-                    sharedViewModel.getTargetedMusclesByIds(plan.targetedMuscleIds ?: emptyList())
+                    sharedViewModel.getmusclesByIds(plan.targetedMuscleIds ?: emptyList())
                     plan.workoutsIds?.let { sharedViewModel.getWorkoutsByIds(it) }
                 }
 
@@ -113,11 +120,18 @@ class ShowTrainPlanFragment : Fragment() {
             }
         }
 
-        sharedViewModel.targetedMusclesByIds.observe(viewLifecycleOwner) { result ->
-            when (result) {
+        sharedViewModel.musclesByIds.observe(viewLifecycleOwner) { muscles ->
+            when (muscles) {
                 is ResponseEI.Loading -> Unit
-                is ResponseEI.Success -> binding.targetedMusclesText.text = result.data
-                is ResponseEI.Failure -> createFailureResponse(result, requireContext())
+                is ResponseEI.Success -> {
+                    var targetedMusclesText = ""
+                    muscles.data?.map {
+                        targetedMusclesText += it?.name ?: "Unknown"
+                    }
+                    binding.targetedMusclesText.text = targetedMusclesText
+
+                }
+                is ResponseEI.Failure -> createFailureResponse(muscles, requireContext())
             }
         }
 

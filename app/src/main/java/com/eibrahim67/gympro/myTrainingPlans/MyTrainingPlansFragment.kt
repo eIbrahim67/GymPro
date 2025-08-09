@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.myTrainingPlans
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,12 @@ import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.data.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentMyTrainingPlansBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,11 +28,14 @@ class MyTrainingPlansFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        TrainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
+
 
     private val viewModel: MyTrainingPlansViewModel by viewModels {
         val remoteRepository =
@@ -69,11 +73,34 @@ class MyTrainingPlansFragment : Fragment() {
 
             when (user) {
                 is ResponseEI.Loading -> {
+
                 }
 
                 is ResponseEI.Success -> {
 
-                    user.data?.let { viewModel.getMyTrainPlans(it.id) }
+                    user.data?.let { viewModel.getMyTrainPlansIds(it.id) }
+
+                }
+
+                is ResponseEI.Failure -> {
+
+                }
+            }
+
+        }
+
+        viewModel.myTrainPlansIds.observe(viewLifecycleOwner) { myTrainPlansIds ->
+
+            when (myTrainPlansIds) {
+                is ResponseEI.Loading -> {
+                }
+
+                is ResponseEI.Success -> {
+
+
+                    myTrainPlansIds.data?.let {
+                        viewModel.getTrainPlans(it)
+                    }
 
                 }
 
@@ -82,23 +109,19 @@ class MyTrainingPlansFragment : Fragment() {
 
         }
 
-        viewModel.myTrainPlans.observe(viewLifecycleOwner) { myTrainPlans ->
+        viewModel.trainPlans.observe(viewLifecycleOwner) { myTrainPlans ->
 
             when (myTrainPlans) {
                 is ResponseEI.Loading -> {
                 }
 
                 is ResponseEI.Success -> {
-                    val list = mutableListOf<TrainPlan>()
-
-                    if (!myTrainPlans.data.isNullOrEmpty())
-                        for (id in myTrainPlans.data) {
-//                            viewModel.getTrainPlanById()
-                        }
+                    myTrainPlans.data?.let { adapterRVMyFeaturedPlans.submitList(myTrainPlans.data) }
 
                 }
 
-                is ResponseEI.Failure -> {}
+                is ResponseEI.Failure -> {
+                }
             }
 
         }

@@ -217,28 +217,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Select Difficulty Level"
                     android:inputType="none"
+
                     android:dropDownSelector="@drawable/dropdown_background" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/imageUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                app:helperTextTextAppearance="@style/CustomHelperTextStyle"
-                app:helperTextTextColor="@color/warning"
-                app:layout_constraintTop_toBottomOf="@id/difficultyLevel">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/imageUrlEditText"
-                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Image URL"
-                    android:inputType="textUri" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -252,7 +232,7 @@
                 android:layout_marginEnd="20dp"
                 app:helperTextTextAppearance="@style/CustomHelperTextStyle"
                 app:helperTextTextColor="@color/warning"
-                app:layout_constraintTop_toBottomOf="@id/imageUrl">
+                app:layout_constraintTop_toBottomOf="@id/difficultyLevel">
 
                 <AutoCompleteTextView
                     android:id="@+id/trainingCategoriesIdsAutoComplete"
@@ -284,6 +264,58 @@
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/uploadImageButtonCard"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cardBackgroundColor="@color/primary_white"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@id/avgTimeMin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:strokeColor="@color/primary_black"
+                app:strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/imageFeaturePlan"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="Image Feature Plan"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@id/avgTimeMin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/uploadImageButton"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cardBackgroundColor="@color/primary_white"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@id/uploadImageButtonCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:strokeColor="@color/primary_black"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Upload Preview Image"
+                    android:textColor="@color/primary_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

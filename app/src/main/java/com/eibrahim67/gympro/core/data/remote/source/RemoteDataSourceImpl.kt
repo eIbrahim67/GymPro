@@ -1,6 +1,6 @@
 package com.eibrahim67.gympro.core.data.remote.source
 
-import android.net.Uri
+import android.util.Log
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -16,16 +16,13 @@ class RemoteDataSourceImpl(
 ) : RemoteDataSource {
 
     override suspend fun addMuscles(muscles: Map<Int, Muscles>) {
-        val musclesMap = muscles.mapKeys { it.key.toString() }
-            .mapValues { (_, muscle) ->
-                mapOf(
-                    "id" to muscle.id,
-                    "name" to muscle.name
-                )
-            }
+        val musclesMap = muscles.mapKeys { it.key.toString() }.mapValues { (_, muscle) ->
+            mapOf(
+                "id" to muscle.id, "name" to muscle.name
+            )
+        }
 
-        db.collection("Data").document("muscles")
-            .set(musclesMap)
+        db.collection("Data").document("muscles").set(musclesMap)
             .await() // using kotlinx-coroutines-play-services
     }
 
@@ -39,16 +36,29 @@ class RemoteDataSourceImpl(
         return Muscles(muscleId, muscleName)
     }
 
-    override suspend fun getAllMuscles(): Map<Int, Muscles> {
+    override suspend fun getMusclesByIds(ids: List<Int>): List<Muscles>? {
         val documentSnapshot = db.collection("Data").document("muscles").get().await()
-        val result = mutableMapOf<Int, Muscles>()
+        val list = mutableListOf<Muscles>()
+        for (id in ids) {
+            val muscleMap = documentSnapshot.get(id.toString()) as? Map<*, *> ?: return null
 
-        for ((key, value) in documentSnapshot.data ?: emptyMap()) {
-            val intKey = key.toIntOrNull() ?: continue
+            val muscleId = (muscleMap["id"] as? Long)?.toInt() ?: return null
+            val muscleName = muscleMap["name"] as? String ?: return null
+            list.add(Muscles(muscleId, muscleName))
+        }
+
+        return list
+    }
+
+    override suspend fun getAllMuscles(): List<Muscles?> {
+        val documentSnapshot = db.collection("Data").document("muscles").get().await()
+        val result = mutableListOf<Muscles>()
+
+        for (value in documentSnapshot.data ?: emptyMap()) {
             val muscleMap = value as? Map<*, *> ?: continue
             val id = (muscleMap["id"] as? Long)?.toInt() ?: continue
             val name = muscleMap["name"] as? String ?: continue
-            result[intKey] = Muscles(id, name)
+            result.add(Muscles(id, name))
         }
 
         return result
@@ -91,8 +101,33 @@ class RemoteDataSourceImpl(
             effectedMusclesIds = (map["effectedMusclesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
             imageUrl = map["imageUrl"] as? String ?: "",
-            videoUrl = (map["videoUrl"] as? Uri ?: "") as Uri?
-        )
+            videoUrl = map["videoUrl"] as? String ?: "")
+    }
+
+    override suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>? {
+        val documentSnapshot = db.collection("Data").document("exercises").get().await()
+        val list = mutableListOf<Exercise>()
+        for (id in ids) {
+            val map = documentSnapshot.get(id.toString()) as? Map<*, *> ?: return null
+
+            val exercise = Exercise(
+                id = (map["id"] as? Long)?.toInt() ?: return null,
+                name = map["name"] as? String ?: "",
+                description = map["description"] as? String ?: "",
+                exerciseHint = map["exerciseHint"] as? String ?: "",
+                exerciseSet = (map["exerciseSet"] as? Long)?.toInt() ?: 0,
+                exerciseReps = (map["exerciseReps"] as? Long)?.toInt() ?: 0,
+                exerciseIntensity = (map["exerciseIntensity"] as? Long)?.toInt() ?: 0,
+                categoryIds = (map["categoryIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                    ?: emptyList(),
+                effectedMusclesIds = (map["effectedMusclesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                    ?: emptyList(),
+                imageUrl = map["imageUrl"] as? String ?: "",
+                videoUrl = map["videoUrl"] as? String ?: "")
+
+            list.add(exercise)
+        }
+        return list
     }
 
     override suspend fun getAllExercises(): Map<Int, Exercise> {
@@ -116,15 +151,13 @@ class RemoteDataSourceImpl(
                 effectedMusclesIds = (map["effectedMusclesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),
                 imageUrl = map["imageUrl"] as? String ?: "",
-                videoUrl = (map["videoUrl"] as? Uri ?: "") as Uri?
-            )
+                videoUrl = map["videoUrl"] as? String ?: "")
 
             result[intKey] = exercise
         }
 
         return result
     }
-
 
     override suspend fun addWorkouts(workouts: Map<Int, Workout>) {
         val data = workouts.mapKeys { it.key.toString() }.mapValues { (_, w) ->
@@ -161,16 +194,42 @@ class RemoteDataSourceImpl(
             coachId = map["coachId"] as? Int ?: -1,
             difficultyLevel = map["difficultyLevel"] as? String ?: "",
             imageUrl = map["imageUrl"] as? String ?: "",
-            equipment = map["equipment"] as? String ?: ""
-        )
+            equipment = map["equipment"] as? String ?: "")
     }
 
-    override suspend fun getAllWorkouts(): Map<Int, Workout> {
+    override suspend fun getWorkoutsByIds(ids: List<Int>): List<Workout>? {
+        val list = mutableListOf<Workout>()
         val snapshot = db.collection("Data").document("workouts").get().await()
-        val result = mutableMapOf<Int, Workout>()
 
-        for ((key, value) in snapshot.data ?: emptyMap()) {
-            val intKey = key.toIntOrNull() ?: continue
+        try {
+            for (id in ids) {
+                val map = snapshot.get(id.toString()) as? Map<*, *> ?: continue
+                val workout = Workout(
+                    id = (map["id"] as? Long)?.toInt() ?: return null,
+                    name = map["name"] as? String ?: "",
+                    description = map["description"] as? String ?: "",
+                    durationMinutes = (map["durationMinutes"] as? Long)?.toInt() ?: 0,
+                    exerciseIds = (map["exerciseIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    coachId = map["coachId"] as? Int ?: -1,
+                    difficultyLevel = map["difficultyLevel"] as? String ?: "",
+                    imageUrl = map["imageUrl"] as? String ?: "",
+                    equipment = map["equipment"] as? String ?: "")
+                list.add(workout)
+            }
+        } catch (e: Exception) { }
+
+        return list
+    }
+
+    override suspend fun getAllWorkouts(): List<Workout> {
+        val snapshot = db.collection("Data").document("workouts").get().await()
+        val result = mutableListOf<Workout>()
+
+        for (value in snapshot.data ?: emptyMap()) {
+
             val map = value as? Map<*, *> ?: continue
 
             val workout = Workout(
@@ -185,10 +244,9 @@ class RemoteDataSourceImpl(
                 coachId = map["coachId"] as? Int ?: -1,
                 difficultyLevel = map["difficultyLevel"] as? String ?: "",
                 imageUrl = map["imageUrl"] as? String ?: "",
-                equipment = map["equipment"] as? String ?: ""
-            )
+                equipment = map["equipment"] as? String ?: "")
 
-            result[intKey] = workout
+            result.add(workout)
         }
 
         return result
@@ -199,10 +257,29 @@ class RemoteDataSourceImpl(
             .set(hashMapOf(trainPlan.id.toString() to trainPlan), SetOptions.merge())
     }
 
-    override suspend fun getMyTrainPlans(id: Int): List<String>? {
+    override suspend fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+
+        val snapshot = db.collection("Data").document("coachPlansId").get().await()
+        val docRef = db.collection("Data").document("coachPlansId")
+
+        val list = snapshot.get(coachId.toString()) as? MutableList<Int> ?: mutableListOf()
+        list.add(newPlanId)
+        val mapToUpdate = hashMapOf(
+            coachId.toString() to list
+        )
+
+        docRef.set(mapToUpdate, SetOptions.merge()).addOnSuccessListener {
+            Log.d("Firestore", "List added to coach ID successfully")
+        }.addOnFailureListener { e ->
+            Log.e("Firestore", "Error updating list", e)
+        }
+
+    }
+
+    override suspend fun getMyTrainPlansIds(id: Int): List<Int>? {
         val snapshot = db.collection("Data").document("coachPlansId").get().await()
 
-        return snapshot.get(id.toString()) as? List<String> ?: return null
+        return snapshot.get(id.toString()) as? List<Int>
     }
 
     override suspend fun getTrainPlanById(id: Int): TrainPlan? {
@@ -224,38 +301,68 @@ class RemoteDataSourceImpl(
             imageUrl = map["imageUrl"] as? String ?: "",
             trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
-            avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0
-        )
+            avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0)
     }
 
-    override suspend fun getAllTrainPlans(): Map<Int, TrainPlan> {
-        val snapshot = db.collection("Data").document("trainPlans").get().await()
-        val result = mutableMapOf<Int, TrainPlan>()
+    override suspend fun getTrainPlanByIds(ids: List<Int>): List<TrainPlan> {
+        val list = mutableListOf<TrainPlan>()
 
-        for ((key, value) in snapshot.data ?: emptyMap()) {
-            val intKey = key.toIntOrNull() ?: continue
-            val map = value as? Map<*, *> ?: continue
-
-            val plan = TrainPlan(
-                id = (map["id"] as? Long)?.toInt() ?: continue,
-                name = map["name"] as? String ?: "",
-                description = map["description"] as? String ?: "",
-                durationDaysPerTrainingWeek = (map["durationDaysPerTrainingWeek"] as? Long)?.toInt()
-                    ?: 0,
-                workoutsIds = (map["workoutsIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
-                    ?: emptyList(),
-                targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
-                    ?: emptyList(),
-                coachId = map["coachId"] as? Int ?: -1,
-                difficultyLevel = map["difficultyLevel"] as? String ?: "",
-                imageUrl = map["imageUrl"] as? String ?: "",
-                trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
-                    ?: emptyList(),
-                avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0
-            )
-
-            result[intKey] = plan
+        try {
+            for (id in ids) {
+                val snapshot = db.collection("Data").document("trainPlans").get().await()
+                val map = snapshot.get(id.toString()) as? Map<*, *> ?: continue
+                val trainPlan = TrainPlan(
+                    id = (map["id"] as? Long)?.toInt() ?: -1,
+                    name = map["name"] as? String ?: "",
+                    description = map["description"] as? String ?: "",
+                    durationDaysPerTrainingWeek = (map["durationDaysPerTrainingWeek"] as? Long)?.toInt()
+                        ?: 0,
+                    workoutsIds = (map["workoutsIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    coachId = map["coachId"] as? Int ?: -1,
+                    difficultyLevel = map["difficultyLevel"] as? String ?: "",
+                    imageUrl = map["imageUrl"] as? String ?: "",
+                    trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0)
+                list.add(trainPlan)
+            }
+        } catch (e: Exception) {
         }
+
+        return list
+    }
+
+    override suspend fun getAllTrainPlans(): List<TrainPlan> {
+        val snapshot = db.collection("Data").document("trainPlans").get().await()
+        val result = mutableListOf<TrainPlan>()
+        try {
+            for ((_, value) in snapshot.data ?: emptyMap()) {
+
+                val map = value as? Map<*, *> ?: continue
+                val plan = TrainPlan(
+                    id = (map["id"] as? Long)?.toInt() ?: continue,
+                    name = map["name"] as? String ?: "",
+                    description = map["description"] as? String ?: "",
+                    durationDaysPerTrainingWeek = (map["durationDaysPerTrainingWeek"] as? Long)?.toInt()
+                        ?: 0,
+                    workoutsIds = (map["workoutsIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    coachId = map["coachId"] as? Int ?: -1,
+                    difficultyLevel = map["difficultyLevel"] as? String ?: "",
+                    imageUrl = map["imageUrl"] as? String ?: "",
+                    trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                        ?: emptyList(),
+                    avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0)
+                Log.e("testv", plan.id.toString())
+                Log.e("testv", plan.name.toString())
+                result.add(plan)
+            }
+        }catch (e: Exception){ }
 
         return result
     }
@@ -285,12 +392,11 @@ class RemoteDataSourceImpl(
         )
     }
 
-    override suspend fun getAllCategories(): Map<Int, Category> {
+    override suspend fun getAllCategories(): List<Category> {
         val snapshot = db.collection("Data").document("categories").get().await()
-        val result = mutableMapOf<Int, Category>()
+        val result = mutableListOf<Category>()
 
-        for ((key, value) in snapshot.data ?: emptyMap()) {
-            val intKey = key.toIntOrNull() ?: continue
+        for ((_, value) in snapshot.data ?: emptyMap()) {
             val map = value as? Map<*, *> ?: continue
 
             val category = Category(
@@ -300,32 +406,61 @@ class RemoteDataSourceImpl(
                 iconUrl = map["iconUrl"] as? String ?: ""
             )
 
-            result[intKey] = category
+            result.add(category)
         }
 
         return result
     }
 
-
-    override suspend fun addCoach(coach: Map<Int, Coach>) {
+    override suspend fun addCoach(coach: Coach) {
         db.collection("Data").document("coaches")
-            .set(
-                coach.mapKeys { entry -> entry.key.toString() }.mapValues { entry ->
-                    mapOf(
-                        "id" to entry.value.id,
-                        "name" to entry.value.name,
-                        "specializationIds" to entry.value.specializationIds,
-                        "experienceYears" to entry.value.experienceYears,
-                        "certifications" to entry.value.certifications,
-                        "bio" to entry.value.bio,
-                        "profileImageUrl" to entry.value.profileImageUrl,
-                        "contactEmail" to entry.value.contactEmail,
-                        "contactPhone" to entry.value.contactPhone,
-                        "price" to entry.value.price,
-                        "rate" to entry.value.rate
-                    )
-                }
-            )
+            .set(hashMapOf(coach.id.toString() to coach), SetOptions.merge())
     }
 
+    override suspend fun getCoachById(id: Int): Coach? {
+        val snapshot = db.collection("Data").document("coaches").get().await()
+        val map = snapshot.get(id.toString()) as? Map<*, *> ?: return null
+
+        return Coach(
+            id = (map["id"] as? Long)?.toInt() ?: return null,
+            name = map["name"] as? String ?: "",
+            specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                ?: emptyList(),
+            experienceYears = (map["experienceYears"] as? Long)?.toInt() ?: 0,
+            certifications = (map["certifications"] as? List<*>)?.mapNotNull { it as? String },
+            bio = map["bio"] as? String ?: "",
+            profileImageUrl = map["profileImageUrl"] as? String,
+            contactEmail = map["contactEmail"] as? String,
+            contactPhone = map["contactPhone"] as? String,
+            price = (map["price"] as? Double) ?: ((map["price"] as? Long)?.toDouble() ?: 0.0),
+            rate = (map["rate"] as? Double) ?: ((map["rate"] as? Long)?.toDouble() ?: 0.0)
+        )
+
+    }
+
+    override suspend fun getAllCoaches(): List<Coach> {
+        val snapshot = db.collection("Data").document("coaches").get().await()
+        val result = mutableListOf<Coach>()
+        for ((_, value) in snapshot.data ?: emptyMap()) {
+            val map = value as? Map<*, *> ?: continue
+            val coach = Coach(
+                id = (map["id"] as? Long)?.toInt() ?: continue,
+                name = map["name"] as? String ?: "",
+                specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
+                    ?: emptyList(),
+                experienceYears = (map["experienceYears"] as? Long)?.toInt() ?: 0,
+                certifications = (map["certifications"] as? List<*>)?.mapNotNull { it as? String },
+                bio = map["bio"] as? String ?: "",
+                profileImageUrl = map["profileImageUrl"] as? String,
+                contactEmail = map["contactEmail"] as? String,
+                contactPhone = map["contactPhone"] as? String,
+                price = (map["price"] as? Double) ?: ((map["price"] as? Long)?.toDouble() ?: 0.0),
+                rate = (map["rate"] as? Double) ?: ((map["rate"] as? Long)?.toDouble() ?: 0.0)
+            )
+
+            result.add(coach)
+        }
+
+        return result
+    }
 }

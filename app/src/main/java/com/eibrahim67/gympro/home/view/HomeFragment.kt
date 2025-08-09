@@ -2,6 +2,7 @@ package com.eibrahim67.gympro.home.view
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ import com.eibrahim67.gympro.home.view.bottomSheet.ItemListDialogSeeMorePlans
 import com.eibrahim67.gympro.home.viewModel.HomeViewModel
 import com.eibrahim67.gympro.home.viewModel.HomeViewModelFactory
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
-import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -37,9 +38,6 @@ class HomeFragment : Fragment() {
 
     private val adapterRVFeaturedPlans = AdapterRVFeaturedPlans { id -> goToTrainPlan(id) }
     private val adapterRVTrainers = AdapterRVTrainers { id -> chatWithTrainer(id) }
-
-//    private val adapterRVCategories = AdapterRVCategories()
-//    private val adapterRVOtherWorkouts = AdapterRVOtherWorkouts()
 
     private val utils = UtilsFunctions
 
@@ -65,11 +63,14 @@ class HomeFragment : Fragment() {
     }
 
     private val sharedViewModel: MainViewModel by activityViewModels {
+        val remoteRepository =
+            RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
         val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
-        TrainViewModelFactory(userRepository)
+        MainViewModelFactory(userRepository, remoteRepository)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -235,41 +236,32 @@ class HomeFragment : Fragment() {
             }
         }
 
-//        viewModel.getCategories()
-//        viewModel.categories.observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is ResponseEI.Success -> response.data?.let { adapterRVCategories.submitList(it) }
-//                is ResponseEI.Failure -> utils.createFailureResponse(response, requireContext())
-//                else -> {}
-//            }
-//        }
-
         sharedViewModel.getTrainPlans()
         sharedViewModel.trainPlans.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is ResponseEI.Success -> adapterRVFeaturedPlans.submitList(response.data)
+                is ResponseEI.Success -> {
+                    adapterRVFeaturedPlans.submitList(response.data)
+                }
+
                 is ResponseEI.Failure -> utils.createFailureResponse(response, requireContext())
                 else -> {}
             }
         }
-
-        viewModel.getCoaches()
+        viewModel.getAllCoaches()
         viewModel.coaches.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is ResponseEI.Success -> adapterRVTrainers.submitList(response.data)
-                is ResponseEI.Failure -> utils.createFailureResponse(response, requireContext())
-                else -> {}
+                is ResponseEI.Loading -> {
+                }
+
+                is ResponseEI.Success -> {
+                    adapterRVTrainers.submitList(response.data)
+                }
+
+                is ResponseEI.Failure -> {
+                    utils.createFailureResponse(response, requireContext())
+                }
             }
         }
-
-//        viewModel.getWorkouts()
-//        viewModel.workouts.observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is ResponseEI.Success -> adapterRVOtherWorkouts.submitList(response.data)
-//                is ResponseEI.Failure -> utils.createFailureResponse(response, requireContext())
-//                else -> {}
-//            }
-//        }
 
         viewModel.getCurrentDate()
         viewModel.currentDate.observe(viewLifecycleOwner) { date ->
@@ -293,6 +285,7 @@ class HomeFragment : Fragment() {
     private fun initSetOnClickListener() {
 
         binding.beginTraining.setOnClickListener {
+
             sharedViewModel.navigateRightTo(R.id.action_train)
         }
 

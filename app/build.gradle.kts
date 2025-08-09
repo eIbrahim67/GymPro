@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
