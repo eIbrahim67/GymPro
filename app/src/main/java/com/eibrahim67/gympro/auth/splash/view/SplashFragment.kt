@@ -16,7 +16,7 @@ import com.eibrahim67.gympro.auth.splash.viewModel.SplashViewModelFactory
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.main.view.activities.MainActivity
 

@@ -1,6 +1,6 @@
 package com.eibrahim67.gympro.ocr
 
-import com.eibrahim67.gympro.core.CONST_VALS
+import com.eibrahim67.gympro.core.utils.CONST_VALS
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

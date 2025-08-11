@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
 class NewPasswordViewModel(

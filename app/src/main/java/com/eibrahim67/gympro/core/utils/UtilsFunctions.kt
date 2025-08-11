@@ -2,8 +2,8 @@ package com.eibrahim67.gympro.core.utils
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.eibrahim67.gympro.core.data.response.FailureReason
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.FailureReason
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -16,11 +16,10 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentChatBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
-import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 

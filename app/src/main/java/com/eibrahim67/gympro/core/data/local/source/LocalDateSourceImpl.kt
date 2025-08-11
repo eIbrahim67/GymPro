@@ -11,6 +11,12 @@ class LocalDateSourceImpl(
 
     override suspend fun getLoggedInUser() = userDao.getLoggedInUser()
 
+    override suspend fun updateName(name: String) = userDao.updateName(name)
+
+    override suspend fun updatePhone(phone: String) = userDao.updatePhone(phone)
+
+    override suspend fun updateTypeBody(type: String) = userDao.updateTypeBody(type)
+
     override suspend fun findLoggedInUser() = userDao.findLoggedInUser()
 
     override suspend fun logInUser(email: String) = userDao.logInUser(email)

@@ -26,7 +26,7 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentCreatePlanBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore

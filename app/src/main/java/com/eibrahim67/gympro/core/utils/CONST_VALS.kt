@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.core
+package com.eibrahim67.gympro.core.utils
 
 object CONST_VALS {
 

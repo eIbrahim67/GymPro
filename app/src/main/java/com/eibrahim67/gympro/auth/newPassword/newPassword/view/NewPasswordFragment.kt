@@ -20,7 +20,7 @@ import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
 import com.google.android.material.textfield.TextInputEditText

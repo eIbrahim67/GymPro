@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.profile.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,27 +10,24 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.eibrahim67.gympro.R
+import com.eibrahim67.gympro.auth.authActivity.view.AuthActivity
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentProfileBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.profile.viewModel.ProfileViewModel
-import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.getValue
 
 class ProfileFragment : Fragment() {
 
-    private var _binding : FragmentProfileBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
 
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -44,8 +42,7 @@ class ProfileFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
@@ -61,15 +58,15 @@ class ProfileFragment : Fragment() {
             }
 
             btnBeComeATrainer.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_becomeTrainerFragment)
+//                sharedViewModel.navigateRightTo(R.id.action_becomeTrainerFragment)
             }
 
             btnMyChats.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_myChatsFragment)
+//                sharedViewModel.navigateRightTo(R.id.action_myChatsFragment)
             }
 
             btnMyClients.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_myClientsFragment)
+//                sharedViewModel.navigateRightTo(R.id.action_myClientsFragment)
             }
 
             btnMyPlans.setOnClickListener {
@@ -77,11 +74,11 @@ class ProfileFragment : Fragment() {
             }
 
             btnMyProgress.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_myProgressFragment)
+//                sharedViewModel.navigateRightTo(R.id.action_myProgressFragment)
             }
 
             btnMostImprovedMuscles.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_mostImprovedMusclesFragment)
+//                sharedViewModel.navigateRightTo(R.id.action_mostImprovedMusclesFragment)
             }
 
             btnSecurityPolicies.setOnClickListener {
@@ -97,16 +94,37 @@ class ProfileFragment : Fragment() {
             }
 
             btnLogOut.setOnClickListener {
-                performLogout() // Replace with actual logout logic
+                sharedViewModel.logout()
             }
 
             backBtn.setOnClickListener {
                 findNavController().navigateUp()
             }
+
+        }
+        sharedViewModel.logout.observe(viewLifecycleOwner) { state ->
+
+            sharedViewModel.exerciseById.observe(viewLifecycleOwner) { exercise ->
+                when (state) {
+                    is ResponseEI.Loading -> {}
+                    is ResponseEI.Success -> {
+                        startActivity(Intent(requireContext(), AuthActivity::class.java))
+                        requireActivity().finish()
+                    }
+
+                    is ResponseEI.Failure -> {
+                        Snackbar.make(requireView(), "Something Wrong!", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("Try Again?") {
+                                sharedViewModel.logout()
+
+                            }.show()
+                    }
+                }
+            }
+
         }
     }
 
-    private fun performLogout(){}
 
     override fun onDestroyView() {
         super.onDestroyView()

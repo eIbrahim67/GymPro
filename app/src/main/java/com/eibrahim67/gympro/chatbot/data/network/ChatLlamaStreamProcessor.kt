@@ -1,7 +1,7 @@
 package com.eibrahim67.gympro.chatbot.data.network
 
 import com.eibrahim67.gympro.chatbot.data.network.HttpClient
-import com.eibrahim67.gympro.core.CONST_VALS
+import com.eibrahim67.gympro.core.utils.CONST_VALS
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response

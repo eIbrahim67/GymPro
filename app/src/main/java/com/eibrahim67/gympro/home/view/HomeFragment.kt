@@ -17,7 +17,7 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
 import com.eibrahim67.gympro.databinding.FragmentHomeBinding

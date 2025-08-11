@@ -12,7 +12,7 @@ import com.eibrahim67.gympro.core.data.remote.model.Muscles
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
-import com.eibrahim67.gympro.core.data.response.ResponseEI
+import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.Converters
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
@@ -108,6 +108,13 @@ class MainViewModel(
     ) { remoteRepository.getExerciseById(id) }
 
 
+
+    private val _logout = MutableLiveData<ResponseEI<Unit?>>()
+    val logout: LiveData<ResponseEI<Unit?>> get() = _logout
+    fun logout() = applyResponse(
+        _logout,
+        viewModelScope
+    ) { userRepository.logOutUser() }
 
 
 

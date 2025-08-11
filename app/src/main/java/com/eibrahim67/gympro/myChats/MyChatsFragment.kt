@@ -19,7 +19,6 @@ import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.myChats.adapter.ChatMessagesAdapter
-import com.eibrahim67.gympro.train.viewModel.TrainViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.getValue
 
