@@ -65,7 +65,7 @@ class MyTrainingPlansFragment : Fragment() {
             sharedViewModel.navigateRightTo(R.id.action_createPlanFragment)
         }
         val adapterRVMyFeaturedPlans = AdapterRVMyFeaturedPlans { id -> goToTrainPlan(id) }
-        binding.recyclerviewWorkoutsTrainPlans.adapter = adapterRVMyFeaturedPlans
+        binding.recyclerviewFeaturePlans.adapter = adapterRVMyFeaturedPlans
 
         viewModel.getLoggedInUser()
         viewModel.loggedInUser.observe(viewLifecycleOwner) { user ->

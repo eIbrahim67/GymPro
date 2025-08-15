@@ -113,5 +113,14 @@
         android:name="com.eibrahim67.gympro.createPlan.CreatePlanFragment"
         android:label="CreatePlanFragment" />
 
+    <fragment
+        android:id="@+id/action_createWorkoutFragment"
+        android:name="com.eibrahim67.gympro.createWorkout.CreateWorkoutFragment"
+        android:label="CreateWorkoutFragment" />
+
+    <fragment
+        android:id="@+id/action_myWorkoutsFragment"
+        android:name="com.eibrahim67.gympro.myWorkouts.MyWorkoutsFragment"
+        android:label="WorkoutsFragment" />
 
 </navigation>

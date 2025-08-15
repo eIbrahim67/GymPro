@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.main.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -74,7 +73,7 @@ class MainViewModel(
 
     private val _musclesByIds = MutableLiveData<ResponseEI<List<Muscles>?>>()
     val musclesByIds: LiveData<ResponseEI<List<Muscles>?>> get() = _musclesByIds
-    fun getmusclesByIds(ids: List<Int>) = applyResponse(
+    fun getMusclesByIds(ids: List<Int>) = applyResponse(
         _musclesByIds,
         viewModelScope
     ) { remoteRepository.getMusclesByIds(ids) }

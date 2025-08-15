@@ -107,7 +107,7 @@
             android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@id/searchBar"
             tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet"
-            tools:listitem="@layout/item_full_featured_plans" />
+            tools:listitem="@layout/item_full_featured" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

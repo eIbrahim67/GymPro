@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/itemImageFeaturePlan"
+            android:id="@+id/item_feature_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="Image Feature Plan"
@@ -24,46 +24,47 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemTitleFeaturePlan"
+            android:id="@+id/itemFeatureName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/google_sans"
-            android:textStyle="bold"
             android:textColor="@color/primary_color"
-            app:layout_constraintEnd_toEndOf="parent"
             android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemDurationFeaturePlan"
+            android:id="@+id/itemFeatureDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:maxWidth="150dp"
             android:fontFamily="@font/google_sans"
-            android:textStyle="italic"
+            android:maxWidth="150dp"
             android:textColor="@color/primary_color"
             android:textSize="14sp"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemTitleFeaturePlan" />
+            app:layout_constraintTop_toBottomOf="@id/itemFeatureName" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/itemSeeDetailsFeaturePlan"
+            android:id="@+id/itemFeatureSeeDetails"
             style="@style/Widget.Material3.Button"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/itemFeatureDelete"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemDurationFeaturePlan"
+            app:layout_constraintTop_toBottomOf="@id/itemFeatureDescription"
             app:strokeWidth="0dp">
 
             <TextView
@@ -71,6 +72,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="See Details"
+                android:textColor="@color/primary_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/itemFeatureDelete"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/itemFeatureSeeDetails"
+            app:layout_constraintTop_toBottomOf="@id/itemFeatureDescription"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Delete"
                 android:textColor="@color/primary_black"
                 android:textSize="14sp"
                 android:textStyle="bold" />

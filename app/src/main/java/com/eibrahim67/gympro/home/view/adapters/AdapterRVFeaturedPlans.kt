@@ -76,11 +76,11 @@ class AdapterRVFeaturedPlans(
     override fun getItemCount(): Int = differ.currentList.size
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageFeaturePlan: ImageView = itemView.findViewById(R.id.itemImageFeaturePlan)
-        val titleFeaturePlan: TextView = itemView.findViewById(R.id.itemTitleFeaturePlan)
-        val infoFeaturePlan: TextView = itemView.findViewById(R.id.itemDurationFeaturePlan)
+        val imageFeaturePlan: ImageView = itemView.findViewById(R.id.item_feature_image)
+        val titleFeaturePlan: TextView = itemView.findViewById(R.id.itemFeatureName)
+        val infoFeaturePlan: TextView = itemView.findViewById(R.id.itemFeatureDescription)
         val seeDetailsFeaturePlan: MaterialCardView =
-            itemView.findViewById(R.id.itemSeeDetailsFeaturePlan)
+            itemView.findViewById(R.id.itemFeatureSeeDetails)
 
     }
 }

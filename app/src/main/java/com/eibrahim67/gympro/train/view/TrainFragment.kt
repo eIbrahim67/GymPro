@@ -106,7 +106,7 @@ class TrainFragment : Fragment() {
                     binding.trainDescription.text = response.data?.description
 
                     response.data?.let {
-                        sharedViewModel.getmusclesByIds(it.targetedMuscleIds)
+                        sharedViewModel.getMusclesByIds(it.targetedMuscleIds)
                         sharedViewModel.getWorkoutsByIds(it.workoutsIds)
                     }
                 }

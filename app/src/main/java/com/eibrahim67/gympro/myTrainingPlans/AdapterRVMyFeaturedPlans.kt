@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
-import com.eibrahim67.gympro.databinding.ItemMyFeaturedPlansBinding
+import com.eibrahim67.gympro.databinding.ItemMyFeaturedBinding
 
 class AdapterRVMyFeaturedPlans(
     private val goToTrainPlan: ((id: Int) -> Unit)
@@ -17,7 +17,7 @@ class AdapterRVMyFeaturedPlans(
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val binding = ItemMyFeaturedPlansBinding.inflate(
+        val binding = ItemMyFeaturedBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return CategoryViewHolder(binding)
@@ -35,16 +35,16 @@ class AdapterRVMyFeaturedPlans(
             Glide.with(root.context)
                 .load(item.imageUrl)
                 .centerCrop()
-                .into(itemImageFeaturePlan)
+                .into(itemFeatureImage)
 
-            itemTitleFeaturePlan.text = item.name
-            itemDurationFeaturePlan.text = "${item.durationDaysPerTrainingWeek} Day per training week"
+            itemFeatureName.text = item.name
+            itemFeatureDescription.text = "${item.durationDaysPerTrainingWeek} Day per training week"
 
-            itemSeeDetailsFeaturePlan.setOnClickListener {
+            itemFeatureSeeDetails.setOnClickListener {
                 goToTrainPlan(item.id)
             }
 
-            deletePlan.setOnClickListener {
+            itemFeatureDelete.setOnClickListener {
 
             }
         }
@@ -69,6 +69,6 @@ class AdapterRVMyFeaturedPlans(
         }
     }
 
-    class CategoryViewHolder(val binding: ItemMyFeaturedPlansBinding) :
+    class CategoryViewHolder(val binding: ItemMyFeaturedBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

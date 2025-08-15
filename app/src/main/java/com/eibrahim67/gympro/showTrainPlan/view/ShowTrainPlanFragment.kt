@@ -85,7 +85,7 @@ class ShowTrainPlanFragment : Fragment() {
     }
 
     private fun initUI() {
-        binding.recyclerviewWorkoutsTrainPlans.adapter = adapterRVWorkouts
+        binding.recyclerviewFeaturePlans.adapter = adapterRVWorkouts
     }
 
     private fun initObservers() {
@@ -104,7 +104,7 @@ class ShowTrainPlanFragment : Fragment() {
                     binding.trainPlanAvgTime.text = "${plan.avgTimeMinPerWorkout} min"
                     binding.trainPlanDaysPerTrainingWeek.text = "${plan.durationDaysPerTrainingWeek} Days"
                     sharedViewModel.getCoachById(plan.coachId ?: 0)
-                    sharedViewModel.getmusclesByIds(plan.targetedMuscleIds ?: emptyList())
+                    sharedViewModel.getMusclesByIds(plan.targetedMuscleIds ?: emptyList())
                     plan.workoutsIds?.let { sharedViewModel.getWorkoutsByIds(it) }
                 }
 

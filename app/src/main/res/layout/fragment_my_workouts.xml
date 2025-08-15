@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".myWorkouts.MyWorkoutsFragment"
     android:background="@color/primary_color">
 
     <androidx.core.widget.NestedScrollView
@@ -61,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Training Plans"
+                android:text="My Workouts"
                 android:textColor="@color/primary_black"
                 android:textSize="28sp"
                 android:textStyle="bold"
@@ -71,7 +72,9 @@
                 app:layout_constraintTop_toTopOf="@id/backBtn" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewFeaturePlans"
+                android:id="@+id/recyclerviewWorkouts"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_my_featured"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -80,9 +83,7 @@
                 android:minHeight="500dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/backBtn"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_full_featured" />
+                app:layout_constraintTop_toBottomOf="@+id/backBtn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,20 +92,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/primary_color"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/addNewPlan"
+            android:id="@+id/addNewWorkout"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="10dp"
             app:strokeColor="@color/primary_color"
@@ -114,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Add New Plan"
+                android:text="Add New Workout"
                 android:textColor="@color/primary_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />

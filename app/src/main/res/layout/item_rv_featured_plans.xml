@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/itemImageFeaturePlan"
+            android:id="@+id/item_feature_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="Image Feature Plan"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemTitleFeaturePlan"
+            android:id="@+id/itemFeatureName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemDurationFeaturePlan"
+            android:id="@+id/itemFeatureDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -55,10 +55,10 @@
             android:textColor="@color/primary_color"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemTitleFeaturePlan" />
+            app:layout_constraintTop_toBottomOf="@id/itemFeatureName" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/itemSeeDetailsFeaturePlan"
+            android:id="@+id/itemFeatureSeeDetails"
             style="@style/Widget.Material3.Button"
             android:layout_width="150dp"
             android:layout_height="40dp"
@@ -68,7 +68,7 @@
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemDurationFeaturePlan"
+            app:layout_constraintTop_toBottomOf="@id/itemFeatureDescription"
             app:strokeWidth="0dp">
 
             <TextView
