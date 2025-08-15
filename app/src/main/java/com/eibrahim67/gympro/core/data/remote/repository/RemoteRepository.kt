@@ -17,12 +17,14 @@ interface RemoteRepository {
     suspend fun addExercises(exercises: Map<Int, Exercise>)
     suspend fun getExerciseById(id: Int): Exercise?
     suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>?
-    suspend fun getAllExercises(): Map<Int, Exercise>
+    suspend fun getAllExercises(): List<Exercise?>
 
-    suspend fun addWorkouts(workouts: Map<Int, Workout>)
+    suspend fun addWorkouts(workouts: Workout)
     suspend fun getWorkoutById(id: Int): Workout?
     suspend fun getWorkoutsByIds(ids: List<Int>): List<Workout>?
     suspend fun getAllWorkouts(): List<Workout>
+    suspend fun getMyWorkoutsIds(id: Int): List<Int>?
+    suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int)
 
     suspend fun addTrainPlans(trainPlans: TrainPlan)
     suspend fun addTrainPlanId(coachId: Int, newPlanId: Int)

@@ -7,6 +7,7 @@ import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.Muscles
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.tasks.await
@@ -50,12 +51,12 @@ class RemoteDataSourceImpl(
         return list
     }
 
-    override suspend fun getAllMuscles(): List<Muscles?> {
+    override suspend fun getAllMuscles(): List<Muscles> {
         val documentSnapshot = db.collection("Data").document("muscles").get().await()
         val result = mutableListOf<Muscles>()
 
-        for (value in documentSnapshot.data ?: emptyMap()) {
-            val muscleMap = value as? Map<*, *> ?: continue
+        for ((_, data) in documentSnapshot.data ?: emptyMap()) {
+            val muscleMap = data as? Map<*, *> ?: continue
             val id = (muscleMap["id"] as? Long)?.toInt() ?: continue
             val name = muscleMap["name"] as? String ?: continue
             result.add(Muscles(id, name))
@@ -63,6 +64,7 @@ class RemoteDataSourceImpl(
 
         return result
     }
+
 
     override suspend fun addExercises(exercises: Map<Int, Exercise>) {
         val data = exercises.mapKeys { it.key.toString() }.mapValues { (_, ex) ->
@@ -130,12 +132,11 @@ class RemoteDataSourceImpl(
         return list
     }
 
-    override suspend fun getAllExercises(): Map<Int, Exercise> {
+    override suspend fun getAllExercises(): List<Exercise?> {
         val documentSnapshot = db.collection("Data").document("exercises").get().await()
-        val result = mutableMapOf<Int, Exercise>()
+        val result = mutableListOf<Exercise>()
 
-        for ((key, value) in documentSnapshot.data ?: emptyMap()) {
-            val intKey = key.toIntOrNull() ?: continue
+        for ((_, value) in documentSnapshot.data ?: emptyMap()) {
             val map = value as? Map<*, *> ?: continue
 
             val exercise = Exercise(
@@ -153,29 +154,16 @@ class RemoteDataSourceImpl(
                 imageUrl = map["imageUrl"] as? String ?: "",
                 videoUrl = map["videoUrl"] as? String ?: "")
 
-            result[intKey] = exercise
+            result.add(exercise)
         }
 
         return result
     }
 
-    override suspend fun addWorkouts(workouts: Map<Int, Workout>) {
-        val data = workouts.mapKeys { it.key.toString() }.mapValues { (_, w) ->
-            mapOf(
-                "id" to w.id,
-                "name" to w.name,
-                "description" to w.description,
-                "durationMinutes" to w.durationMinutes,
-                "exerciseIds" to w.exerciseIds,
-                "targetedMuscleIds" to w.targetedMuscleIds,
-                "coachId" to w.coachId,
-                "difficultyLevel" to w.difficultyLevel,
-                "imageUrl" to w.imageUrl,
-                "equipment" to w.equipment
-            )
-        }
+    override suspend fun addWorkouts(workout: Workout) {
 
-        db.collection("Data").document("workouts").set(data).await()
+        db.collection("Data").document("workouts")
+            .set(hashMapOf(workout.id.toString() to workout), SetOptions.merge())
     }
 
     override suspend fun getWorkoutById(id: Int): Workout? {
@@ -219,7 +207,8 @@ class RemoteDataSourceImpl(
                     equipment = map["equipment"] as? String ?: "")
                 list.add(workout)
             }
-        } catch (e: Exception) { }
+        } catch (e: Exception) {
+        }
 
         return list
     }
@@ -228,9 +217,8 @@ class RemoteDataSourceImpl(
         val snapshot = db.collection("Data").document("workouts").get().await()
         val result = mutableListOf<Workout>()
 
-        for (value in snapshot.data ?: emptyMap()) {
-
-            val map = value as? Map<*, *> ?: continue
+        for ((_, data) in snapshot.data ?: emptyMap()) {
+            val map = data as? Map<*, *> ?: continue
 
             val workout = Workout(
                 id = (map["id"] as? Long)?.toInt() ?: continue,
@@ -241,16 +229,38 @@ class RemoteDataSourceImpl(
                     ?: emptyList(),
                 targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),
-                coachId = map["coachId"] as? Int ?: -1,
+                coachId = (map["coachId"] as? Long)?.toInt() ?: -1,
                 difficultyLevel = map["difficultyLevel"] as? String ?: "",
                 imageUrl = map["imageUrl"] as? String ?: "",
-                equipment = map["equipment"] as? String ?: "")
+                equipment = map["equipment"] as? String ?: ""
+            )
 
             result.add(workout)
         }
 
         return result
     }
+
+    override suspend fun getMyWorkoutsIds(id: Int): List<Int>? {
+        val snapshot = db.collection("Data").document("coachWorkoutsId").get().await()
+
+        return snapshot.get(id.toString()) as? List<Int>
+    }
+
+    override suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int) {
+        val docRef = db.collection("Data").document("coachWorkoutsId")
+
+        docRef.update(
+            coachId.toString(),
+            FieldValue.arrayUnion(newWorkoutId)
+        ).addOnSuccessListener {
+            Log.d("Firestore", "Workout ID added successfully")
+        }.addOnFailureListener { e ->
+            Log.e("Firestore", "Error updating list", e)
+        }
+    }
+
+
 
     override suspend fun addTrainPlans(trainPlan: TrainPlan) {
         db.collection("Data").document("trainPlans")
@@ -362,7 +372,8 @@ class RemoteDataSourceImpl(
                 Log.e("testv", plan.name.toString())
                 result.add(plan)
             }
-        }catch (e: Exception){ }
+        } catch (e: Exception) {
+        }
 
         return result
     }

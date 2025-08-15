@@ -38,16 +38,6 @@ class CreatePlanViewModel(
         }
     }
 
-    private val _exercises = MutableLiveData<ResponseEI<Map<Int, Exercise?>>>()
-
-    val exercises: LiveData<ResponseEI<Map<Int, Exercise?>>> get() = _exercises
-
-    fun getAllExercises() {
-        applyResponse(_exercises, viewModelScope) {
-            remoteRepository.getAllExercises()
-        }
-    }
-
     private val _workouts = MutableLiveData<ResponseEI<List<Workout?>>>()
     val workouts: LiveData<ResponseEI<List< Workout?>>> get() = _workouts
 
@@ -67,10 +57,10 @@ class CreatePlanViewModel(
     }
 
     private val _addedTrainPlanId = MutableLiveData<ResponseEI<Unit>>()
-    val addedTrainPlanId: LiveData<ResponseEI<Unit>> get() = _createPlan
+    val addedTrainPlanId: LiveData<ResponseEI<Unit>> get() = _addedTrainPlanId
 
     fun addTrainPlanId(coachId: Int, newPlanId: Int) {
-        applyResponse(_createPlan, viewModelScope) {
+        applyResponse(_addedTrainPlanId, viewModelScope) {
             remoteRepository.addTrainPlanId(coachId, newPlanId)
         }
     }

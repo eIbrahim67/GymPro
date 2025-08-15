@@ -7,11 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
@@ -80,10 +77,10 @@ class ItemListDialogSeeMorePlans(
     private inner class ViewHolder internal constructor(binding: FragmentItemListDialogSeeMorePlansListDialogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val itemTitleFeaturePlan = binding.itemTitleFeaturePlan
-        val itemImageFeaturePlan = binding.itemImageFeaturePlan
-        val itemSeeDetailsFeaturePlan = binding.itemSeeDetailsFeaturePlan
-        val itemDurationFeaturePlan = binding.itemDurationFeaturePlan
+        val itemTitleFeaturePlan = binding.itemFeatureName
+        val itemImageFeaturePlan = binding.itemFeatureImage
+        val itemSeeDetailsFeaturePlan = binding.itemFeatureSeeDetails
+        val itemDurationFeaturePlan = binding.itemFeatureDescription
     }
 
     private inner class ItemAdapter(

@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.core.data.remote.repository
 
+import android.util.Log
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
@@ -25,6 +26,7 @@ class RemoteRepositoryImpl(
     }
 
     override suspend fun getAllMuscles(): List<Muscles?> {
+        Log.e("teet", remoteDataSource.getAllMuscles().toString())
         return remoteDataSource.getAllMuscles()
     }
 
@@ -40,11 +42,11 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getExercisesByIds(ids)
     }
 
-    override suspend fun getAllExercises(): Map<Int, Exercise> {
+    override suspend fun getAllExercises(): List<Exercise?> {
         return remoteDataSource.getAllExercises()
     }
 
-    override suspend fun addWorkouts(workouts: Map<Int, Workout>) {
+    override suspend fun addWorkouts(workouts: Workout) {
         remoteDataSource.addWorkouts(workouts)
     }
 
@@ -58,6 +60,14 @@ class RemoteRepositoryImpl(
 
     override suspend fun getAllWorkouts(): List<Workout> {
         return remoteDataSource.getAllWorkouts()
+    }
+
+    override suspend fun getMyWorkoutsIds(id: Int): List<Int>? {
+        return remoteDataSource.getMyWorkoutsIds(id)
+    }
+
+    override suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int) {
+        remoteDataSource.addWorkoutId(coachId, newWorkoutId)
     }
 
     override suspend fun addTrainPlanId(coachId: Int, newPlanId: Int) {
@@ -84,9 +94,10 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getMyTrainPlansIds(id)
     }
 
+
     override suspend fun addCoach(coach: Coach) = remoteDataSource.addCoach(coach)
 
-    override suspend fun getCoachById(id: Int)  : Coach?{
+    override suspend fun getCoachById(id: Int): Coach? {
         return remoteDataSource.getCoachById(id)
     }
 
