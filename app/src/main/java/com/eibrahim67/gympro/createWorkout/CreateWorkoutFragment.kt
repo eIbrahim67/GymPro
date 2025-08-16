@@ -46,6 +46,7 @@ class CreateWorkoutFragment : Fragment() {
     var selectedExerciseIds: List<Int>? = null
 
     private var selectedImageUrl: String? = null
+    private var imageUploaded: Boolean = false
 
     private val viewModel: CreateWorkoutViewModel by viewModels {
         val remoteRepository =
@@ -230,7 +231,6 @@ class CreateWorkoutFragment : Fragment() {
     }
 
     private fun createWorkout(): Workout? {
-        showSnackbar(selectedImageUrl.toString())
         val name = binding.workoutNameEditText.text.toString().trim()
         val description = binding.descriptionEditText.text.toString().trim()
         val duration = binding.durationEditText.text.toString().toIntOrNull()
@@ -270,6 +270,11 @@ class CreateWorkoutFragment : Fragment() {
             binding.equipments.error = "Add equipments is required"
             return null
         }
+        if (!imageUploaded){
+            Snackbar.make(requireView(), "Wait until image upload successfully", Snackbar.LENGTH_LONG).show()
+            return null
+        }
+
 
         return Workout(
             id = generateUniqueIntId(),
@@ -338,6 +343,7 @@ class CreateWorkoutFragment : Fragment() {
                 Glide.with(requireContext()).load(uri)
                     .into(binding.imageFeatureWorkout)
                 uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
+                imageUploaded = false
             }
         }
 
@@ -388,18 +394,20 @@ class CreateWorkoutFragment : Fragment() {
             storageRef.downloadUrl.addOnSuccessListener { uri ->
                 selectedImageUrl = uri.toString()
                 Log.d("Upload", "Image uploaded: $selectedImageUrl")
+                imageUploaded = true
             }.addOnFailureListener { e ->
                 Log.e("Upload", "Failed to get download URL", e)
                 selectedImageUrl = null
+                imageUploaded = false
                 showSnackbar("Failed to get image URL.")
             }
         }.addOnFailureListener { e ->
             Log.e("Upload", "Upload failed", e)
             selectedImageUrl = null
+            imageUploaded = false
             showSnackbar("Image upload failed. Please try again.")
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

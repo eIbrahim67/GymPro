@@ -46,6 +46,7 @@ class CreatePlanFragment : Fragment() {
     var selectedCategoriesIds: List<Int>? = null
 
     private var selectedImageUrl: String? = null
+    private var imageUploaded: Boolean = false
 
 
     private val viewModel: CreatePlanViewModel by viewModels {
@@ -324,7 +325,10 @@ class CreatePlanFragment : Fragment() {
             binding.avgTimeMin.error = "Valid average time is required"
             return null
         }
-
+        if (!imageUploaded){
+            Snackbar.make(requireView(), "Wait until image upload successfully", Snackbar.LENGTH_LONG).show()
+            return null
+        }
         return TrainPlan(
             id = generateUniqueIntId(),
             name = name,
@@ -379,6 +383,7 @@ class CreatePlanFragment : Fragment() {
                 Glide.with(requireContext()).load(uri)
                     .into(binding.imageFeaturePlan)
                 uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
+                imageUploaded = false
             }
         }
 
@@ -429,13 +434,16 @@ class CreatePlanFragment : Fragment() {
             storageRef.downloadUrl.addOnSuccessListener { uri ->
                 selectedImageUrl = uri.toString()
                 Log.d("Upload", "Image uploaded: $selectedImageUrl")
+                imageUploaded = true
             }.addOnFailureListener { e ->
                 Log.e("Upload", "Failed to get download URL", e)
                 selectedImageUrl = null
+                imageUploaded = false
                 showSnackbar("Failed to get image URL.")
             }
         }.addOnFailureListener { e ->
             Log.e("Upload", "Upload failed", e)
+            imageUploaded = false
             selectedImageUrl = null
             showSnackbar("Image upload failed. Please try again.")
         }
