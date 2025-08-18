@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
@@ -21,7 +20,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.getValue
 
 class BottomSheetAddNewSet : BottomSheetDialogFragment() {
 
@@ -49,47 +47,38 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
     }
 
     private fun initObservers() {
-        sharedViewModel.fetchDateExerciseData()
-        sharedViewModel.userDataExercise.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {}
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
-                }
-            }
-        }
-        sharedViewModel.updateUserExerciseState.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {}
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
-                }
-            }
-        }
-        sharedViewModel.updateUserExercise.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ResponseEI.Loading -> {}
-                is ResponseEI.Success -> {
-                    sharedViewModel.fetchDateExerciseData()
-                }
 
-                is ResponseEI.Failure -> {
-                    createFailureResponse(ResponseEI.Failure(response.reason), requireContext())
-                }
-            }
-        }
     }
 
     private fun initListener() {
         bottomSheetAddNewSetBtn.setOnClickListener {
+
             val weight = itemExerciseWeight.text.toString()
             val reps = itemExerciseReps.text.toString()
-            sharedViewModel.exerciseId.value?.let { id ->
-                sharedViewModel.updateUserExercise(id, weight, reps)
+
+            if (weight.isNotEmpty() && reps.isNotEmpty()) {
+
+                sharedViewModel.userDataExercise.value?.let { userDataExercise ->
+
+                    when (userDataExercise) {
+                        is ResponseEI.Loading -> {}
+
+                        is ResponseEI.Success -> {
+
+                            var updatedMap = mutableMapOf<Int, MutableList<String>>()
+                                updatedMap = userDataExercise.data as MutableMap<Int, MutableList<String>>
+
+                            updatedMap.getOrPut(sharedViewModel.exerciseId.value ?: -1) { mutableListOf() }.add("$weight#$reps")
+                            sharedViewModel.updateExerciseMap(updatedMap)
+                        }
+
+                        is ResponseEI.Failure -> {
+                        }
+                    }
+
+                }
+                dismiss()
             }
-            dismiss()
         }
     }
 
@@ -102,9 +91,7 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.bottom_sheet_add_new_set_exercise, container, false)
     }

@@ -107,17 +107,12 @@ class MainViewModel(
     ) { remoteRepository.getExerciseById(id) }
 
 
-
     private val _logout = MutableLiveData<ResponseEI<Unit?>>()
     val logout: LiveData<ResponseEI<Unit?>> get() = _logout
     fun logout() = applyResponse(
         _logout,
         viewModelScope
     ) { userRepository.logOutUser() }
-
-
-
-
 
 
     private val _userDataExercise = MutableLiveData<ResponseEI<Map<Int, MutableList<String>>>>()
@@ -129,35 +124,10 @@ class MainViewModel(
         }
     }
 
-    private val _updateUserExerciseState = MutableLiveData<ResponseEI<Unit>>()
-    val updateUserExerciseState: LiveData<ResponseEI<Unit>> get() = _updateUserExerciseState
-    fun updateUserExercise(id: Int, weight: String, reps: String) {
-        when (val currentExerciseData = _userDataExercise.value) {
-            is ResponseEI.Loading -> {
-                _updateUserExerciseState.value = ResponseEI.Loading
-            }
-
-            is ResponseEI.Success -> {
-
-                val updatedMap: MutableMap<Int, MutableList<String>> =
-                    currentExerciseData.data as MutableMap<Int, MutableList<String>>
-
-                updatedMap.getOrPut(id) { mutableListOf() }.add("$weight#$reps")
-                _updateUserExerciseState.value = ResponseEI.Success(Unit)
-                updateExerciseMap(updatedMap)
-            }
-
-            is ResponseEI.Failure -> {
-                _updateUserExerciseState.value = ResponseEI.Failure(currentExerciseData.reason)
-            }
-
-            null -> {}
-        }
-    }
 
     private val _updateUserExercise = MutableLiveData<ResponseEI<Unit>>()
     val updateUserExercise: LiveData<ResponseEI<Unit>> get() = _updateUserExercise
-    private fun updateExerciseMap(updatedData: Map<Int, MutableList<String>>) {
+    fun updateExerciseMap(updatedData: Map<Int, MutableList<String>>) {
         applyResponse(_updateUserExercise, viewModelScope) {
             userRepository.updateUserExerciseData(updatedData)
         }

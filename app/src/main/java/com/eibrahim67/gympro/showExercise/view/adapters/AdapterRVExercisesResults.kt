@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.showExercise.view.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,7 @@ import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialog
 
 class AdapterRVExercisesResults(
 
-) :
-    RecyclerView.Adapter<AdapterRVExercisesResults.CategoryViewHolder>() {
+) : RecyclerView.Adapter<AdapterRVExercisesResults.CategoryViewHolder>() {
 
     private lateinit var context: Context
 
@@ -35,6 +35,7 @@ class AdapterRVExercisesResults(
         holder.itemExerciseSet.text = (position + 1).toString()
 
         differ.currentList[position].let { data ->
+            Log.e("sharedViewModel", "${differ.currentList}")
 
             try {
                 val sData: List<String?> = data.split("#")
@@ -42,18 +43,14 @@ class AdapterRVExercisesResults(
                 holder.itemExerciseReps.text = "${sData[1] ?: " error "}"
             } catch (e: Exception) {
                 createMaterialAlertDialogBuilderOk(
-                    context,
-                    "Error in data",
-                    e.message.toString(),
-                    "Ok"
+                    context, "Error in data", e.message.toString(), "Ok"
                 ) {}
             }
         }
 
     }
 
-    private val differ: AsyncListDiffer<String> =
-        AsyncListDiffer(this, DIFF_CALLBACK)
+    private val differ: AsyncListDiffer<String> = AsyncListDiffer(this, DIFF_CALLBACK)
 
 
     fun submitList(articleList: List<String>?) {
@@ -63,14 +60,11 @@ class AdapterRVExercisesResults(
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(
-                oldItem: String,
-                newItem: String
-            ): Boolean =
-                oldItem === newItem // this is data class
+                oldItem: String, newItem: String
+            ): Boolean = oldItem === newItem
 
             override fun areContentsTheSame(
-                oldItem: String,
-                newItem: String
+                oldItem: String, newItem: String
             ): Boolean = oldItem == newItem
         }
     }
