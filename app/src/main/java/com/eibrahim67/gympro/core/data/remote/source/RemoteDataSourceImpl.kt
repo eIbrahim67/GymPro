@@ -24,7 +24,7 @@ class RemoteDataSourceImpl(
         }
 
         db.collection("Data").document("muscles").set(musclesMap)
-            .await() // using kotlinx-coroutines-play-services
+            .await()
     }
 
     override suspend fun getMuscleById(id: Int): Muscles? {

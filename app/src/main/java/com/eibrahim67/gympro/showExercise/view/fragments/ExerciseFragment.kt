@@ -1,20 +1,17 @@
 package com.eibrahim67.gympro.showExercise.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
@@ -23,27 +20,17 @@ import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
+import com.eibrahim67.gympro.databinding.FragmentExerciseBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.showExercise.view.adapters.AdapterRVExercisesResults
 import com.eibrahim67.gympro.showExercise.view.bottomSheets.BottomSheetAddNewSet
-import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExerciseFragment : Fragment() {
 
-    private lateinit var exerciseImage: ImageView
-    private lateinit var exerciseHistoryBtnSrc: ImageView
-    private lateinit var exerciseTitle: TextView
-    private lateinit var exerciseHint: TextView
-    private lateinit var exerciseHintFirstSet: TextView
-    private lateinit var recyclerviewExerciseSetsDetails: RecyclerView
-    private lateinit var recyclerviewExerciseHistory: RecyclerView
-    private lateinit var exerciseDoneBtn: MaterialCardView
-    private lateinit var addNewSetBtn: MaterialCardView
-    private lateinit var backBtn: MaterialCardView
-    private lateinit var exerciseHistory: MaterialCardView
-    private lateinit var exerciseDoneBtnLayout: RelativeLayout
+    private var _binding: FragmentExerciseBinding? = null
+    private val binding get() = _binding!!
 
     private val adapterRVExercisesCurrent = AdapterRVExercisesResults()
     private val adapterRVExercisesHistory = AdapterRVExercisesResults()
@@ -57,43 +44,36 @@ class ExerciseFragment : Fragment() {
         MainViewModelFactory(userRepository, remoteRepository)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentExerciseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi(view)
+        initUi()
         initListeners()
         initObservers()
     }
 
-    private fun initUi(view: View) {
-        exerciseImage = view.findViewById(R.id.exerciseImage)
-        exerciseHistoryBtnSrc = view.findViewById(R.id.exerciseHistoryBtnSrc)
-        exerciseTitle = view.findViewById(R.id.exerciseTitle)
-        exerciseHint = view.findViewById(R.id.exerciseHint)
-        exerciseHintFirstSet = view.findViewById(R.id.exerciseHintFirstSet)
-        addNewSetBtn = view.findViewById(R.id.addNewSetBtn)
-        exerciseDoneBtn = view.findViewById(R.id.exerciseDoneBtn)
-        backBtn = view.findViewById(R.id.exerciseBackBtn)
-        exerciseHistory = view.findViewById(R.id.exerciseHistory)
-        exerciseDoneBtnLayout = view.findViewById(R.id.exerciseDoneBtnLayout)
-
-        recyclerviewExerciseSetsDetails = view.findViewById(R.id.recyclerviewExerciseSetsDetails)
+    private fun initUi() = with(binding) {
         recyclerviewExerciseSetsDetails.adapter = adapterRVExercisesCurrent
-
-        recyclerviewExerciseHistory = view.findViewById(R.id.recyclerviewExerciseHistory)
         recyclerviewExerciseHistory.adapter = adapterRVExercisesHistory
     }
 
-    private fun initListeners() {
+    private fun initListeners() = with(binding) {
         addNewSetBtn.setOnClickListener {
-            val bottomSheetAddNewSet = BottomSheetAddNewSet()
-            bottomSheetAddNewSet.show(
+            BottomSheetAddNewSet().show(
                 requireActivity().supportFragmentManager, BottomSheetAddNewSet.TAG
             )
         }
-        backBtn.setOnClickListener {
+
+        exerciseBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
         exerciseHistoryBtnSrc.setOnClickListener {
             if (exerciseHistory.isVisible) {
                 exerciseHistory.visibility = View.GONE
@@ -109,17 +89,34 @@ class ExerciseFragment : Fragment() {
 
     private fun initObservers() {
         sharedViewModel.exerciseId.observe(viewLifecycleOwner) { id ->
-            sharedViewModel.getExerciseById(id)
+            if (id != null) {
+                sharedViewModel.getExerciseById(id)
+            }
         }
+
         sharedViewModel.exerciseById.observe(viewLifecycleOwner) { exercise ->
             when (exercise) {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
-                    Glide.with(requireContext()).load(exercise.data?.imageUrl).into(exerciseImage)
-                    exerciseTitle.text = exercise.data?.name
-                    exerciseHint.text = exercise.data?.exerciseHint
-                    Toast.makeText(requireContext(), exercise.data?.imageUrl, Toast.LENGTH_SHORT)
-                        .show()
+                    exercise.data?.let { data ->
+                        // Load image safely with Glide
+                        Glide.with(requireContext()).load(data.imageUrl ?: "").apply(
+                                RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .placeholder(R.color.gray_v1)
+                                    .error(R.drawable.error_ic)
+                            ).into(binding.exerciseImage)
+
+                        binding.exerciseTitle.text = data.name ?: getString(R.string.no_name)
+                        binding.exerciseHint.text = data.exerciseHint ?: getString(R.string.no_hint)
+
+                        Toast.makeText(
+                            requireContext(), data.imageUrl ?: "No image url", Toast.LENGTH_SHORT
+                        ).show()
+                    } ?: run {
+                        Toast.makeText(
+                            requireContext(), "Exercise data not found", Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
 
                 is ResponseEI.Failure -> {
@@ -127,24 +124,25 @@ class ExerciseFragment : Fragment() {
                 }
             }
         }
-        sharedViewModel.updateUserExercise.observe(viewLifecycleOwner) { response ->
 
+        sharedViewModel.updateUserExercise.observe(viewLifecycleOwner) {
             sharedViewModel.fetchDateExerciseData()
-
         }
-        sharedViewModel.fetchDateExerciseData()
-        sharedViewModel.userDataExercise.observe(viewLifecycleOwner) { userDataExercise ->
 
+        sharedViewModel.userDataExercise.observe(viewLifecycleOwner) { userDataExercise ->
             when (userDataExercise) {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
                     val currentUserDataExercise =
-                        userDataExercise.data.get(sharedViewModel.exerciseId.value)
+                        userDataExercise.data[sharedViewModel.exerciseId.value]
 
                     if (!currentUserDataExercise.isNullOrEmpty()) {
                         adapterRVExercisesHistory.submitList(currentUserDataExercise)
                         adapterRVExercisesCurrent.submitList(currentUserDataExercise)
-                        exerciseHintFirstSet.text = getText(R.string.your_exercise_sets_details)
+                        binding.exerciseHintFirstSet.text =
+                            getText(R.string.your_exercise_sets_details)
+                    } else {
+                        binding.exerciseHintFirstSet.text = getText(R.string.no_exercise_sets)
                     }
                 }
 
@@ -154,19 +152,14 @@ class ExerciseFragment : Fragment() {
                     )
                 }
             }
-
         }
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_exercise, container, false)
+        sharedViewModel.fetchDateExerciseData()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         sharedViewModel.navigateRightTo(null)
     }
 }
