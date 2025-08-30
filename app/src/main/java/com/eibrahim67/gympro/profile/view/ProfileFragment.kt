@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.profile.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -54,7 +55,7 @@ class ProfileFragment : Fragment() {
 
         binding.apply {
             btnPersonalData.setOnClickListener {
-                sharedViewModel.navigateRightTo(R.id.action_personalDataFragment)
+                sharedViewModel.navigateRightTo(R.id.action_profileFragment_to_personalDataFragment)
             }
 
             btnBeComeATrainer.setOnClickListener {
@@ -102,7 +103,18 @@ class ProfileFragment : Fragment() {
             }
 
             btnLogOut.setOnClickListener {
-                sharedViewModel.logout()
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Log Out")
+                    .setMessage("Are you sure you want to log out?")
+                    .setPositiveButton("Log Out") { _, _ ->
+                        sharedViewModel.logout()
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+
             }
 
             backBtn.setOnClickListener {

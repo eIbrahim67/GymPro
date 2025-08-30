@@ -49,7 +49,7 @@ class HelpFeedbackFragment : Fragment() {
                     try {
                         binding.text.text = Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT)
                     } catch (e: Exception) {
-                        Log.e("HelpFeedback", "Error updating description text: ${e.message}")
+                        Log.e(" ", "Error updating description text: ${e.message}")
                     }
                 }
             }

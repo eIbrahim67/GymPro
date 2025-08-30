@@ -24,8 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     private val navOptionsRight = NavOptions.Builder()
         .setEnterAnim(R.anim.slide_in_right)
+        .setExitAnim(R.anim.slide_out_left)
+        .setPopEnterAnim(R.anim.slide_in_left)
         .setPopExitAnim(R.anim.slide_out_right)
+        .setLaunchSingleTop(true)
+        .setRestoreState(true)
         .build()
+
 
     private val navOptionsLeft = NavOptions.Builder()
         .setEnterAnim(R.anim.slide_in_left)

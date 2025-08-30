@@ -18,8 +18,8 @@
             app:destination="@+id/action_chatbotFragment"
             android:id="@+id/action_action_home_to_chatbot"/>
 
-
     </fragment>
+
     <fragment
         android:id="@+id/action_train"
         android:name="com.eibrahim67.gympro.train.view.TrainFragment"
@@ -29,7 +29,15 @@
         android:id="@+id/action_profile"
         android:name="com.eibrahim67.gympro.profile.view.ProfileFragment"
         android:label="fragment_my_trainer"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile"
+        >
+
+
+        <action
+            android:id="@+id/action_profileFragment_to_personalDataFragment"
+            app:destination="@id/action_personalDataFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/action_chat"
         android:name="com.eibrahim67.gympro.chat.view.ChatFragment"
