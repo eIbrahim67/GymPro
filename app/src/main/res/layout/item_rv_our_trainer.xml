@@ -83,7 +83,6 @@
             app:layout_constraintTop_toBottomOf="@id/itemLine1" />
 
         <View
-            android:id="@+id/itemLine2"
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"

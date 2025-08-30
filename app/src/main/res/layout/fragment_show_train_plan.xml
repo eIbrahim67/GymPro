@@ -39,7 +39,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/trainPlanMoreBtn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="20dp"

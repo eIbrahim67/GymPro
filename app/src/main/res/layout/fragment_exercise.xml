@@ -39,7 +39,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exerciseHistoryBtn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="20dp"
@@ -209,7 +208,6 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/exerciseDoneBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

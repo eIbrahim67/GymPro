@@ -313,7 +313,7 @@ class CreatePlanFragment : Fragment() {
             binding.difficultyLevel.error = "Select a difficulty level"
             return null
         }
-        if (selectedImageUrl.toString().isNullOrEmpty()) {
+        if (selectedImageUrl.toString().isEmpty()) {
             Snackbar.make(requireView(), "Add image is required", Snackbar.LENGTH_LONG).show()
             return null
         }

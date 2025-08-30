@@ -111,7 +111,6 @@
             app:strokeWidth="0dp">
 
             <TextView
-                android:id="@+id/itemExerciseImprove"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

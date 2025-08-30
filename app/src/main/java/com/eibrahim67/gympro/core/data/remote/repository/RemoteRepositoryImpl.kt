@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.core.data.remote.repository
 
-import android.util.Log
 import com.eibrahim67.gympro.core.data.remote.model.Category
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.model.Exercise

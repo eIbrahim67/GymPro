@@ -5,11 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +15,14 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
-import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
@@ -262,11 +261,11 @@ class CreateWorkoutFragment : Fragment() {
             binding.difficultyLevel.error = "Select a difficulty level"
             return null
         }
-        if (selectedImageUrl.toString().isNullOrEmpty()) {
+        if (selectedImageUrl.toString().isEmpty()) {
             Snackbar.make(requireView(), "Add image is required", Snackbar.LENGTH_LONG).show()
             return null
         }
-        if (equipments.toString().isNullOrEmpty()) {
+        if (equipments.toString().isEmpty()) {
             binding.equipments.error = "Add equipments is required"
             return null
         }

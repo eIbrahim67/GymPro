@@ -1,7 +1,5 @@
 package com.eibrahim67.gympro.core.data.remote.model
 
-import android.net.Uri
-
 data class Exercise(
     val id: Int,
     val name: String,

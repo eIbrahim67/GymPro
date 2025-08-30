@@ -44,15 +44,15 @@ class AdapterRVExercisesWorkout(
         }
 
         differ.currentList[position].exerciseIntensity.let { data ->
-            holder.exerciseIntensity.text = data.toString() + " %"
+            "$data %"
         }
 
         differ.currentList[position].exerciseReps.let { data ->
-            holder.exerciseReps.text = data.toString() + " Reps"
+            holder.exerciseReps.text = "$data Reps"
         }
 
         differ.currentList[position].exerciseSet.let { data ->
-            holder.exerciseSet.text = data.toString() + " Sets"
+            holder.exerciseSet.text = "$data Sets"
         }
 
         holder.exerciseOpenBtn.setOnClickListener {

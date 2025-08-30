@@ -77,8 +77,8 @@ class ChatbotViewModel(
 
                 val extractedText = if (response.isSuccessful) {
                     response.body()?.let { ocrResponse ->
-                        if (ocrResponse.status == "success" && ocrResponse.extracted_text != null) {
-                            ocrResponse.extracted_text
+                        if (ocrResponse.status == "success" && ocrResponse.extractedText != null) {
+                            ocrResponse.extractedText
                         } else {
                             ocrResponse.error ?: "Unknown OCR error"
                         }
@@ -131,8 +131,8 @@ class ChatbotViewModel(
 
                         val transcribedText = if (response.isSuccessful) {
                             response.body()?.let { transcription ->
-                                if (transcription.status == "success" && transcription.transcribed_text != null) {
-                                    transcription.transcribed_text.toString()
+                                if (transcription.status == "success" && transcription.transcribedText != null) {
+                                    transcription.transcribedText.toString()
                                 } else {
                                     transcription.error ?: "Unknown transcription error"
                                 }
@@ -273,7 +273,7 @@ class ChatbotViewModel(
                     is ResponseEI.Failure -> {
                         Log.e(
                             ChatbotViewModelConst.TAG,
-                            "Chat response failed: ${response.reason.toString()}"
+                            "Chat response failed: ${response.reason}"
                         )
                         updateUiState { copy(errorMessage = response.reason.toString()) }
                     }

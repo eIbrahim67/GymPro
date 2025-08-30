@@ -7,20 +7,6 @@ import com.google.gson.reflect.TypeToken
 object Converters {
 
     @TypeConverter
-    fun fromStringToList(value: String?): List<String> {
-        return if (value.isNullOrEmpty()) {
-            emptyList()
-        } else {
-            value.split(",").map { it.trim() }
-        }
-    }
-
-    @TypeConverter
-    fun fromListToString(list: List<String>?): String {
-        return list?.filter { it.isNotEmpty() }?.joinToString(",") ?: ""
-    }
-
-    @TypeConverter
     fun fromMap(map: Map<Int, MutableList<String>>): String = Gson().toJson(map)
 
     @TypeConverter

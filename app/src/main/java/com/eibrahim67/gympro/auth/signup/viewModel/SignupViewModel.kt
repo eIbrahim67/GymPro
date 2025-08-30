@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.auth.signup.viewModel
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -121,7 +120,7 @@ class SignupViewModel(
     }
 
     fun validateCredentials(
-        isFnameValid: Boolean,
+        isFirstnameValid: Boolean,
         isUsernameValid: Boolean,
         isPhoneValid: Boolean,
         isEmailValid: Boolean,
@@ -131,7 +130,7 @@ class SignupViewModel(
         return when {
             !isUsernameValid && !isEmailValid &&
                     !isPasswordValid && !isConfirmPasswordValid &&
-                    !isFnameValid && !isPhoneValid
+                    !isFirstnameValid && !isPhoneValid
             -> {
 
                 ValidateCredentials.Valid

@@ -7,8 +7,7 @@
     android:layout_margin="5dp"
     app:cardBackgroundColor="@color/primary_black"
     app:cardCornerRadius="15dp"
-    app:strokeWidth="0dp"
-    tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet">
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"

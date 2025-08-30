@@ -1,7 +1,6 @@
 package com.eibrahim67.gympro.chatbot.data.network
 
-import com.eibrahim67.gympro.chatbot.data.network.HttpClient
-import com.eibrahim67.gympro.core.utils.CONST_VALS
+import com.eibrahim67.gympro.core.utils.VALS
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -14,7 +13,7 @@ import java.io.IOException
  */
 class ChatLlamaStreamProcessor(private val httpClient: HttpClient) {
 
-    private val url =  "http://"+ CONST_VALS.IP_CONFIG + ":5000/chat"
+    private val url =  "http://"+ VALS.IP_CONFIG + ":5000/chat"
 
     /**
      * Initiates a chat stream request.

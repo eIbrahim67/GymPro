@@ -15,12 +15,10 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.databinding.FragmentMyChatsBinding
-import com.eibrahim67.gympro.home.view.adapters.AdapterRVTrainers
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.myChats.adapter.ChatMessagesAdapter
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.getValue
 
 class MyChatsFragment : Fragment() {
 
@@ -57,8 +55,8 @@ class MyChatsFragment : Fragment() {
         }
 
         val sampleMessages = listOf(
-            ChatMessage(1, "Ibrahim Mohamed", "بحب حبوبتي أوووووووووووووووووووووووووووي ♥\uFE0F", "3:30 PM", R.drawable.icon_solid_profile),
-            ChatMessage(2, "Habiba  ♥\uFE0F", "حبوووووووووووبيييييي", "4:15 PM", R.drawable.icon_solid_profile)
+            ChatMessage(1, "Ibrahim Mohamed", "Hello", "3:30 PM", R.drawable.icon_solid_profile),
+            ChatMessage(2, "Habiba  ♥\uFE0F", "Hi", "4:15 PM", R.drawable.icon_solid_profile)
         )
 
         val adapter = ChatMessagesAdapter(sampleMessages){id -> chatWithTrainer(id)}

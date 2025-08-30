@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -13,21 +13,16 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.response.ResponseEI
-import com.eibrahim67.gympro.core.utils.UtilsFunctions.createFailureResponse
+import com.eibrahim67.gympro.databinding.BottomSheetAddNewSetExerciseBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BottomSheetAddNewSet : BottomSheetDialogFragment() {
 
-    private lateinit var itemExerciseImpSets: TextView
-    private lateinit var itemExerciseImpReps: TextView
-    private lateinit var itemExerciseWeight: TextInputEditText
-    private lateinit var itemExerciseReps: TextInputEditText
-    private lateinit var bottomSheetAddNewSetBtn: MaterialCardView
+    private var _binding: BottomSheetAddNewSetExerciseBinding? = null
+    private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels {
         val remoteRepository =
@@ -38,62 +33,69 @@ class BottomSheetAddNewSet : BottomSheetDialogFragment() {
         MainViewModelFactory(userRepository, remoteRepository)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = BottomSheetAddNewSetExerciseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi(view)
-        initListener()
-        initObservers()
+        initListeners()
     }
 
-    private fun initObservers() {
-
-    }
-
-    private fun initListener() {
+    private fun initListeners() = with(binding) {
         bottomSheetAddNewSetBtn.setOnClickListener {
+            val weight = newExerciseWeight.text?.toString()?.trim()
+            val reps = newExerciseReps.text?.toString()?.trim()
 
-            val weight = itemExerciseWeight.text.toString()
-            val reps = itemExerciseReps.text.toString()
+            if (weight.isNullOrEmpty() || reps.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), R.string.enter_weight_reps, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            if (weight.isNotEmpty() && reps.isNotEmpty()) {
+            sharedViewModel.userDataExercise.value?.let { userDataExercise ->
+                when (userDataExercise) {
+                    is ResponseEI.Loading -> {
+                        Toast.makeText(requireContext(), R.string.loading, Toast.LENGTH_SHORT).show()
+                    }
 
-                sharedViewModel.userDataExercise.value?.let { userDataExercise ->
+                    is ResponseEI.Success -> {
+                        try {
+                            val updatedMap = (userDataExercise.data as? MutableMap<Int, MutableList<String>>)
+                                ?: mutableMapOf()
 
-                    when (userDataExercise) {
-                        is ResponseEI.Loading -> {}
+                            val exerciseId = sharedViewModel.exerciseId.value ?: -1
+                            if (exerciseId == -1) {
+                                Toast.makeText(requireContext(), R.string.invalid_exercise_id, Toast.LENGTH_SHORT).show()
+                                return@setOnClickListener
+                            }
 
-                        is ResponseEI.Success -> {
+                            updatedMap.getOrPut(exerciseId) { mutableListOf() }
+                                .add("$weight#$reps")
 
-                            var updatedMap = mutableMapOf<Int, MutableList<String>>()
-                                updatedMap = userDataExercise.data as MutableMap<Int, MutableList<String>>
-
-                            updatedMap.getOrPut(sharedViewModel.exerciseId.value ?: -1) { mutableListOf() }.add("$weight#$reps")
                             sharedViewModel.updateExerciseMap(updatedMap)
-                        }
+                            dismiss()
 
-                        is ResponseEI.Failure -> {
+                        } catch (e: Exception) {
+                            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
 
+                    is ResponseEI.Failure -> {
+                        Toast.makeText(requireContext(), R.string.update_failed, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                dismiss()
+            } ?: run {
+                Toast.makeText(requireContext(), R.string.no_exercise_data, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun initUi(view: View) {
-        itemExerciseImpSets = view.findViewById(R.id.itemExerciseImpSets)
-        itemExerciseImpReps = view.findViewById(R.id.itemExerciseImpReps)
-        itemExerciseWeight = view.findViewById(R.id.newExerciseWeight)
-        itemExerciseReps = view.findViewById(R.id.newExerciseReps)
-        bottomSheetAddNewSetBtn = view.findViewById(R.id.bottomSheetAddNewSetBtn)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bottom_sheet_add_new_set_exercise, container, false)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

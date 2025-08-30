@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">GymPro</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome_nsign_up">Welcome\nSign Up!</string>
+    <string name="welcome_sign_up">Welcome\nSign Up!</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="username">Username</string>
@@ -10,7 +9,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="welcome_nsign_in">Welcome\nSign In!</string>
+    <string name="welcome_sign_in">Welcome\nSign In!</string>
     <string name="forget_password">Forget password?</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
@@ -20,22 +19,20 @@
     <string name="must_be_at_least_8_characters">Must be at least 8 characters</string>
     <string name="set_new_password">Set new password</string>
     <string name="click_here">Click here</string>
-    <string name="didn_t_receive_the_email">Didn\'t receive the email?</string>
+    <string name="did_not_receive_the_email">Didn\'t receive the email?</string>
     <string name="_continue">Continue</string>
     <string name="we_sent_a_code_to_the_email_you_provided">We sent a code to the email you provided</string>
-    <string name="news">News</string>
-    <string name="chat">Chat</string>
-    <string name="my_trainer">My Trainer</string>
-    <string name="train">Train</string>
-    <string name="home">Home</string>
-    <string name="profile">Profile</string>
-    <string name="log_out">Log out</string>
-    <string name="help_feedback"><![CDATA[Help & Feedback]]></string>
-    <string name="about">About</string>
     <string name="begin_your_first_exercise_set_and_record_the_details">Begin your first exercise set\nAnd record the details</string>
     <string name="your_exercise_sets_details">Your exercise sets details</string>
     <string name="no_exercise_sets">No exercise sets</string>
     <string name="no_name">No Name\n</string>
     <string name="no_hint">No Hint\n</string>
     <string name="select_categories">Select categories</string>
+    <string name="enter_weight_reps">Enter weight and reps</string>
+    <string name="loading">Loading</string>
+    <string name="invalid_exercise_id">Invalid exercise id</string>
+    <string name="update_failed">Update failed</string>
+    <string name="no_exercise_data">No exercise data</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="search">Search...</string>
 </resources>

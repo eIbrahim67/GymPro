@@ -40,7 +40,7 @@ class AdapterRVExercisesResults(
             try {
                 val sData: List<String?> = data.split("#")
                 holder.itemExerciseWeight.text = "${sData[0] ?: " error "} kg"
-                holder.itemExerciseReps.text = "${sData[1] ?: " error "}"
+                holder.itemExerciseReps.text = sData[1] ?: " error "
             } catch (e: Exception) {
                 createMaterialAlertDialogBuilderOk(
                     context, "Error in data", e.message.toString(), "Ok"

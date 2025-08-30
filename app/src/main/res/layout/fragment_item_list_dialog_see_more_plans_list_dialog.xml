@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color"
-    tools:context=".home.view.bottomSheet.SeeMorePlansBottomSheet">
+    android:background="@color/primary_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -74,11 +73,13 @@
                     app:tint="@color/primary_black"/>
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/primary_white"
-                    android:hint="Search..."
+                    android:hint="@string/search"
+                    android:inputType="text"
+                    android:autofillHints=""
                     android:gravity="center_vertical"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
@@ -91,7 +92,6 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.search.SearchView
-            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>

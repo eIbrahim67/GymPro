@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="@color/primary_gray"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/workoutProgressIndicatorLayout"
                         app:layout_constraintEnd_toEndOf="@id/workoutProgressIndicatorLayout"
@@ -292,7 +292,7 @@
                                 android:id="@+id/todayNumOfTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="--\nMins"
+                                android:text="--\nMinutes"
                                 android:gravity="center"
                                 android:textColor="@color/primary_white"
                                 android:textSize="15sp"
@@ -397,7 +397,6 @@
 
 
             <TextView
-                android:id="@+id/textViewOurTrainersMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

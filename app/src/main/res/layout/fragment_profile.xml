@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profileFragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color"
@@ -159,7 +158,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -209,7 +208,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -285,7 +284,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -505,7 +504,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -555,7 +554,7 @@
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"

@@ -74,7 +74,7 @@ class ItemListDialogSeeMorePlans(
         dismiss()
     }
 
-    private inner class ViewHolder internal constructor(binding: FragmentItemListDialogSeeMorePlansListDialogItemBinding) :
+    private inner class ViewHolder (binding: FragmentItemListDialogSeeMorePlansListDialogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         val itemTitleFeaturePlan = binding.itemFeatureName

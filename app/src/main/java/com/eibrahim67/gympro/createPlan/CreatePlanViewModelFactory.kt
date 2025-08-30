@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
-import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
-import com.eibrahim67.gympro.home.viewModel.HomeViewModel
 
 class CreatePlanViewModelFactory(
     private val remoteRepository: RemoteRepository,

@@ -8,7 +8,6 @@
     tools:context=".auth.splash.view.SplashFragment">
 
     <ImageView
-        android:id="@+id/image_gym_pro"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:contentDescription="TODO"

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
-import com.eibrahim67.gympro.myWorkouts.MyWorkoutsViewModel
 
 class MyExercisesViewModelFactory (
     private val remoteRepository: RemoteRepository,
