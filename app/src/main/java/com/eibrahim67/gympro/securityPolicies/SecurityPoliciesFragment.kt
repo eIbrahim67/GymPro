@@ -50,7 +50,7 @@ class SecurityPoliciesFragment : Fragment() {
                     try {
                         binding.text.text = Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT)
                     } catch (e: Exception) {
-                        Log.e("AboutUS", "Error updating description text: ${e.message}")
+                        Log.e("Security", "Error updating description text: ${e.message}")
                     }
                 }
             }
