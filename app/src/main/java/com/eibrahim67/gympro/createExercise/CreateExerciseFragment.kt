@@ -346,6 +346,8 @@ class CreateExerciseFragment : Fragment() {
                     .into(binding.imageFeatureExercise)
                 uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
                 imageUploaded = false
+                binding.loadingAnimation.playAnimation()
+                binding.loadingAnimation.visibility = View.VISIBLE
             }
         }
 
@@ -396,6 +398,8 @@ class CreateExerciseFragment : Fragment() {
             storageRef.downloadUrl.addOnSuccessListener { uri ->
                 selectedImageUrl = uri.toString()
                 Log.d("Upload", "Image uploaded: $selectedImageUrl")
+                binding.loadingAnimation.cancelAnimation()
+                binding.loadingAnimation.visibility = View.GONE
                 imageUploaded = true
             }.addOnFailureListener { e ->
                 Log.e("Upload", "Failed to get download URL", e)

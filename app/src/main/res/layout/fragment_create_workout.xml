@@ -266,6 +266,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.airbnb.lottie.LottieAnimationView
+                app:layout_constraintTop_toTopOf="@id/uploadImageButtonCard"
+                app:layout_constraintBottom_toBottomOf="@id/uploadImageButtonCard"
+                app:layout_constraintStart_toStartOf="@+id/uploadImageButtonCard"
+                app:layout_constraintEnd_toEndOf="@id/uploadImageButtonCard"
+                android:id="@+id/loadingAnimation"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:visibility="gone"
+                app:lottie_rawRes="@raw/loading"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_gravity="center"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/uploadImageButton"
