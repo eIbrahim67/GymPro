@@ -61,7 +61,7 @@ class MyWorkoutsFragment : Fragment() {
         binding.addNewWorkout.setOnClickListener {
             sharedViewModel.navigateRightTo(R.id.action_createWorkoutFragment)
         }
-        val adapterMyWorkouts = AdapterMyWorkouts { id -> goToWorkout(id) }
+        val adapterMyWorkouts = AdapterMyWorkouts  ({ id -> goToWorkout(id) }, {id -> deleteWorkout(id)})
         binding.recyclerviewWorkouts.adapter = adapterMyWorkouts
 
         viewModel.getLoggedInUser()
@@ -126,9 +126,14 @@ class MyWorkoutsFragment : Fragment() {
     }
 
     private fun goToWorkout(id: Int) {
-//        sharedViewModel.setTrainPlanId(id)
-//        sharedViewModel.navigateRightTo(R.id.action_showTrainPlan)
+        sharedViewModel.setTrainPlanId(id)
+        sharedViewModel.navigateRightTo(R.id.action_showTrainPlan)
     }
+
+    private fun deleteWorkout(id: Int) {
+        viewModel.deleteWorkout(id)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.core.data.remote.model.Workout
-import com.eibrahim67.gympro.databinding.ItemFullFeaturedBinding
+import com.eibrahim67.gympro.databinding.ItemMyFeaturedBinding
 
 class AdapterMyWorkouts(
-    private val goToWorkout: ((id: Int) -> Unit)
+    private val goToWorkout: ((id: Int) -> Unit),
+    private val deleteTrainPlan: ((id: Int) -> Unit)
 ) : RecyclerView.Adapter<AdapterMyWorkouts.CategoryViewHolder>() {
 
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val binding = ItemFullFeaturedBinding.inflate(
+        val binding = ItemMyFeaturedBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return CategoryViewHolder(binding)
@@ -43,12 +44,15 @@ class AdapterMyWorkouts(
             itemFeatureSeeDetails.setOnClickListener {
                 goToWorkout(item.id)
             }
+
+            itemFeatureDelete.setOnClickListener {
+                deleteTrainPlan(item.id)
+            }
         }
     }
 
     private val differ: AsyncListDiffer<Workout> =
         AsyncListDiffer(this, DIFF_CALLBACK)
-
     fun submitList(articleList: List<Workout>) {
         differ.submitList(articleList)
     }
@@ -65,6 +69,6 @@ class AdapterMyWorkouts(
         }
     }
 
-    class CategoryViewHolder(val binding: ItemFullFeaturedBinding) :
+    class CategoryViewHolder(val binding: ItemMyFeaturedBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

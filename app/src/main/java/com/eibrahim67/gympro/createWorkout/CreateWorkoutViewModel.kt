@@ -37,15 +37,6 @@ class CreateWorkoutViewModel(
         }
     }
 
-    private val _workouts = MutableLiveData<ResponseEI<List<Workout?>>>()
-    val workouts: LiveData<ResponseEI<List<Workout?>>> get() = _workouts
-
-    fun getAllWorkouts() {
-        applyResponse(_workouts, viewModelScope) {
-            remoteRepository.getAllWorkouts()
-        }
-    }
-
     private val _createWorkout = MutableLiveData<ResponseEI<Unit>>()
     val createWorkout: LiveData<ResponseEI<Unit>> get() = _createWorkout
 

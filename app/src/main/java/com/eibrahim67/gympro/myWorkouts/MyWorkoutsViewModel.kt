@@ -42,4 +42,14 @@ class MyWorkoutsViewModel(
         }
     }
 
+    private val _deleteWorkout = MutableLiveData<ResponseEI<Unit>>()
+    val deleteWorkout: LiveData<ResponseEI<Unit>> get() = _deleteWorkout
+
+    fun deleteWorkout(id: Int) {
+        applyResponse(_deleteWorkout, viewModelScope) {
+            remoteRepository.deleteWorkout(id)
+        }
+
+    }
+
 }
