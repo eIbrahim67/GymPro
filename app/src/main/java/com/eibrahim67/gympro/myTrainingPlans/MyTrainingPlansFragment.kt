@@ -64,7 +64,7 @@ class MyTrainingPlansFragment : Fragment() {
         binding.addNewPlan.setOnClickListener {
             sharedViewModel.navigateRightTo(R.id.action_createPlanFragment)
         }
-        val adapterRVMyFeaturedPlans = AdapterRVMyFeaturedPlans { id -> goToTrainPlan(id) }
+        val adapterRVMyFeaturedPlans = AdapterRVMyFeaturedPlans ({ id -> goToTrainPlan(id) }, {id -> deleteTrainPlan(id)})
         binding.recyclerviewFeaturePlans.adapter = adapterRVMyFeaturedPlans
 
         viewModel.getLoggedInUser()
@@ -131,6 +131,10 @@ class MyTrainingPlansFragment : Fragment() {
     private fun goToTrainPlan(id: Int) {
         sharedViewModel.setTrainPlanId(id)
         sharedViewModel.navigateRightTo(R.id.action_showTrainPlan)
+    }
+
+    private fun deleteTrainPlan(id: Int) {
+        viewModel.deleteTrainPlan(id)
     }
 
     override fun onDestroyView() {

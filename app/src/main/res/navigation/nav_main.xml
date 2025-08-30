@@ -123,4 +123,14 @@
         android:name="com.eibrahim67.gympro.myWorkouts.MyWorkoutsFragment"
         android:label="WorkoutsFragment" />
 
+    <fragment
+        android:id="@+id/action_createExerciseFragment"
+        android:name="com.eibrahim67.gympro.createExercise.CreateExerciseFragment"
+        android:label="CreateExerciseFragment" />
+    
+    <fragment
+        android:id="@+id/action_myExercisesFragment"
+        android:name="com.eibrahim67.gympro.myExercises.MyExercisesFragment"
+        android:label="ExercisesFragment" />
+
 </navigation>

@@ -21,9 +21,7 @@ class CreatePlanViewModel(
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResponseEI<List<Category>>>()
-
     val categories: LiveData<ResponseEI<List<Category>>> get() = _categories
-
     fun getAllCategories() {
         applyResponse(_categories, viewModelScope) {
             remoteRepository.getAllCategories()

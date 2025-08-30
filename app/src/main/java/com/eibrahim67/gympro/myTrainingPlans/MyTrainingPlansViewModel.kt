@@ -28,7 +28,7 @@ class MyTrainingPlansViewModel(
     private val _myTrainPlansIds = MutableLiveData<ResponseEI<List<Int>?>>()
     val myTrainPlansIds: LiveData<ResponseEI<List<Int>?>> get() = _myTrainPlansIds
 
-    fun getMyTrainPlansIds(id:Int) {
+    fun getMyTrainPlansIds(id: Int) {
         applyResponse(_myTrainPlansIds, viewModelScope) {
             remoteRepository.getMyTrainPlansIds(id)
         }
@@ -43,5 +43,13 @@ class MyTrainingPlansViewModel(
         }
     }
 
+    private val _deleteTrainPlan = MutableLiveData<ResponseEI<Unit>>()
+    val deleteTrainPlan: LiveData<ResponseEI<Unit>> get() = _deleteTrainPlan
 
+    fun deleteTrainPlan(id: Int) {
+        applyResponse(_deleteTrainPlan, viewModelScope) {
+            remoteRepository.deleteTrainPlan(id)
+        }
+
+    }
 }

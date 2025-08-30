@@ -34,4 +34,8 @@
     <string name="about">About</string>
     <string name="begin_your_first_exercise_set_and_record_the_details">Begin your first exercise set\nAnd record the details</string>
     <string name="your_exercise_sets_details">Your exercise sets details</string>
+    <string name="no_exercise_sets">No exercise sets</string>
+    <string name="no_name">No Name\n</string>
+    <string name="no_hint">No Hint\n</string>
+    <string name="select_categories">Select categories</string>
 </resources>

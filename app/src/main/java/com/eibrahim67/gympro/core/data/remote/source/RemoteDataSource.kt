@@ -14,10 +14,13 @@ interface RemoteDataSource {
     suspend fun getMusclesByIds(ids: List<Int>): List<Muscles>?
     suspend fun getAllMuscles(): List<Muscles?>
 
-    suspend fun addExercises(exercises: Map<Int, Exercise>)
+    suspend fun addExercises(exercises: Exercise)
     suspend fun getExerciseById(id: Int): Exercise?
     suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>?
     suspend fun getAllExercises(): List<Exercise?>
+    suspend fun getMyExercisesIds(id: Int): List<Int>?
+    suspend fun addExerciseId(coachId: Int, newWExercisesId: Int)
+    suspend fun deleteExercise(id: Int)
 
     suspend fun addWorkouts(workouts: Workout)
     suspend fun getWorkoutById(id: Int): Workout?
@@ -25,6 +28,7 @@ interface RemoteDataSource {
     suspend fun getAllWorkouts(): List<Workout>
     suspend fun getMyWorkoutsIds(id: Int): List<Int>?
     suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int)
+    suspend fun deleteWorkout(id: Int)
 
     suspend fun addTrainPlans(trainPlans: TrainPlan)
     suspend fun addTrainPlanId(coachId: Int, newPlanId: Int)
@@ -32,6 +36,7 @@ interface RemoteDataSource {
     suspend fun getTrainPlanByIds(ids: List<Int>): List<TrainPlan>?
     suspend fun getAllTrainPlans(): List<TrainPlan>
     suspend fun getMyTrainPlansIds(id: Int): List<Int>?
+    suspend fun deleteTrainPlan(id: Int)
 
     suspend fun getAllCategories():List<Category>
     suspend fun getCategoryById(id: Int): Category?

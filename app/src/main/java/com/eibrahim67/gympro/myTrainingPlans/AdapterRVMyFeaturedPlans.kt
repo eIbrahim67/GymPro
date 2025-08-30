@@ -11,7 +11,8 @@ import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.databinding.ItemMyFeaturedBinding
 
 class AdapterRVMyFeaturedPlans(
-    private val goToTrainPlan: ((id: Int) -> Unit)
+    private val goToTrainPlan: ((id: Int) -> Unit),
+    private val deleteTrainPlan: ((id: Int) -> Unit)
 ) : RecyclerView.Adapter<AdapterRVMyFeaturedPlans.CategoryViewHolder>() {
 
     private lateinit var context: Context
@@ -45,6 +46,8 @@ class AdapterRVMyFeaturedPlans(
             }
 
             itemFeatureDelete.setOnClickListener {
+
+                deleteTrainPlan(item.id)
 
             }
         }

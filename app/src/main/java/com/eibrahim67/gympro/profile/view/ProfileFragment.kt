@@ -77,6 +77,9 @@ class ProfileFragment : Fragment() {
                 sharedViewModel.navigateRightTo(R.id.action_myWorkoutsFragment)
             }
 
+            btnMyExercises.setOnClickListener {
+                sharedViewModel.navigateRightTo(R.id.action_myExercisesFragment)
+            }
 
             btnMyProgress.setOnClickListener {
 //                sharedViewModel.navigateRightTo(R.id.action_myProgressFragment)
