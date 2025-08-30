@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.myWorkouts
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.eibrahim67.gympro.databinding.ItemMyFeaturedBinding
 
 class AdapterMyWorkouts(
     private val goToWorkout: ((id: Int) -> Unit),
-    private val deleteTrainPlan: ((id: Int) -> Unit)
+    private val deleteWorkout: ((id: Int) -> Unit)
 ) : RecyclerView.Adapter<AdapterMyWorkouts.CategoryViewHolder>() {
 
     private lateinit var context: Context
@@ -46,10 +47,32 @@ class AdapterMyWorkouts(
             }
 
             itemFeatureDelete.setOnClickListener {
-                deleteTrainPlan(item.id)
+                AlertDialog.Builder(context)
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        deleteWorkout(item.id)
+                        removeWorkoutById(item.id)
+
+                    }
+                    .setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
         }
     }
+
+    fun removeWorkoutById(id: Int) {
+        val currentList = differ.currentList.toMutableList()
+        val position = currentList.indexOfFirst { it.id == id }
+        if (position != -1) {
+            currentList.removeAt(position)
+            differ.submitList(currentList)
+            notifyItemRemoved(position)
+        }
+    }
+
 
     private val differ: AsyncListDiffer<Workout> =
         AsyncListDiffer(this, DIFF_CALLBACK)
@@ -62,12 +85,13 @@ class AdapterMyWorkouts(
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Workout>() {
             override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean =
-                oldItem === newItem
+                oldItem.id == newItem.id   // ✅ compare IDs
 
             override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean =
                 oldItem == newItem
         }
     }
+
 
     class CategoryViewHolder(val binding: ItemMyFeaturedBinding) :
         RecyclerView.ViewHolder(binding.root)

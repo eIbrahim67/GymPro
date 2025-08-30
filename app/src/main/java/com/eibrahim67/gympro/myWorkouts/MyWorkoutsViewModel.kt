@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.myWorkouts
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,7 +50,6 @@ class MyWorkoutsViewModel(
         applyResponse(_deleteWorkout, viewModelScope) {
             remoteRepository.deleteWorkout(id)
         }
-
     }
 
 }

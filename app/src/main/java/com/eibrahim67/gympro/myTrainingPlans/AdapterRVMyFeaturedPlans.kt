@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.myTrainingPlans
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,19 +40,41 @@ class AdapterRVMyFeaturedPlans(
                 .into(itemFeatureImage)
 
             itemFeatureName.text = item.name
-            itemFeatureDescription.text = "${item.durationDaysPerTrainingWeek} Day per training week"
+            itemFeatureDescription.text =
+                "${item.durationDaysPerTrainingWeek} Day per training week"
 
             itemFeatureSeeDetails.setOnClickListener {
                 goToTrainPlan(item.id)
             }
 
             itemFeatureDelete.setOnClickListener {
+                AlertDialog.Builder(context)
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        deleteTrainPlan(item.id)
+                        removeTrainPlanById(item.id)
 
-                deleteTrainPlan(item.id)
+                    }
+                    .setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
 
             }
         }
     }
+
+    fun removeTrainPlanById(id: Int) {
+        val currentList = differ.currentList.toMutableList()
+        val position = currentList.indexOfFirst { it.id == id }
+        if (position != -1) {
+            currentList.removeAt(position)
+            differ.submitList(currentList)
+            notifyItemRemoved(position)
+        }
+    }
+
 
     private val differ: AsyncListDiffer<TrainPlan> =
         AsyncListDiffer(this, DIFF_CALLBACK)

@@ -23,8 +23,7 @@ class RemoteDataSourceImpl(
             )
         }
 
-        db.collection("Data").document("muscles").set(musclesMap)
-            .await()
+        db.collection("Data").document("muscles").set(musclesMap).await()
     }
 
     override suspend fun getMuscleById(id: Int): Muscles? {
@@ -168,9 +167,9 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun deleteExercise(id: Int) {
-        db.collection("exercises")
-            .document(id.toString())
-            .delete()
+        db.collection("exercises").document(id.toString())
+            .update(mapOf(id.toString() to FieldValue.delete())).addOnSuccessListener {}
+            .addOnFailureListener {}
     }
 
 
@@ -178,7 +177,6 @@ class RemoteDataSourceImpl(
         db.collection("Data").document("workouts")
             .set(hashMapOf(workout.id.toString() to workout), SetOptions.merge())
     }
-
 
 
     override suspend fun getWorkoutById(id: Int): Workout? {
@@ -274,11 +272,10 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun deleteWorkout(id: Int) {
-        db.collection("workouts")
-            .document(id.toString())
-            .delete()
+        db.collection("Data").document("workouts")
+            .update(mapOf(id.toString() to FieldValue.delete())).addOnSuccessListener {}
+            .addOnFailureListener {}
     }
-
 
     override suspend fun addTrainPlans(trainPlan: TrainPlan) {
         db.collection("Data").document("trainPlans")
@@ -311,9 +308,9 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun deleteTrainPlan(id: Int) {
-        db.collection("trainPlans")
-            .document(id.toString())
-            .delete()
+        db.collection("trainPlans").document(id.toString())
+            .update(mapOf(id.toString() to FieldValue.delete())).addOnSuccessListener {}
+            .addOnFailureListener {}
     }
 
     override suspend fun getTrainPlanById(id: Int): TrainPlan? {
@@ -392,8 +389,6 @@ class RemoteDataSourceImpl(
                     trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                         ?: emptyList(),
                     avgTimeMinPerWorkout = (map["avgTimeMinPerWorkout"] as? Long)?.toInt() ?: 0)
-                Log.e("testv", plan.id.toString())
-                Log.e("testv", plan.name.toString())
                 result.add(plan)
             }
         } catch (e: Exception) {

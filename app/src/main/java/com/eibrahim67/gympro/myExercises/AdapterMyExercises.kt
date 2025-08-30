@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.myExercises
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -46,11 +47,30 @@ class AdapterMyExercises(
             }
 
             itemFeatureDelete.setOnClickListener {
-                deleteExercise(item.id)
+                AlertDialog.Builder(context)
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        deleteExercise(item.id)
+                        removeExerciseById(item.id)
+
+                    }
+                    .setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
         }
     }
-
+    fun removeExerciseById(id: Int) {
+        val currentList = differ.currentList.toMutableList()
+        val position = currentList.indexOfFirst { it.id == id }
+        if (position != -1) {
+            currentList.removeAt(position)
+            differ.submitList(currentList)
+            notifyItemRemoved(position)
+        }
+    }
     private val differ: AsyncListDiffer<Exercise> =
         AsyncListDiffer(this, DIFF_CALLBACK)
 
