@@ -1,13 +1,21 @@
 package com.eibrahim67.gympro.securityPolicies
 
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.databinding.FragmentSecurityPoliciesBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class SecurityPoliciesFragment : Fragment() {
 
@@ -17,8 +25,7 @@ class SecurityPoliciesFragment : Fragment() {
     private val viewModel: SecurityPoliciesViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecurityPoliciesBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,12 +34,27 @@ class SecurityPoliciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Safe back button pop
+        observeViewModel()
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        // TODO: Use viewModel if needed
+    }
+
+    private fun observeViewModel() {
+        viewModel.loadSecurityAndPoliciesContent()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.securityAndPoliciesContent.collect { content ->
+                    try {
+                        binding.text.text = Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT)
+                    } catch (e: Exception) {
+                        Log.e("AboutUS", "Error updating description text: ${e.message}")
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
