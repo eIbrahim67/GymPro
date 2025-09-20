@@ -74,7 +74,7 @@ class ExerciseFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        exerciseHistoryBtnSrc.setOnClickListener {
+        exerciseHistoryBtn.setOnClickListener {
             if (exerciseHistory.isVisible) {
                 exerciseHistory.visibility = View.GONE
                 exerciseDoneBtnLayout.visibility = View.VISIBLE

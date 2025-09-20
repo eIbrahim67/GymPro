@@ -317,8 +317,5 @@ class HomeFragment : Fragment() {
         requireView(), msg, Snackbar.LENGTH_INDEFINITE
     ).setAction("OK") { }.show()
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

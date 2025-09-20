@@ -56,6 +56,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
