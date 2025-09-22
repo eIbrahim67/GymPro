@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class SigninViewModel(
@@ -24,6 +25,16 @@ class SigninViewModel(
             }
         }
     }
+
+    val auth = FirebaseAuth.getInstance()
+
+    fun loginUser(email: String, password: String, onResult: (Boolean) -> Unit) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                onResult(task.isSuccessful)
+            }
+    }
+
 
     private suspend fun validateUser(password: String, realPassword: String, email: String) {
 

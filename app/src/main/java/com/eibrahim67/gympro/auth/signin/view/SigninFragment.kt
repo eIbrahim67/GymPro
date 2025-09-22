@@ -2,6 +2,7 @@ package com.eibrahim67.gympro.auth.signin.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -127,6 +128,12 @@ class SigninFragment : Fragment() {
             return
         } else {
             viewModel.checkUser(email, password)
+            viewModel.loginUser(email, password) { result ->
+                if (result)
+                    Log.i("loginUserFirebase", "True")
+                else
+                    Log.i("loginUserFirebase", "False")
+            }
         }
     }
 

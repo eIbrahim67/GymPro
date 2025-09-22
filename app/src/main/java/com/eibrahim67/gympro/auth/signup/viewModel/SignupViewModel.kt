@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.core.data.local.model.User
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class SignupViewModel(
@@ -52,6 +54,28 @@ class SignupViewModel(
             )
         addUser(createdUser)
     }
+
+
+    val auth = FirebaseAuth.getInstance()
+
+    fun registerUserFirebase(name: String, email: String, password: String, onResult: (Boolean) -> Unit) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val uid = auth.currentUser!!.uid
+                    val user = hashMapOf(
+                        "name" to name,
+                        "email" to email
+                    )
+                    FirebaseFirestore.getInstance()
+                        .collection("users")
+                        .document(uid)
+                        .set(user)
+                    onResult(true)
+                } else onResult(false)
+            }
+    }
+
 
     private fun addUser(user: User) {
         viewModelScope.launch {

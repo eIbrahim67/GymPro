@@ -1,6 +1,7 @@
 package com.eibrahim67.gympro.auth.signup.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.eibrahim67.gympro.core.utils.UtilsFunctions.createMaterialAlertDialog
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.recaptcha.internal.zzek
 
 class SignupFragment : Fragment() {
 
@@ -223,6 +225,17 @@ class SignupFragment : Fragment() {
                     email,
                     password
                 )
+
+                viewModel.registerUserFirebase(
+                    name,
+                    email,
+                    password
+                ){result ->
+                    if (result)
+                        Log.i("registerUserFirebase", "True")
+                    else
+                        Log.i("registerUserFirebase", "False")
+                }
             }
 
             is ValidateCredentials.InValid -> {
