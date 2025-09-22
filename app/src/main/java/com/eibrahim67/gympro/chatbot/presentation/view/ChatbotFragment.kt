@@ -27,7 +27,7 @@ import com.eibrahim67.gympro.chatbot.data.network.ChatLlamaStreamProcessor
 import com.eibrahim67.gympro.chatbot.data.network.HttpClient
 import com.eibrahim67.gympro.chatbot.domain.repositoryImpl.ChatRepositoryImpl
 import com.eibrahim67.gympro.chatbot.domain.usecase.GetChatResponseUseCase
-import com.eibrahim67.gympro.chatbot.presentation.view.adapter.ChatAdapter
+import com.eibrahim67.gympro.chatbot.presentation.view.adapter.ChatbotAdapter
 import com.eibrahim67.gympro.chatbot.presentation.viewModel.ChatbotViewModel
 import com.eibrahim67.gympro.chatbot.presentation.viewModel.ChatbotViewModelFactory
 import com.eibrahim67.gympro.databinding.FragmentChatbotBinding
@@ -42,7 +42,7 @@ class ChatbotFragment : Fragment() {
     private var _binding: FragmentChatbotBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var chatAdapter: ChatAdapter
+    private lateinit var chatbotAdapter: ChatbotAdapter
     private var mediaRecorder: MediaRecorder? = null
     private var audioFile: File? = null
 
@@ -92,9 +92,9 @@ class ChatbotFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        chatAdapter = ChatAdapter()
+        chatbotAdapter = ChatbotAdapter()
         binding.chatRecyclerView.apply {
-            adapter = chatAdapter
+            adapter = chatbotAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -135,7 +135,7 @@ class ChatbotFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            chatAdapter.updateData(state.messages)
+            chatbotAdapter.updateData(state.messages)
             binding.chatRecyclerView.scrollToPosition(state.messages.size - 1)
             binding.recordButton.visibility =
                 if (state.isSendButtonVisible) View.GONE else View.VISIBLE

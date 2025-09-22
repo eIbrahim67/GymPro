@@ -115,7 +115,7 @@ class RemoteRepositoryImpl(
 
     override suspend fun addCoach(coach: Coach) = remoteDataSource.addCoach(coach)
 
-    override suspend fun getCoachById(id: Int): Coach? {
+    override suspend fun getCoachById(id: String): Coach? {
         return remoteDataSource.getCoachById(id)
     }
 

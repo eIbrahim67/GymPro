@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
     id("com.google.devtools.ksp")
-    alias(libs.plugins.google.gms.google.services)
+    id ("com.google.gms.google-services")
 }
 
 android {
@@ -49,16 +48,21 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.firebase.firestore)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.firebase.storage)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
 
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-messaging")
+
+    //lottie
+    implementation ("com.airbnb.android:lottie:6.1.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")

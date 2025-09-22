@@ -192,7 +192,7 @@ class RemoteDataSourceImpl(
                 ?: emptyList(),
             targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
-            coachId = map["coachId"] as? Int ?: -1,
+            coachId = map["coachId"] as? String ?: "",
             difficultyLevel = map["difficultyLevel"] as? String ?: "",
             imageUrl = map["imageUrl"] as? String ?: "",
             equipment = map["equipment"] as? String ?: "")
@@ -214,7 +214,7 @@ class RemoteDataSourceImpl(
                         ?: emptyList(),
                     targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                         ?: emptyList(),
-                    coachId = map["coachId"] as? Int ?: -1,
+                    coachId = map["coachId"] as? String ?: "",
                     difficultyLevel = map["difficultyLevel"] as? String ?: "",
                     imageUrl = map["imageUrl"] as? String ?: "",
                     equipment = map["equipment"] as? String ?: "")
@@ -242,7 +242,7 @@ class RemoteDataSourceImpl(
                     ?: emptyList(),
                 targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),
-                coachId = (map["coachId"] as? Long)?.toInt() ?: -1,
+                coachId = (map["coachId"] as? String)?: "",
                 difficultyLevel = map["difficultyLevel"] as? String ?: "",
                 imageUrl = map["imageUrl"] as? String ?: "",
                 equipment = map["equipment"] as? String ?: "")
@@ -327,7 +327,7 @@ class RemoteDataSourceImpl(
                 ?: emptyList(),
             targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
-            coachId = map["coachId"] as? Int ?: -1,
+            coachId = map["coachId"] as? String ?: "",
             difficultyLevel = map["difficultyLevel"] as? String ?: "",
             imageUrl = map["imageUrl"] as? String ?: "",
             trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
@@ -352,7 +352,7 @@ class RemoteDataSourceImpl(
                         ?: emptyList(),
                     targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                         ?: emptyList(),
-                    coachId = map["coachId"] as? Int ?: -1,
+                    coachId = map["coachId"] as? String ?: "",
                     difficultyLevel = map["difficultyLevel"] as? String ?: "",
                     imageUrl = map["imageUrl"] as? String ?: "",
                     trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
@@ -383,7 +383,7 @@ class RemoteDataSourceImpl(
                         ?: emptyList(),
                     targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                         ?: emptyList(),
-                    coachId = map["coachId"] as? Int ?: -1,
+                    coachId = map["coachId"] as? String ?: "",
                     difficultyLevel = map["difficultyLevel"] as? String ?: "",
                     imageUrl = map["imageUrl"] as? String ?: "",
                     trainingCategoriesIds = (map["trainingCategoriesIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
@@ -447,13 +447,14 @@ class RemoteDataSourceImpl(
             .set(hashMapOf(coach.id.toString() to coach), SetOptions.merge())
     }
 
-    override suspend fun getCoachById(id: Int): Coach? {
+    override suspend fun getCoachById(id: String): Coach? {
         val snapshot = db.collection("Data").document("coaches").get().await()
-        val map = snapshot.get(id.toString()) as? Map<*, *> ?: return null
+        val map = snapshot.get(id) as? Map<*, *> ?: return null
 
         return Coach(
-            id = (map["id"] as? Long)?.toInt() ?: return null,
+            id = (map["id"] as? String) ?: return null,
             name = map["name"] as? String ?: "",
+            mapId = map["mapId"] as? String ?: "",
             specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
             experienceYears = (map["experienceYears"] as? Long)?.toInt() ?: 0,
@@ -474,7 +475,8 @@ class RemoteDataSourceImpl(
         for ((_, value) in snapshot.data ?: emptyMap()) {
             val map = value as? Map<*, *> ?: continue
             val coach = Coach(
-                id = (map["id"] as? Long)?.toInt() ?: continue,
+                id = (map["id"] as? String) ?: continue,
+                mapId = map["mapId"] as? String ?: "",
                 name = map["name"] as? String ?: "",
                 specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),

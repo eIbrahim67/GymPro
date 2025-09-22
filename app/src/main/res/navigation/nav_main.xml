@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/action_myChatsFragment"
-        android:name="com.eibrahim67.gympro.myChats.MyChatsFragment"
+        android:name="com.eibrahim67.gympro.myChats.view.MyChatsFragment"
         android:label="MyChats" />
 
     <fragment

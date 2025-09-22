@@ -11,7 +11,9 @@ import com.eibrahim67.gympro.core.utils.Converters
 @Database(
     entities = [
         User::class
-    ], version = 1
+    ],
+    version = 1,
+    exportSchema = false // ✅ disables schema export to avoid error
 )
 @TypeConverters(Converters::class)
 abstract class UserDatabase : RoomDatabase() {
@@ -32,7 +34,5 @@ abstract class UserDatabase : RoomDatabase() {
                 ).build().also { INSTANCE = it }
             }
         }
-
     }
-
 }

@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.auth.signin.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,6 +33,13 @@ class SigninViewModel(
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 onResult(task.isSuccessful)
+            }
+            .addOnSuccessListener {
+                Log.i("loginUserFirebase", "Success")
+            }
+            .addOnFailureListener { e ->
+                Log.i("loginUserFirebase", e.toString())
+
             }
     }
 

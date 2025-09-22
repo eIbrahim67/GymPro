@@ -29,6 +29,7 @@ import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentCreatePlanBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
@@ -261,7 +262,7 @@ class CreatePlanFragment : Fragment() {
 
                             user.data?.let { it ->
                                 val updatedPlan = plan.copy(
-                                    coachId = it.id
+                                    coachId = FirebaseAuth.getInstance().uid.toString()
                                 )
                                 viewModel.createPlan(updatedPlan)
                                 viewModel.addTrainPlanId(user.data.id, updatedPlan.id)
@@ -336,7 +337,7 @@ class CreatePlanFragment : Fragment() {
             durationDaysPerTrainingWeek = duration,
             workoutsIds = selectedWorkoutsIds ?: listOf(),
             targetedMuscleIds = selectedMuscleIds ?: listOf(),
-            coachId = -1,
+            coachId = "",
             difficultyLevel = difficulty,
             imageUrl = selectedImageUrl.toString() ?: "",
             trainingCategoriesIds = selectedCategoriesIds ?: listOf(),

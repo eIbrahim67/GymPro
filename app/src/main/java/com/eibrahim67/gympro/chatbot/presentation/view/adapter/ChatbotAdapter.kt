@@ -10,23 +10,13 @@ import com.eibrahim67.gympro.databinding.ItemChatBotBinding
 import com.eibrahim67.gympro.databinding.ItemChatUserBinding
 import io.noties.markwon.Markwon
 
+class ChatbotAdapter : ListAdapter<ChatbotAdapter.ChatItem, ChatbotAdapter.ChatViewHolder>(ChatItemDiffCallback()) {
 
-/**
- * Adapter for displaying chatbot conversation messages and associated property images.
- */
-class ChatAdapter : ListAdapter<ChatAdapter.ChatItem, ChatAdapter.ChatViewHolder>(ChatItemDiffCallback()) {
-
-    /**
-     * Sealed class representing different types of chat items.
-     */
     sealed class ChatItem {
         data class UserMessage(val message: ChatMessage) : ChatItem()
         data class BotMessage(val message: ChatMessage) : ChatItem()
     }
 
-    /**
-     * ViewHolder for chat messages, using View Binding for efficient view access.
-     */
     sealed class ChatViewHolder : RecyclerView.ViewHolder {
         constructor(binding: ItemChatUserBinding) : super(binding.root)
         constructor(binding: ItemChatBotBinding) : super(binding.root)
@@ -54,8 +44,6 @@ class ChatAdapter : ListAdapter<ChatAdapter.ChatItem, ChatAdapter.ChatViewHolder
                 markwon.setMarkdown(binding.messageTextView, item.message.content)
             }
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
@@ -85,9 +73,6 @@ class ChatAdapter : ListAdapter<ChatAdapter.ChatItem, ChatAdapter.ChatViewHolder
         is ChatItem.BotMessage -> BOT_MESSAGE
     }
 
-    /**
-     * Updates the adapter with new messages and properties.
-     */
     fun updateData(messages: List<ChatMessage>) {
         val items = messages.map { message ->
             if (message.isFromUser) {
@@ -105,19 +90,16 @@ class ChatAdapter : ListAdapter<ChatAdapter.ChatItem, ChatAdapter.ChatViewHolder
     }
 }
 
-/**
- * DiffUtil callback for efficient updates of chat items.
- */
-private class ChatItemDiffCallback : DiffUtil.ItemCallback<ChatAdapter.ChatItem>() {
+private class ChatItemDiffCallback : DiffUtil.ItemCallback<ChatbotAdapter.ChatItem>() {
     override fun areItemsTheSame(
-        oldItem: ChatAdapter.ChatItem,
-        newItem: ChatAdapter.ChatItem
+        oldItem: ChatbotAdapter.ChatItem,
+        newItem: ChatbotAdapter.ChatItem
     ): Boolean {
         return when {
-            oldItem is ChatAdapter.ChatItem.UserMessage && newItem is ChatAdapter.ChatItem.UserMessage ->
+            oldItem is ChatbotAdapter.ChatItem.UserMessage && newItem is ChatbotAdapter.ChatItem.UserMessage ->
                 oldItem.message.content == newItem.message.content
 
-            oldItem is ChatAdapter.ChatItem.BotMessage && newItem is ChatAdapter.ChatItem.BotMessage ->
+            oldItem is ChatbotAdapter.ChatItem.BotMessage && newItem is ChatbotAdapter.ChatItem.BotMessage ->
                 oldItem.message.content == newItem.message.content
 
             else -> false
@@ -125,8 +107,8 @@ private class ChatItemDiffCallback : DiffUtil.ItemCallback<ChatAdapter.ChatItem>
     }
 
     override fun areContentsTheSame(
-        oldItem: ChatAdapter.ChatItem,
-        newItem: ChatAdapter.ChatItem
+        oldItem: ChatbotAdapter.ChatItem,
+        newItem: ChatbotAdapter.ChatItem
     ): Boolean {
         return oldItem == newItem
     }

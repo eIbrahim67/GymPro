@@ -44,6 +44,6 @@ interface RemoteDataSource {
 
 
     suspend fun addCoach(coach: Coach)
-    suspend fun getCoachById(id: Int) : Coach?
+    suspend fun getCoachById(id: String) : Coach?
     suspend fun getAllCoaches(): List<Coach>
 }

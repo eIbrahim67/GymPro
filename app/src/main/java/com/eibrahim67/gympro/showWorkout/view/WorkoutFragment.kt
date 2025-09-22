@@ -65,7 +65,7 @@ class WorkoutFragment : Fragment() {
             when (workout) {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
-                    sharedViewModel.getCoachById(workout.data?.coachId ?: 0)
+                    sharedViewModel.getCoachById(workout.data?.coachId ?: "")
                     workoutTitle.text = workout.data?.name
                     workoutDescription.text = workout.data?.description
                     sharedViewModel.getExerciseByIds(workout.data?.exerciseIds ?: emptyList())

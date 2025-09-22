@@ -103,7 +103,7 @@ class ShowTrainPlanFragment : Fragment() {
                     binding.trainPlanDifficulty.text = plan.difficultyLevel
                     binding.trainPlanAvgTime.text = "${plan.avgTimeMinPerWorkout} min"
                     binding.trainPlanDaysPerTrainingWeek.text = "${plan.durationDaysPerTrainingWeek} Days"
-                    sharedViewModel.getCoachById(plan.coachId ?: 0)
+                    sharedViewModel.getCoachById(plan.coachId ?: "")
                     sharedViewModel.getMusclesByIds(plan.targetedMuscleIds ?: emptyList())
                     plan.workoutsIds?.let { sharedViewModel.getWorkoutsByIds(it) }
                 }

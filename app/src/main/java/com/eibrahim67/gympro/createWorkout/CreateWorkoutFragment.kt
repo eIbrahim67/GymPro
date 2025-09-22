@@ -29,6 +29,7 @@ import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentCreateWorkoutBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
@@ -210,11 +211,9 @@ class CreateWorkoutFragment : Fragment() {
                         is ResponseEI.Success -> {
 
                             user.data?.let { it ->
-                                val updatedWorkout = workout.copy(
-                                    coachId = it.id
-                                )
-                                viewModel.createWorkout(updatedWorkout)
-                                viewModel.addWorkoutId(user.data.id, updatedWorkout.id)
+
+                                viewModel.createWorkout(workout)
+                                viewModel.addWorkoutId(user.data.id, workout.id)
                             }
 
                         }
@@ -282,7 +281,7 @@ class CreateWorkoutFragment : Fragment() {
             durationMinutes = duration,
             exerciseIds = selectedExerciseIds ?: listOf(),
             targetedMuscleIds = selectedMuscleIds ?: listOf(),
-            coachId = -1,
+            coachId = FirebaseAuth.getInstance().uid.toString(),
             difficultyLevel = difficulty,
             imageUrl = selectedImageUrl.toString() ?: "",
             equipment = equipments

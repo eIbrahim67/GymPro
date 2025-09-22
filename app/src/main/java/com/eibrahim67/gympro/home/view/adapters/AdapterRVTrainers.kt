@@ -15,7 +15,7 @@ import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.google.android.material.card.MaterialCardView
 
 class AdapterRVTrainers(
-    private val chatWithTrainer: ((id: Int) -> Unit)
+    private val chatWithTrainer: ((id: String) -> Unit)
 ) :
     RecyclerView.Adapter<AdapterRVTrainers.CategoryViewHolder>() {
 
