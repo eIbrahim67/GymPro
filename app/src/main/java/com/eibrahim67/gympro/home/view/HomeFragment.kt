@@ -308,7 +308,7 @@ class HomeFragment : Fragment() {
         sharedViewModel.navigateRightTo(R.id.action_showTrainPlan)
     }
 
-    private fun chatWithTrainer(id: Int) {
+    private fun chatWithTrainer(id: String) {
         sharedViewModel.setChatWithId(id)
         sharedViewModel.navigateRightTo(R.id.action_chat)
     }

@@ -51,9 +51,9 @@ class MainViewModel(
         _trainPlanId.value = id
     }
 
-    private val _chatWithId = MutableLiveData<Int>()
-    val chatWithId: LiveData<Int> get() = _chatWithId
-    fun setChatWithId(id: Int) {
+    private val _chatWithId = MutableLiveData<String>()
+    val chatWithId: LiveData<String> get() = _chatWithId
+    fun setChatWithId(id: String) {
         _chatWithId.value = id
     }
 
@@ -68,7 +68,7 @@ class MainViewModel(
 
     private val _coachById = MutableLiveData<ResponseEI<Coach?>>()
     val coachById: LiveData<ResponseEI<Coach?>> get() = _coachById
-    fun getCoachById(id: Int) =
+    fun getCoachById(id: String) =
         applyResponse(_coachById, viewModelScope) { remoteRepository.getCoachById(id) }
 
     private val _musclesByIds = MutableLiveData<ResponseEI<List<Muscles>?>>()
