@@ -66,9 +66,9 @@ class ProfileFragment : Fragment() {
                 sharedViewModel.navigateRightTo(R.id.action_myChatsFragment)
             }
 
-            btnMyClients.setOnClickListener {
+//            btnMyClients.setOnClickListener {
 //                sharedViewModel.navigateRightTo(R.id.action_myClientsFragment)
-            }
+//            }
 
             btnMyPlans.setOnClickListener {
                 sharedViewModel.navigateRightTo(R.id.action_myTrainingPlansFragment)
@@ -82,13 +82,13 @@ class ProfileFragment : Fragment() {
                 sharedViewModel.navigateRightTo(R.id.action_myExercisesFragment)
             }
 
-            btnMyProgress.setOnClickListener {
+//            btnMyProgress.setOnClickListener {
 //                sharedViewModel.navigateRightTo(R.id.action_myProgressFragment)
-            }
+//            }
 
-            btnMostImprovedMuscles.setOnClickListener {
+//            btnMostImprovedMuscles.setOnClickListener {
 //                sharedViewModel.navigateRightTo(R.id.action_mostImprovedMusclesFragment)
-            }
+//            }
 
             btnSecurityPolicies.setOnClickListener {
                 sharedViewModel.navigateRightTo(R.id.action_securityPoliciesFragment)

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
-    id ("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -39,6 +39,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -62,7 +63,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")
 
     //lottie
-    implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation("com.airbnb.android:lottie:6.1.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
@@ -115,3 +116,4 @@ dependencies {
     implementation(libs.core)
 
 }
+
