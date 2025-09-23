@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/action_becomeTrainerFragment"
-        android:name="com.eibrahim67.gympro.becomeTrainer.BecomeTrainerFragment"
+        android:name="com.eibrahim67.gympro.becomeTrainer.view.BecomeTrainerFragment"
         android:label="BecomeTrainer" />
 
     <fragment

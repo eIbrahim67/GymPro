@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
             }
 
             btnBeComeATrainer.setOnClickListener {
-//                sharedViewModel.navigateRightTo(R.id.action_becomeTrainerFragment)
+                sharedViewModel.navigateRightTo(R.id.action_becomeTrainerFragment)
             }
 
             btnMyChats.setOnClickListener {

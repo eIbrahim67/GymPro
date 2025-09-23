@@ -1,47 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/applyBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/backBtn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_margin="20dp"
-            app:cardBackgroundColor="@color/primary_black"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeWidth="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/backBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="20dp"
+                app:cardBackgroundColor="@color/primary_black"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="12dp"
+                    android:contentDescription="Back Button"
+                    android:src="@drawable/icon_back_arrow"
+                    app:tint="@color/primary_color" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply to bo a Coach"
+                android:textColor="@color/primary_black"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/backBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/backBtn" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="12dp"
-                android:contentDescription="Back Button"
-                android:src="@drawable/icon_back_arrow"
-                app:tint="@color/primary_color" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/backBtn">
 
-        </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateCoachName"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Coach Name"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/update_bio_coach"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bio"
+                        android:lines="5" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateCoachEmail"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Coach Email"
+                        android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateCoachPhone"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Coach Phone"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateCoachExperienceYears"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Coach Experience Years"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/updateCoachPrice"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Subscription Price" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/trainingCategoriesIds"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    app:helperTextTextAppearance="@style/CustomHelperTextStyle"
+                    app:helperTextTextColor="@color/warning">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/trainingCategoriesIdsAutoComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:dropDownSelector="@drawable/dropdown_background"
+                        android:hint="Select Training Categories"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/uploadImageButtonCard"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/primary_white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeColor="@color/primary_black"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:id="@+id/imageFeaturePlan"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:contentDescription="Image Feature Plan"
+                            android:scaleType="centerCrop"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/loadingAnimation"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_loop="true"
+                        android:layout_centerInParent="true"
+                        app:lottie_rawRes="@raw/loading" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/uploadImageButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/primary_white"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/primary_black"
+                    app:strokeWidth="1dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Upload Preview Image"
+                        android:textColor="@color/primary_black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/applyBtn"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/primary_black"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:strokeWidth="0dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Be Come a Trainer"
-            android:textColor="@color/primary_black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/backBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/backBtn" />
+            android:layout_gravity="center"
+            android:text="Apply"
+            android:textColor="@color/primary_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

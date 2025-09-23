@@ -454,7 +454,6 @@ class RemoteDataSourceImpl(
         return Coach(
             id = (map["id"] as? String) ?: return null,
             name = map["name"] as? String ?: "",
-            mapId = map["mapId"] as? String ?: "",
             specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                 ?: emptyList(),
             experienceYears = (map["experienceYears"] as? Long)?.toInt() ?: 0,
@@ -476,7 +475,6 @@ class RemoteDataSourceImpl(
             val map = value as? Map<*, *> ?: continue
             val coach = Coach(
                 id = (map["id"] as? String) ?: continue,
-                mapId = map["mapId"] as? String ?: "",
                 name = map["name"] as? String ?: "",
                 specializationIds = (map["specializationIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),

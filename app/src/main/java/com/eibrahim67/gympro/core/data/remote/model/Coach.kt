@@ -2,7 +2,6 @@ package com.eibrahim67.gympro.core.data.remote.model
 
 data class Coach(
     val id: String,
-    val mapId: String,
     val name: String,
     val specializationIds: List<Int>, // e.g., "Strength Training", "Cardio", "Yoga"
     val experienceYears: Int, // Number of years of experience
