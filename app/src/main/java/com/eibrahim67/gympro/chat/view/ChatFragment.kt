@@ -1,6 +1,8 @@
 package com.eibrahim67.gympro.chat.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -55,9 +57,7 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel.chatWithId.observe(viewLifecycleOwner) { id ->
-
             sharedViewModel.getCoachById(id)
-
         }
 
         Log.i("testAccount", sharedViewModel.chatWithId.value.toString())
@@ -87,6 +87,22 @@ class ChatFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.inputEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+                if (s.toString().isEmpty()){
+                    binding.sendButtonCard.visibility = View.GONE
+                    binding.uploadImageButton.visibility = View.VISIBLE
+                }else{
+                    binding.sendButtonCard.visibility = View.VISIBLE
+                    binding.uploadImageButton.visibility = View.GONE
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         val adapter = ChatAdapter(auth.uid)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())

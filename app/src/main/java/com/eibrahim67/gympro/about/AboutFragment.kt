@@ -20,7 +20,8 @@ class AboutFragment : Fragment() {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AboutViewModel by viewModels()
+    private val
+            viewModel: AboutViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.myChats.view.adapter
 
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class ChatsAdapter(
 
     private val chats = mutableListOf<Pair<Chat, UserChat>>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateChats(newChat: Pair<Chat, UserChat>) {
         chats.removeAll { (_, userChat) ->
             userChat.uid == newChat.second.uid   // compare, not assign

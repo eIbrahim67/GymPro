@@ -2,40 +2,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/click_item_10"
     android:layout_height="wrap_content"
+    android:background="@drawable/click_item_10"
     android:padding="8dp">
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:visibility="gone"
         android:id="@+id/senderMessageCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:cardBackgroundColor="@color/gray_v2"
-        app:cardCornerRadius="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0dp" />
+
         <TextView
             android:id="@+id/senderMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="@color/primary_black"
-            android:textSize="16sp" />
-    </com.google.android.material.card.MaterialCardView>
+            android:background="@drawable/user_right_chat_background"
+            android:padding="15dp"
+            android:textColor="@color/primary_color"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:visibility="gone"
         android:id="@+id/receiverMessageCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="@color/gray_v2"
-        app:cardCornerRadius="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +44,19 @@
 
         <TextView
             android:id="@+id/receiverMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:background="@drawable/user_left_chat_background"
+            android:padding="15dp"
+            android:layout_weight="1"
             android:textColor="@color/primary_black"
-            android:textSize="16sp" />
-    </com.google.android.material.card.MaterialCardView>
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="0dp" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
