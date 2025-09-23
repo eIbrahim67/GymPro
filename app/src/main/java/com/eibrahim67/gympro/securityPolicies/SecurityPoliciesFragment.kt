@@ -12,9 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.databinding.FragmentSecurityPoliciesBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class SecurityPoliciesFragment : Fragment() {

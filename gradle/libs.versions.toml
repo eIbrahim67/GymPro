@@ -16,7 +16,7 @@ lifecycleViewmodelKtx = "2.8.4"
 fragmentKtx = "1.5.6"
 googleGmsGoogleServices = "4.3.15"
 recyclerview = "1.4.0"
-firebaseStorage = "22.0.0"
+jetbrains = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

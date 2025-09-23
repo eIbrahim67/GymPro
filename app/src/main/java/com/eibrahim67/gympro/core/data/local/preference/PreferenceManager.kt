@@ -38,18 +38,18 @@ class PreferenceManager(context: Context) {
     fun getTimeSpent(): Int = sharedPreferences.getInt(KEY_TIME_SPENT, 0)
 
     // --------- Setters ---------
-    fun setDayNumber(value: Int) = sharedPreferences.edit().putInt(KEY_DAY_NUMBER, value).apply()
+    fun setDayNumber(value: Int) = sharedPreferences.edit { putInt(KEY_DAY_NUMBER, value) }
     fun setWorkoutNumber(value: Int) =
-        sharedPreferences.edit().putInt(KEY_WORKOUT_NUMBER, value).apply()
+        sharedPreferences.edit { putInt(KEY_WORKOUT_NUMBER, value) }
 
     fun setWorkoutDone(value: Boolean) =
-        sharedPreferences.edit().putBoolean(KEY_WORKOUT_DONE, value).apply()
+        sharedPreferences.edit { putBoolean(KEY_WORKOUT_DONE, value) }
 
     fun setExercisesNumber(value: Int) =
-        sharedPreferences.edit().putInt(KEY_EXERCISES_NUMBER, value).apply()
+        sharedPreferences.edit { putInt(KEY_EXERCISES_NUMBER, value) }
 
-    fun setRepsNumber(value: Int) = sharedPreferences.edit().putInt(KEY_REPS_NUMBER, value).apply()
-    fun setTimeSpent(value: Int) = sharedPreferences.edit().putInt(KEY_TIME_SPENT, value).apply()
+    fun setRepsNumber(value: Int) = sharedPreferences.edit { putInt(KEY_REPS_NUMBER, value) }
+    fun setTimeSpent(value: Int) = sharedPreferences.edit { putInt(KEY_TIME_SPENT, value) }
 
     // --------- Increasers ---------
 
@@ -71,14 +71,14 @@ class PreferenceManager(context: Context) {
 
     // --------- Reset ---------
     fun resetAllProgress() {
-        sharedPreferences.edit()
-            .putInt(KEY_DAY_NUMBER, -1)
-            .putInt(KEY_WORKOUT_NUMBER, 0)
-            .putBoolean(KEY_WORKOUT_DONE, false)
-            .putInt(KEY_EXERCISES_NUMBER, 0)
-            .putInt(KEY_REPS_NUMBER, 0)
-            .putInt(KEY_TIME_SPENT, 0)
-            .apply()
+        sharedPreferences.edit {
+            putInt(KEY_DAY_NUMBER, -1)
+                .putInt(KEY_WORKOUT_NUMBER, 0)
+                .putBoolean(KEY_WORKOUT_DONE, false)
+                .putInt(KEY_EXERCISES_NUMBER, 0)
+                .putInt(KEY_REPS_NUMBER, 0)
+                .putInt(KEY_TIME_SPENT, 0)
+        }
     }
 
     fun newDay(len: Int): Int {
@@ -107,25 +107,25 @@ class PreferenceManager(context: Context) {
     fun finishWorkout(len: Int) {
 
         incrementWorkoutDone(len = len)
-        sharedPreferences.edit()
-            .putInt(KEY_DAY_NUMBER, getTodayKey())
-            .putInt(KEY_EXERCISES_NUMBER, 0)
-            .putBoolean(KEY_WORKOUT_DONE, false)
-            .putInt(KEY_REPS_NUMBER, 0)
-            .putInt(KEY_TIME_SPENT, 0)
-            .apply()
+        sharedPreferences.edit {
+            putInt(KEY_DAY_NUMBER, getTodayKey())
+                .putInt(KEY_EXERCISES_NUMBER, 0)
+                .putBoolean(KEY_WORKOUT_DONE, false)
+                .putInt(KEY_REPS_NUMBER, 0)
+                .putInt(KEY_TIME_SPENT, 0)
+        }
 
     }
 
     fun reTrainWorkout() {
 
-        sharedPreferences.edit()
-            .putInt(KEY_DAY_NUMBER, getTodayKey())
-            .putInt(KEY_EXERCISES_NUMBER, 0)
-            .putBoolean(KEY_WORKOUT_DONE, false)
-            .putInt(KEY_REPS_NUMBER, 0)
-            .putInt(KEY_TIME_SPENT, 0)
-            .apply()
+        sharedPreferences.edit {
+            putInt(KEY_DAY_NUMBER, getTodayKey())
+                .putInt(KEY_EXERCISES_NUMBER, 0)
+                .putBoolean(KEY_WORKOUT_DONE, false)
+                .putInt(KEY_REPS_NUMBER, 0)
+                .putInt(KEY_TIME_SPENT, 0)
+        }
 
     }
 

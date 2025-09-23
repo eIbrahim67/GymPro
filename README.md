@@ -33,46 +33,46 @@ GymPro is a comprehensive fitness tracking app designed to support users in achi
 ---
 
 ### 🔹 Communication & Support
-4. **Chatbot Page**
+1. **Chatbot Page**
    - AI-powered assistant for answering fitness-related questions and giving workout/nutrition tips.
 
-5. **Chat Page**
+2. **Chat Page**
    - Direct messaging with subscribed trainers for real-time support, advice, and motivation.
 
 ---
 
 ### 🔹 Workout & Exercise Management
-6. **Create Training Plan Page**
+1. **Create Training Plan Page**
    - Design structured training programs by defining categories, target muscles, frequency, and goals.
 
-7. **Create Workout Page**
+2. **Create Workout Page**
    - Build and log workouts with exercises, sets, reps, weights, and rest times.
 
-8. **Create Exercise Page**
+3. **Create Exercise Page**
    - Add new exercises with details like instructions, targeted muscles, and media support (images/videos).
 
-9. **My Training Plans Page**
+4. **My Training Plans Page**
    - Library of training plans the user has created or subscribed to.
 
-10. **My Workouts Page**
-   - History of logged or created workouts for quick review and reuse.
+5. **My Workouts Page**
+6. History of logged or created workouts for quick review and reuse.
 
-11. **My Exercises Page**
-   - User’s saved/custom exercises for quick access.
+7. **My Exercises Page**
+8. User’s saved/custom exercises for quick access.
 
 ---
 
 ### 🔹 Progress & Insights
-12. **My Progress Page**
+1. **My Progress Page**
    - Track progress across muscle groups with visual charts showing improvements or declines.
 
-13. **Most Improved Muscles Page**
+1. **Most Improved Muscles Page**
    - Ranked view of muscle groups, sorted from highest improvement to lowest, highlighting strengths and weaknesses.
 
 ---
 
 ### 🔹 Trainer Features
-14. **Become a Trainer Page**
+1. **Become a Trainer Page**
    - Onboarding for users to register as trainers, set up their profile, and start earning money by training others.
 
 ---

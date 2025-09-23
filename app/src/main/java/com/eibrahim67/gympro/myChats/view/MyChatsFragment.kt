@@ -17,8 +17,6 @@ import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
 import com.eibrahim67.gympro.databinding.FragmentMyChatsBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
-import com.eibrahim67.gympro.myChats.model.Chat
-import com.eibrahim67.gympro.myChats.model.UserChat
 import com.eibrahim67.gympro.myChats.view.adapter.ChatsAdapter
 import com.eibrahim67.gympro.myChats.viewModel.MyChatsViewModel
 import com.google.firebase.firestore.FirebaseFirestore
