@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.chat.model.ChatMessage
+import com.google.android.material.card.MaterialCardView
 
 class ChatAdapter(private val currentUserId: String?) :
     RecyclerView.Adapter<ChatAdapter.MessageViewHolder>() {
@@ -22,13 +23,13 @@ class ChatAdapter(private val currentUserId: String?) :
         val receiverMessage: TextView = view.findViewById(R.id.receiverMessage)
 
         val senderImage: ImageView = view.findViewById(R.id.senderImage)
-        val senderImageCard: LinearLayout = view.findViewById(R.id.senderImageCard)
+        val senderImageCard: MaterialCardView = view.findViewById(R.id.senderImageCard)
 
         val receiverMessageCard: LinearLayout = view.findViewById(R.id.receiverMessageCard)
         val senderMessageCard: LinearLayout = view.findViewById(R.id.senderMessageCard)
 
         val receiverImage: ImageView = view.findViewById(R.id.receiverImage)
-        val receiverImageCard: LinearLayout = view.findViewById(R.id.receiverImageCard)
+        val receiverImageCard: MaterialCardView = view.findViewById(R.id.receiverImageCard)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {

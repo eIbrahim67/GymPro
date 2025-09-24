@@ -78,7 +78,7 @@ class ChatFragment : Fragment() {
 
             Glide.with(view)
                 .load(user.photoUrl)
-                .error(R.drawable.icon_solid_profile)
+                .error(R.drawable.ic_profile_2)
                 .into(binding.chatWithUserImage)
             binding.chatWithUserName.text = user.name
 

@@ -103,67 +103,73 @@ class HomeFragment : Fragment() {
             when (response) {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
-                    binding.todayWorkoutTitle.text = "${response.data?.name}"
-                    list = response.data?.workoutsIds
+                    if (response.data == null) {
+                        binding.noPlanCard.visibility = View.VISIBLE
+                        binding.yourPlanCard.visibility = View.GONE
+                    } else {
+                        binding.yourPlanCard.visibility = View.VISIBLE
+                        binding.noPlanCard.visibility = View.GONE
+                        binding.todayWorkoutTitle.text = response.data.name
+                        list = response.data.workoutsIds
 
-                    if (preferenceManager.getDayNumber() != preferenceManager.getTodayKey()) {
-                        list?.let {
-                            when (preferenceManager.newDay(it.size)) {
-                                0 -> {
-                                    snackbar("It's a new day with new workout.")
-                                }
+                        if (preferenceManager.getDayNumber() != preferenceManager.getTodayKey()) {
+                            list?.let {
+                                when (preferenceManager.newDay(it.size)) {
+                                    0 -> {
+                                        snackbar("It's a new day with new workout.")
+                                    }
 
-                                1 -> {
-                                    AlertDialog.Builder(requireContext())
-                                        .setTitle("Unfinished Workout")
-                                        .setMessage("It's a new day, but you didn't complete your workout yesterday. What would you like to do?")
+                                    1 -> {
+                                        AlertDialog.Builder(requireContext())
+                                            .setTitle("Unfinished Workout")
+                                            .setMessage("It's a new day, but you didn't complete your workout yesterday. What would you like to do?")
 
-                                        .setPositiveButton("Finish") { _, _ ->
-                                            list?.let { preferenceManager.finishWorkout(it.size) }
+                                            .setPositiveButton("Finish") { _, _ ->
+                                                list?.let { preferenceManager.finishWorkout(it.size) }
 
-                                            list?.let {
-                                                workoutNumber =
-                                                    preferenceManager.getWorkoutNumber(it.size)
-                                            }
+                                                list?.let {
+                                                    workoutNumber =
+                                                        preferenceManager.getWorkoutNumber(it.size)
+                                                }
 
-                                            list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
+                                                list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
 
-                                        }.setNegativeButton("Re-Train") { _, _ ->
-                                            preferenceManager.reTrainWorkout()
-                                            list?.let {
-                                                workoutNumber =
-                                                    preferenceManager.getWorkoutNumber(it.size)
-                                            }
-                                            list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
-                                        }.setCancelable(false).show()
-                                }
+                                            }.setNegativeButton("Re-Train") { _, _ ->
+                                                preferenceManager.reTrainWorkout()
+                                                list?.let {
+                                                    workoutNumber =
+                                                        preferenceManager.getWorkoutNumber(it.size)
+                                                }
+                                                list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
+                                            }.setCancelable(false).show()
+                                    }
 
-                                2 -> {
-                                    snackbar("You missed workout yesterday. Ready to catch up?")
-                                }
+                                    2 -> {
+                                        snackbar("You missed workout yesterday. Ready to catch up?")
+                                    }
 
-                                else -> {
-                                    snackbar("Something Wrong")
+                                    else -> {
+                                        snackbar("Something Wrong")
+                                    }
                                 }
                             }
+
                         }
 
-                    }
+                        list?.let { workoutNumber = preferenceManager.getWorkoutNumber(it.size) }
+                        list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
 
-                    list?.let { workoutNumber = preferenceManager.getWorkoutNumber(it.size) }
-                    list?.let { sharedViewModel.getWorkoutById(it[workoutNumber]) }
+                        if (preferenceManager.getWorkoutDone()) {
 
-                    if (preferenceManager.getWorkoutDone()) {
+                            binding.workoutProgressText.text =
+                                "${workoutNumber + 1}/${list?.size}\nWorkout"
 
-                        binding.workoutProgressText.text =
-                            "${workoutNumber + 1}/${list?.size}\nWorkout"
-
-                        list?.let {
-                            binding.workoutProgressIndicator.progress =
-                                (((workoutNumber + 1).toDouble() / it.size) * 100).toInt()
+                            list?.let {
+                                binding.workoutProgressIndicator.progress =
+                                    (((workoutNumber + 1).toDouble() / it.size) * 100).toInt()
+                            }
                         }
                     }
-
                 }
 
                 is ResponseEI.Failure -> {}
