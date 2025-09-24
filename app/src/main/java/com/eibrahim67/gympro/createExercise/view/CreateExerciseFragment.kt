@@ -1,22 +1,13 @@
-package com.eibrahim67.gympro.createExercise
+package com.eibrahim67.gympro.createExercise.view
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
@@ -26,11 +17,13 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
+import com.eibrahim67.gympro.core.helperClass.ImagePickerUploader
 import com.eibrahim67.gympro.core.response.ResponseEI
+import com.eibrahim67.gympro.createExercise.viewModel.CreateExerciseViewModel
+import com.eibrahim67.gympro.createExercise.viewModel.CreateExerciseViewModelFactory
 import com.eibrahim67.gympro.databinding.FragmentCreateExcerciseBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 import kotlin.math.absoluteValue
 
@@ -51,7 +44,7 @@ class CreateExerciseFragment : Fragment() {
         val remoteRepository =
             RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
 
-        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val dao = UserDatabase.Companion.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
         CreateExerciseViewModelFactory(remoteRepository, userRepository)
@@ -185,10 +178,31 @@ class CreateExerciseFragment : Fragment() {
                 .show()
         }
 
+        val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
+            binding.imageFeatureExercise.setImageURI(null)
+            Glide.with(requireContext()).load(url).into(binding.imageFeatureExercise)
+            selectedImageUrl = url
+            imageUploaded = true
+            Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
+        }, onUploadError = { error ->
+            Snackbar.make(binding.root, error, Snackbar.LENGTH_SHORT).show()
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.drawable.error_ic)
+                .into(binding.imageFeatureExercise)
+        }, onLoading = { isLoading ->
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.color.primary_white)
+                .into(binding.imageFeatureExercise)
+            binding.loadingAnimation.apply {
+                visibility = if (isLoading) View.VISIBLE else View.GONE
+                if (isLoading) playAnimation() else cancelAnimation()
+            }
+        })
+
         binding.uploadImageButton.setOnClickListener {
-
-            requestStoragePermission()
-
+            imagePickerUploader.pickImage()
         }
 
 
@@ -310,110 +324,6 @@ class CreateExerciseFragment : Fragment() {
         return UUID.randomUUID().toString().hashCode().absoluteValue
     }
 
-    private var currentStoragePermission: String? = null
-
-    private fun requestStoragePermission() {
-        currentStoragePermission = getStoragePermission()
-        val permission = currentStoragePermission!!
-
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                permission
-            ) == PackageManager.PERMISSION_GRANTED -> pickImage()
-
-            shouldShowRequestPermissionRationale(permission) -> showPermissionRationaleDialog()
-
-            else -> permissionLauncher.launch(permission)
-        }
-    }
-
-    private fun getStoragePermission(): String =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-
-    private fun pickImage() {
-        selectImageFromGalleryLauncher.launch("image/*")
-    }
-
-    private val selectImageFromGalleryLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            uri?.let {
-                Glide.with(requireContext()).load(uri)
-                    .into(binding.imageFeatureExercise)
-                uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
-                imageUploaded = false
-                binding.loadingAnimation.playAnimation()
-                binding.loadingAnimation.visibility = View.VISIBLE
-            }
-        }
-
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            val permission = currentStoragePermission ?: getStoragePermission()
-            handlePermissionResult(granted, permission)
-        }
-
-    private fun handlePermissionResult(granted: Boolean, permission: String) {
-        if (granted) {
-            pickImage()
-        } else if (!shouldShowRequestPermissionRationale(permission)) {
-            showSettingsDialog()
-        } else {
-            showSnackbar("Storage permission denied")
-        }
-    }
-
-    private fun showPermissionRationaleDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Storage Permission Required")
-            .setMessage("This app needs access to your photos to upload images. Please grant the permission.")
-            .setPositiveButton("Grant") { _, _ -> permissionLauncher.launch(currentStoragePermission) }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false)
-            .show()
-    }
-
-    private fun showSettingsDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Permission Required")
-            .setMessage("Storage permission is needed to upload images. Please enable it in the app settings.")
-            .setPositiveButton("Go to Settings") { _, _ ->
-                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                    data = Uri.fromParts("package", requireContext().packageName, null)
-                })
-            }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false)
-            .show()
-    }
-
-    fun uploadImageAndGetUrl(imageUri: Uri, storagePath: String) {
-        val storageRef = FirebaseStorage.getInstance().reference.child(storagePath)
-
-        storageRef.putFile(imageUri).addOnSuccessListener {
-            storageRef.downloadUrl.addOnSuccessListener { uri ->
-                selectedImageUrl = uri.toString()
-                Log.d("Upload", "Image uploaded: $selectedImageUrl")
-                binding.loadingAnimation.cancelAnimation()
-                binding.loadingAnimation.visibility = View.GONE
-                imageUploaded = true
-            }.addOnFailureListener { e ->
-                Log.e("Upload", "Failed to get download URL", e)
-                selectedImageUrl = null
-                imageUploaded = false
-                showSnackbar("Failed to get image URL.")
-            }
-        }.addOnFailureListener { e ->
-            Log.e("Upload", "Upload failed", e)
-            selectedImageUrl = null
-            imageUploaded = false
-            showSnackbar("Image upload failed. Please try again.")
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

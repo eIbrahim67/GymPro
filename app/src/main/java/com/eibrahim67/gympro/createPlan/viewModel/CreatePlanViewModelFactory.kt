@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.createPlan
+package com.eibrahim67.gympro.createPlan.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

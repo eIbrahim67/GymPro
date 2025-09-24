@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.vsr
+package com.eibrahim67.gympro.chatbot.vsr
 
 import com.eibrahim67.gympro.core.utils.VALS
 import okhttp3.OkHttpClient

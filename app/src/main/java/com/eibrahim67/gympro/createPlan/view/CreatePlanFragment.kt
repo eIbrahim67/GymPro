@@ -1,20 +1,11 @@
-package com.eibrahim67.gympro.createPlan
+package com.eibrahim67.gympro.createPlan.view
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,12 +17,14 @@ import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
+import com.eibrahim67.gympro.core.helperClass.ImagePickerUploader
 import com.eibrahim67.gympro.core.response.ResponseEI
+import com.eibrahim67.gympro.createPlan.viewModel.CreatePlanViewModel
+import com.eibrahim67.gympro.createPlan.viewModel.CreatePlanViewModelFactory
 import com.eibrahim67.gympro.databinding.FragmentCreatePlanBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 import kotlin.math.absoluteValue
 
@@ -46,15 +39,11 @@ class CreatePlanFragment : Fragment() {
     var selectedWorkoutsIds: List<Int>? = null
     var selectedCategoriesIds: List<Int>? = null
 
-    private var selectedImageUrl: String? = null
-    private var imageUploaded: Boolean = false
-
-
     private val viewModel: CreatePlanViewModel by viewModels {
         val remoteRepository =
             RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
 
-        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val dao = UserDatabase.Companion.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
         CreatePlanViewModelFactory(remoteRepository, userRepository)
@@ -102,8 +91,7 @@ class CreatePlanFragment : Fragment() {
                                 binding.targetedMuscleIdsAutoComplete.setText(
                                     selectedNames.joinToString(", ")
                                 )
-                            }
-                        )
+                            })
                     }
                 }
 
@@ -141,8 +129,7 @@ class CreatePlanFragment : Fragment() {
                                 binding.workoutsIdsAutoComplete.setText(
                                     selectedNames.joinToString(", ")
                                 )
-                            }
-                        )
+                            })
                     }
                 }
 
@@ -164,8 +151,7 @@ class CreatePlanFragment : Fragment() {
                 is ResponseEI.Success -> {
 
                     val categoriesList = categories.data // List<Category?>
-                    val categoriesNames =
-                        categoriesList.map { it?.name ?: "Unknown" }.toTypedArray()
+                    val categoriesNames = categoriesList.map { it.name }.toTypedArray()
 
                     binding.trainingCategoriesIdsAutoComplete.setOnClickListener {
                         showMultiSelectDialog(
@@ -182,7 +168,7 @@ class CreatePlanFragment : Fragment() {
                                 }
 
                                 binding.trainingCategoriesIdsAutoComplete.setText(
-                                    selectedNames?.joinToString(", ")
+                                    selectedNames.joinToString(", ")
                                 )
                             })
                     }
@@ -240,10 +226,30 @@ class CreatePlanFragment : Fragment() {
                 .show()
         }
 
+
+        val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
+            binding.imageFeaturePlan.setImageURI(null)
+            Glide.with(requireContext()).load(url).into(binding.imageFeaturePlan)
+            selectedImageUrl = url
+            imageUploaded = true
+            Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
+        }, onUploadError = { error ->
+            Snackbar.make(binding.root, error, Snackbar.LENGTH_SHORT).show()
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.drawable.error_ic).into(binding.imageFeaturePlan)
+        }, onLoading = { isLoading ->
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.color.primary_white).into(binding.imageFeaturePlan)
+            binding.loadingAnimation.apply {
+                visibility = if (isLoading) View.VISIBLE else View.GONE
+                if (isLoading) playAnimation() else cancelAnimation()
+            }
+        })
+
         binding.uploadImageButton.setOnClickListener {
-
-            requestStoragePermission()
-
+            imagePickerUploader.pickImage()
         }
 
 
@@ -326,8 +332,10 @@ class CreatePlanFragment : Fragment() {
             binding.avgTimeMin.error = "Valid average time is required"
             return null
         }
-        if (!imageUploaded){
-            Snackbar.make(requireView(), "Wait until image upload successfully", Snackbar.LENGTH_LONG).show()
+        if (!imageUploaded) {
+            Snackbar.make(
+                requireView(), "Wait until image upload successfully", Snackbar.LENGTH_LONG
+            ).show()
             return null
         }
         return TrainPlan(
@@ -339,7 +347,7 @@ class CreatePlanFragment : Fragment() {
             targetedMuscleIds = selectedMuscleIds ?: listOf(),
             coachId = "",
             difficultyLevel = difficulty,
-            imageUrl = selectedImageUrl.toString() ?: "",
+            imageUrl = selectedImageUrl.toString(),
             trainingCategoriesIds = selectedCategoriesIds ?: listOf(),
             avgTimeMinPerWorkout = avgTime
         )
@@ -349,119 +357,16 @@ class CreatePlanFragment : Fragment() {
         return UUID.randomUUID().toString().hashCode().absoluteValue
     }
 
-    private var currentStoragePermission: String? = null
-
-    private fun requestStoragePermission() {
-        currentStoragePermission = getStoragePermission()
-        val permission = currentStoragePermission!!
-
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                permission
-            ) == PackageManager.PERMISSION_GRANTED -> pickImage()
-
-            shouldShowRequestPermissionRationale(permission) -> showPermissionRationaleDialog()
-
-            else -> permissionLauncher.launch(permission)
-        }
+    fun showSnackbar(msg: String) {
+        Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).show()
     }
-
-    private fun getStoragePermission(): String =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-
-    private fun pickImage() {
-        selectImageFromGalleryLauncher.launch("image/*")
-    }
-
-    private val selectImageFromGalleryLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            uri?.let {
-                Glide.with(requireContext()).load(uri)
-                    .into(binding.imageFeaturePlan)
-                uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
-                imageUploaded = false
-                binding.loadingAnimation.playAnimation()
-                binding.loadingAnimation.visibility = View.VISIBLE
-            }
-        }
-
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            val permission = currentStoragePermission ?: getStoragePermission()
-            handlePermissionResult(granted, permission)
-        }
-
-    private fun handlePermissionResult(granted: Boolean, permission: String) {
-        if (granted) {
-            pickImage()
-        } else if (!shouldShowRequestPermissionRationale(permission)) {
-            showSettingsDialog()
-        } else {
-            showSnackbar("Storage permission denied")
-        }
-    }
-
-    private fun showPermissionRationaleDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Storage Permission Required")
-            .setMessage("This app needs access to your photos to upload images. Please grant the permission.")
-            .setPositiveButton("Grant") { _, _ -> permissionLauncher.launch(currentStoragePermission) }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false)
-            .show()
-    }
-
-    private fun showSettingsDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Permission Required")
-            .setMessage("Storage permission is needed to upload images. Please enable it in the app settings.")
-            .setPositiveButton("Go to Settings") { _, _ ->
-                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                    data = Uri.fromParts("package", requireContext().packageName, null)
-                })
-            }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false)
-            .show()
-    }
-
-    fun uploadImageAndGetUrl(imageUri: Uri, storagePath: String) {
-        val storageRef = FirebaseStorage.getInstance().reference.child(storagePath)
-
-        storageRef.putFile(imageUri).addOnSuccessListener {
-            storageRef.downloadUrl.addOnSuccessListener { uri ->
-                selectedImageUrl = uri.toString()
-                Log.d("Upload", "Image uploaded: $selectedImageUrl")
-                binding.loadingAnimation.cancelAnimation()
-                binding.loadingAnimation.visibility = View.GONE
-                imageUploaded = true
-            }.addOnFailureListener { e ->
-                Log.e("Upload", "Failed to get download URL", e)
-                selectedImageUrl = null
-                imageUploaded = false
-                showSnackbar("Failed to get image URL.")
-            }
-        }.addOnFailureListener { e ->
-            Log.e("Upload", "Upload failed", e)
-            imageUploaded = false
-            selectedImageUrl = null
-            showSnackbar("Image upload failed. Please try again.")
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    fun showSnackbar(msg: String) {
-        Snackbar.make(requireView(), msg, Snackbar.LENGTH_SHORT).show()
-    }
+    private var imageUploaded = false
+    private var selectedImageUrl: String? = null
 
 }

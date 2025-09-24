@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/action_chat"
-        android:name="com.eibrahim67.gympro.chat.view.ChatFragment"
+        android:name="com.eibrahim67.gympro.chat.view.ui.ChatFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chat" />
     <fragment
@@ -117,12 +117,12 @@
 
     <fragment
         android:id="@+id/action_createPlanFragment"
-        android:name="com.eibrahim67.gympro.createPlan.CreatePlanFragment"
+        android:name="com.eibrahim67.gympro.createPlan.view.CreatePlanFragment"
         android:label="CreatePlanFragment" />
 
     <fragment
         android:id="@+id/action_createWorkoutFragment"
-        android:name="com.eibrahim67.gympro.createWorkout.CreateWorkoutFragment"
+        android:name="com.eibrahim67.gympro.createWorkout.view.CreateWorkoutFragment"
         android:label="CreateWorkoutFragment" />
 
     <fragment
@@ -132,7 +132,7 @@
 
     <fragment
         android:id="@+id/action_createExerciseFragment"
-        android:name="com.eibrahim67.gympro.createExercise.CreateExerciseFragment"
+        android:name="com.eibrahim67.gympro.createExercise.view.CreateExerciseFragment"
         android:label="CreateExerciseFragment" />
     
     <fragment

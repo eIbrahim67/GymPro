@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.vsr
+package com.eibrahim67.gympro.chatbot.vsr
 
 import okhttp3.MultipartBody
 import retrofit2.Response

@@ -1,17 +1,17 @@
-package com.eibrahim67.gympro.createExercise
+package com.eibrahim67.gympro.createWorkout.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 
-class CreateExerciseViewModelFactory (
+class CreateWorkoutViewModelFactory (
     private val remoteRepository: RemoteRepository,
     private val userRepository: UserRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(CreateExerciseViewModel::class.java))
-                return CreateExerciseViewModel(remoteRepository, userRepository) as T
+            if(modelClass.isAssignableFrom(CreateWorkoutViewModel::class.java))
+                return CreateWorkoutViewModel(remoteRepository, userRepository) as T
             else
                 throw IllegalArgumentException("Unknown view model")
         }

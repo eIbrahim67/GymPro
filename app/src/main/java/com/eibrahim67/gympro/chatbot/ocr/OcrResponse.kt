@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.ocr
+package com.eibrahim67.gympro.chatbot.ocr
 
 data class OcrResponse(
     val status: String,

@@ -12,8 +12,8 @@ import com.eibrahim67.gympro.chatbot.domain.model.ChatbotMessage
 import com.eibrahim67.gympro.chatbot.domain.model.ChatbotViewModelConst
 import com.eibrahim67.gympro.chatbot.domain.usecase.GetChatResponseUseCase
 import com.eibrahim67.gympro.core.response.ResponseEI
-import com.eibrahim67.gympro.ocr.ApiOcrClient
-import com.eibrahim67.gympro.vsr.ApiVsrClient
+import com.eibrahim67.gympro.chatbot.ocr.ApiOcrClient
+import com.eibrahim67.gympro.chatbot.vsr.ApiVsrClient
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers

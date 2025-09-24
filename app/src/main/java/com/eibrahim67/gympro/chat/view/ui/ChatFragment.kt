@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.chat.view
+package com.eibrahim67.gympro.chat.view.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.chat.model.ChatMessage
+import com.eibrahim67.gympro.chat.view.adapter.ChatAdapter
 import com.eibrahim67.gympro.chat.viewModel.ChatViewModel
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
 import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
@@ -39,7 +40,7 @@ class ChatFragment : Fragment() {
     private val sharedViewModel: MainViewModel by activityViewModels {
         val remoteRepository =
             RemoteRepositoryImpl(RemoteDataSourceImpl(FirebaseFirestore.getInstance()))
-        val dao = UserDatabase.getDatabaseInstance(requireContext()).userDao()
+        val dao = UserDatabase.Companion.getDatabaseInstance(requireContext()).userDao()
         val localDateSource = LocalDateSourceImpl(dao)
         val userRepository = UserRepositoryImpl(localDateSource)
         MainViewModelFactory(userRepository, remoteRepository)

@@ -18,11 +18,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.becomeTrainer.viewModel.BecomeTrainerViewModel
 import com.eibrahim67.gympro.becomeTrainer.viewModel.BecomeTrainerViewModelFactory
 import com.eibrahim67.gympro.core.data.remote.model.Coach
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
+import com.eibrahim67.gympro.core.helperClass.ImagePickerUploader
 import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.databinding.FragmentBecomeTrainerBinding
 import com.google.android.material.snackbar.Snackbar
@@ -127,8 +129,30 @@ class BecomeTrainerFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
+            binding.imageCoach.setImageURI(null)
+            Glide.with(requireContext()).load(url).into(binding.imageCoach)
+            selectedImageUrl = url
+            imageUploaded = true
+            Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
+        }, onUploadError = { error ->
+            Snackbar.make(binding.root, error, Snackbar.LENGTH_SHORT).show()
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.drawable.error_ic).into(binding.imageCoach)
+        }, onLoading = { isLoading ->
+            imageUploaded = false
+            selectedImageUrl = null
+            Glide.with(requireContext()).load(R.color.primary_white)
+                .into(binding.imageCoach)
+            binding.loadingAnimation.apply {
+                visibility = if (isLoading) View.VISIBLE else View.GONE
+                if (isLoading) playAnimation() else cancelAnimation()
+            }
+        })
+
         binding.uploadImageButton.setOnClickListener {
-            requestStoragePermission()
+            imagePickerUploader.pickImage()
         }
 
 
@@ -226,106 +250,4 @@ class BecomeTrainerFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    private var currentStoragePermission: String? = null
-
-    private fun requestStoragePermission() {
-        currentStoragePermission = getStoragePermission()
-        val permission = currentStoragePermission!!
-
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(), permission
-            ) == PackageManager.PERMISSION_GRANTED -> pickImage()
-
-            shouldShowRequestPermissionRationale(permission) -> showPermissionRationaleDialog()
-
-            else -> permissionLauncher.launch(permission)
-        }
-    }
-
-    private fun getStoragePermission(): String =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-
-    private fun pickImage() {
-        selectImageFromGalleryLauncher.launch("image/*")
-    }
-
-    private val selectImageFromGalleryLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            uri?.let {
-                Glide.with(requireContext()).load(uri).into(binding.imageFeaturePlan)
-                uploadImageAndGetUrl(uri, "images/${UUID.randomUUID()}.jpg")
-                imageUploaded = false
-                binding.loadingAnimation.playAnimation()
-                binding.loadingAnimation.visibility = View.VISIBLE
-            }
-        }
-
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            val permission = currentStoragePermission ?: getStoragePermission()
-            handlePermissionResult(granted, permission)
-        }
-
-    private fun handlePermissionResult(granted: Boolean, permission: String) {
-        if (granted) {
-            pickImage()
-        } else if (!shouldShowRequestPermissionRationale(permission)) {
-            showSettingsDialog()
-        } else {
-            showSnackbar("Storage permission denied")
-        }
-    }
-
-    private fun showPermissionRationaleDialog() {
-        AlertDialog.Builder(requireContext()).setTitle("Storage Permission Required")
-            .setMessage("This app needs access to your photos to upload images. Please grant the permission.")
-            .setPositiveButton("Grant") { _, _ -> permissionLauncher.launch(currentStoragePermission) }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false).show()
-    }
-
-    private fun showSettingsDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Permission Required")
-            .setMessage("Storage permission is needed to upload images. Please enable it in the app settings.")
-            .setPositiveButton("Go to Settings") { _, _ ->
-                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                    data = Uri.fromParts("package", requireContext().packageName, null)
-                })
-            }
-            .setNegativeButton("Cancel") { _, _ -> showSnackbar("Permission denied") }
-            .setCancelable(false)
-            .show()
-    }
-
-    fun uploadImageAndGetUrl(imageUri: Uri, storagePath: String) {
-        val storageRef = FirebaseStorage.getInstance().reference.child(storagePath)
-
-        storageRef.putFile(imageUri).addOnSuccessListener {
-            storageRef.downloadUrl.addOnSuccessListener { uri ->
-                selectedImageUrl = uri.toString()
-                Log.d("Upload", "Image uploaded: $selectedImageUrl")
-                binding.loadingAnimation.cancelAnimation()
-                binding.loadingAnimation.visibility = View.GONE
-                imageUploaded = true
-            }.addOnFailureListener { e ->
-                Log.e("Upload", "Failed to get download URL", e)
-                selectedImageUrl = null
-                imageUploaded = false
-                showSnackbar("Failed to get image URL.")
-            }
-        }.addOnFailureListener { e ->
-            Log.e("Upload", "Upload failed", e)
-            imageUploaded = false
-            selectedImageUrl = null
-            showSnackbar("Image upload failed. Please try again.")
-        }
-    }
-
 }

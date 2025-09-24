@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.createExercise
+package com.eibrahim67.gympro.createPlan.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,14 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.eibrahim67.gympro.core.data.local.model.User
 import com.eibrahim67.gympro.core.data.local.repository.UserRepository
 import com.eibrahim67.gympro.core.data.remote.model.Category
-import com.eibrahim67.gympro.core.data.remote.model.Exercise
 import com.eibrahim67.gympro.core.data.remote.model.Muscles
+import com.eibrahim67.gympro.core.data.remote.model.TrainPlan
+import com.eibrahim67.gympro.core.data.remote.model.Workout
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepository
 import com.eibrahim67.gympro.core.response.ResponseEI
 import com.eibrahim67.gympro.core.utils.UtilsFunctions.applyResponse
 
-class CreateExerciseViewModel(
-    val remoteRepository: RemoteRepository, private val userRepository: UserRepository
+class CreatePlanViewModel(
+    private val remoteRepository: RemoteRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResponseEI<List<Category>>>()
@@ -33,30 +35,30 @@ class CreateExerciseViewModel(
         }
     }
 
-    private val _exercises = MutableLiveData<ResponseEI<List<Exercise?>>>()
-    val exercises: LiveData<ResponseEI<List<Exercise?>>> get() = _exercises
+    private val _workouts = MutableLiveData<ResponseEI<List<Workout?>>>()
+    val workouts: LiveData<ResponseEI<List< Workout?>>> get() = _workouts
 
-    fun getAllExercises() {
-        applyResponse(_exercises, viewModelScope) {
-            remoteRepository.getAllExercises()
+    fun getAllWorkouts() {
+        applyResponse(_workouts, viewModelScope) {
+            remoteRepository.getAllWorkouts()
         }
     }
 
-    private val _createExercise = MutableLiveData<ResponseEI<Unit>>()
-    val createExercise: LiveData<ResponseEI<Unit>> get() = _createExercise
+    private val _createPlan = MutableLiveData<ResponseEI<Unit>>()
+    val createPlan: LiveData<ResponseEI<Unit>> get() = _createPlan
 
-    fun createExercise(exercise: Exercise) {
-        applyResponse(_createExercise, viewModelScope) {
-            remoteRepository.addExercises(exercise)
+    fun createPlan(trainPlan: TrainPlan) {
+        applyResponse(_createPlan, viewModelScope) {
+            remoteRepository.addTrainPlans(trainPlan)
         }
     }
 
-    private val _addedExerciseId = MutableLiveData<ResponseEI<Unit>>()
-    val addedExerciseId: LiveData<ResponseEI<Unit>> get() = _addedExerciseId
+    private val _addedTrainPlanId = MutableLiveData<ResponseEI<Unit>>()
+    val addedTrainPlanId: LiveData<ResponseEI<Unit>> get() = _addedTrainPlanId
 
-    fun addExerciseId(coachId: Int, newPlanId: Int) {
-        applyResponse(_addedExerciseId, viewModelScope) {
-            remoteRepository.addExerciseId(coachId, newPlanId)
+    fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+        applyResponse(_addedTrainPlanId, viewModelScope) {
+            remoteRepository.addTrainPlanId(coachId, newPlanId)
         }
     }
 

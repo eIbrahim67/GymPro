@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".createPlan.CreatePlanFragment">
+    tools:context=".createPlan.view.CreatePlanFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/backBtn"
@@ -270,7 +270,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/primary_white"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintTop_toBottomOf="@id/avgTimeMin"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,6 +283,7 @@
                 android:layout_height="200dp"
                 android:contentDescription="Image Feature Plan"
                 android:scaleType="centerCrop"
+                android:background="@color/primary_white"
                 app:layout_constraintTop_toBottomOf="@id/avgTimeMin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>

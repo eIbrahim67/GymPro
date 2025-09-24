@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.chat.view
+package com.eibrahim67.gympro.chat.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.chat.model.ChatMessage
-
 
 class ChatAdapter(private val currentUserId: String?) :
     RecyclerView.Adapter<ChatAdapter.MessageViewHolder>() {

@@ -205,7 +205,7 @@
                         app:strokeWidth="1dp">
 
                         <ImageView
-                            android:id="@+id/imageFeaturePlan"
+                            android:id="@+id/imageCoach"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:contentDescription="Image Feature Plan"
