@@ -230,7 +230,7 @@ class CreatePlanFragment : Fragment() {
         val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
             binding.imageFeaturePlan.setImageURI(null)
             Glide.with(requireContext()).load(url).into(binding.imageFeaturePlan)
-            selectedImageUrl = url
+            selectedImageUrl = url.toString()
             imageUploaded = true
             Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
         }, onUploadError = { error ->

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eibrahim67.gympro.chatbot.domain.model.ChatMessage
+import com.eibrahim67.gympro.chatbot.domain.model.ChatbotMessage
 import com.eibrahim67.gympro.databinding.ItemChatBotBinding
 import com.eibrahim67.gympro.databinding.ItemChatUserBinding
 import io.noties.markwon.Markwon
@@ -13,8 +13,8 @@ import io.noties.markwon.Markwon
 class ChatbotAdapter : ListAdapter<ChatbotAdapter.ChatItem, ChatbotAdapter.ChatViewHolder>(ChatItemDiffCallback()) {
 
     sealed class ChatItem {
-        data class UserMessage(val message: ChatMessage) : ChatItem()
-        data class BotMessage(val message: ChatMessage) : ChatItem()
+        data class UserMessage(val message: ChatbotMessage) : ChatItem()
+        data class BotMessage(val message: ChatbotMessage) : ChatItem()
     }
 
     sealed class ChatViewHolder : RecyclerView.ViewHolder {
@@ -73,7 +73,7 @@ class ChatbotAdapter : ListAdapter<ChatbotAdapter.ChatItem, ChatbotAdapter.ChatV
         is ChatItem.BotMessage -> BOT_MESSAGE
     }
 
-    fun updateData(messages: List<ChatMessage>) {
+    fun updateData(messages: List<ChatbotMessage>) {
         val items = messages.map { message ->
             if (message.isFromUser) {
                 ChatItem.UserMessage(message)

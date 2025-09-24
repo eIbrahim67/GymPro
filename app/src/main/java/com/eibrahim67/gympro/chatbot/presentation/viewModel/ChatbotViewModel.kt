@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eibrahim67.gympro.chatbot.domain.model.ChatMessage
 import com.eibrahim67.gympro.chatbot.domain.model.ChatPayload
 import com.eibrahim67.gympro.chatbot.domain.model.ChatUiState
 import com.eibrahim67.gympro.chatbot.domain.model.ChatbotMessage
@@ -36,7 +35,7 @@ class ChatbotViewModel(
     private val _uiState = MutableLiveData<ChatUiState>()
     val uiState: LiveData<ChatUiState> = _uiState
 
-    private val conversationHistory = mutableListOf<ChatMessage>()
+    private val conversationHistory = mutableListOf<ChatbotMessage>()
     private val conversationChatbot = mutableListOf<ChatbotMessage>()
     private val gson = Gson()
 
@@ -198,7 +197,7 @@ class ChatbotViewModel(
      * Adds a user message to the conversation history.
      */
     private fun addUserMessage(message: String) {
-        conversationHistory.add(ChatMessage(content = message, role = "user", isFromUser = true))
+        conversationHistory.add(ChatbotMessage(content = message, role = "user", isFromUser = true))
         conversationChatbot.add(ChatbotMessage(content = message, role = "user", isFromUser = true))
         updateUiState { copy(messages = conversationHistory.toList()) }
     }
@@ -210,7 +209,7 @@ class ChatbotViewModel(
         if (conversationHistory.none { it.role == "system" }) {
             conversationHistory.add(
                 0,
-                ChatMessage(role = "system", content = ChatbotViewModelConst.SYSTEM_PROMPT)
+                ChatbotMessage(role = "system", content = ChatbotViewModelConst.SYSTEM_PROMPT)
             )
             updateUiState { copy(messages = conversationHistory.toList()) }
         }
@@ -251,7 +250,7 @@ class ChatbotViewModel(
                     is ResponseEI.Success -> {
 
                         conversationHistory.add(
-                            ChatMessage(
+                            ChatbotMessage(
                                 content = response.data.content
                             )
                         )
@@ -285,7 +284,7 @@ class ChatbotViewModel(
     /**
      * Handles a successful chat response by adding the bot's message to the history.
      */
-//    private fun handleSuccessResponse(chatResponse: ChatMessage) {
+//    private fun handleSuccessResponse(chatResponse: ChatbotMessage) {
 //        if (chatResponse.content.isNullOrBlank()) {
 //
 //            Log.e(ChatbotViewModelConst.TAG, "Chat response content is null or blank")
@@ -301,7 +300,7 @@ class ChatbotViewModel(
 //            onSuccess = { parsedResponse ->
 //                if (parsedResponse?.message != null) {
 //                    conversationHistory.add(
-//                        ChatMessage(
+//                        ChatbotMessage(
 //                            content = parsedResponse.message
 //                        )
 //                    )
@@ -339,7 +338,7 @@ class ChatbotViewModel(
         _uiState.value = newState.copy(messages = getDisplayMessages())
     }
 
-    private fun getDisplayMessages(): List<ChatMessage> =
+    private fun getDisplayMessages(): List<ChatbotMessage> =
         conversationHistory.filter { it.role != "system" }
 
 }

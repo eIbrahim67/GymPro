@@ -2,7 +2,7 @@ package com.eibrahim67.gympro.chatbot.domain.repositoryImpl
 
 import com.eibrahim67.gympro.chatbot.data.network.ChatLlamaStreamProcessor
 import com.eibrahim67.gympro.chatbot.data.repository.ChatRepository
-import com.eibrahim67.gympro.chatbot.domain.model.ChatMessage
+import com.eibrahim67.gympro.chatbot.domain.model.ChatbotMessage
 import com.eibrahim67.gympro.core.response.FailureReason
 import com.eibrahim67.gympro.core.response.ResponseEI
 import kotlinx.coroutines.channels.awaitClose
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.callbackFlow
 class ChatRepositoryImpl(
     private val streamProcessor: ChatLlamaStreamProcessor
 ) : ChatRepository {
-    override suspend fun getChatResponse(jsonPayload: String): Flow<ResponseEI<ChatMessage>> = callbackFlow {
+    override suspend fun getChatResponse(jsonPayload: String): Flow<ResponseEI<ChatbotMessage>> = callbackFlow {
         // Emit a loading state immediately.
         trySend(ResponseEI.Loading)
 
@@ -33,7 +33,7 @@ class ChatRepositoryImpl(
                 trySend(ResponseEI.Loading)
             },
             onComplete = {
-                trySend(ResponseEI.Success(ChatMessage(content = conversationBuilder.toString())))
+                trySend(ResponseEI.Success(ChatbotMessage(content = conversationBuilder.toString())))
                 close()
             }
         )

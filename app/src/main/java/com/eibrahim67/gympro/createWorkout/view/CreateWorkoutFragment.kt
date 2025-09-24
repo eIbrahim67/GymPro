@@ -186,7 +186,7 @@ class CreateWorkoutFragment : Fragment() {
         val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
             binding.imageFeatureWorkout.setImageURI(null)
             Glide.with(requireContext()).load(url).into(binding.imageFeatureWorkout)
-            selectedImageUrl = url
+            selectedImageUrl = url.toString()
             imageUploaded = true
             Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
         }, onUploadError = { error ->

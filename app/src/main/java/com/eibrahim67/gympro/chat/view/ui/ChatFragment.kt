@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.chat.view.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.chat.model.ChatMessage
 import com.eibrahim67.gympro.chat.view.adapter.ChatAdapter
 import com.eibrahim67.gympro.chat.viewModel.ChatViewModel
 import com.eibrahim67.gympro.core.data.local.repository.UserRepositoryImpl
@@ -22,6 +22,7 @@ import com.eibrahim67.gympro.core.data.local.source.LocalDateSourceImpl
 import com.eibrahim67.gympro.core.data.local.source.UserDatabase
 import com.eibrahim67.gympro.core.data.remote.repository.RemoteRepositoryImpl
 import com.eibrahim67.gympro.core.data.remote.source.RemoteDataSourceImpl
+import com.eibrahim67.gympro.core.helperClass.ImagePickerUploader
 import com.eibrahim67.gympro.databinding.FragmentChatBinding
 import com.eibrahim67.gympro.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.main.viewModel.MainViewModelFactory
@@ -53,6 +54,10 @@ class ChatFragment : Fragment() {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    private var imageUploaded = false
+    private var selectedImageUrl: String? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,10 +96,10 @@ class ChatFragment : Fragment() {
         binding.inputEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
-                if (s.toString().isEmpty()){
+                if (s.toString().isEmpty()) {
                     binding.sendButtonCard.visibility = View.GONE
                     binding.uploadImageButton.visibility = View.VISIBLE
-                }else{
+                } else {
                     binding.sendButtonCard.visibility = View.VISIBLE
                     binding.uploadImageButton.visibility = View.GONE
                 }
@@ -109,28 +114,65 @@ class ChatFragment : Fragment() {
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.chatRecyclerView.adapter = adapter
 
+
+
         binding.sendButtonCard.setOnClickListener {
             val message = binding.inputEditText.text.toString()
             if (message.isNotBlank()) {
                 val chatId = viewModel.chatId.value ?: return@setOnClickListener
-                viewModel.sendMessage(chatId, message)
+                viewModel.sendMessage(chatId, message, null)
 
                 binding.inputEditText.text?.clear()
             }
         }
 
+        binding.sendImageButtonCard.setOnClickListener {
+            val chatId = viewModel.chatId.value ?: return@setOnClickListener
+            viewModel.sendMessage(chatId, "", selectedImageUrl ?: return@setOnClickListener)
+            selectedImageUrl = null
+            imageUploaded = false
+            binding.uploadImageChatLayout.visibility = View.GONE
+        }
+
+        binding.cancelImageButtonCard.setOnClickListener {
+            selectedImageUrl = null
+            imageUploaded = false
+            binding.uploadImageChatLayout.visibility = View.GONE
+        }
+
         viewModel.chatId.observe(viewLifecycleOwner) { chatId ->
 
-            viewModel.listenForMessages(chatId) { sender, text ->
-                adapter.addMessage(
-                    ChatMessage(
-                        senderId = sender,
-                        text = text,
-                        type = "text",
-                        timestamp = System.currentTimeMillis()
-                    )
-                )
+            viewModel.listenForMessages(chatId) { msg ->
+                adapter.addMessage(msg)
             }
+        }
+
+        val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
+            binding.uploadImageChat.setImageURI(null)
+            Glide.with(requireContext()).load(url).into(binding.uploadImageChat)
+            selectedImageUrl = url.toString()
+            imageUploaded = true
+            binding.uploadImageChatLayout.visibility = View.VISIBLE
+            Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
+        }, onUploadError = { error ->
+            Snackbar.make(binding.root, error, Snackbar.LENGTH_SHORT).show()
+            imageUploaded = false
+            selectedImageUrl = null
+            binding.uploadImageChatLayout.visibility = View.GONE
+            Glide.with(requireContext()).load(R.drawable.error_ic).into(binding.uploadImageChat)
+        }, onLoading = { isLoading ->
+            imageUploaded = false
+            selectedImageUrl = null
+            binding.uploadImageChatLayout.visibility = View.VISIBLE
+            Glide.with(requireContext()).load(R.color.primary_white).into(binding.uploadImageChat)
+            binding.loadingAnimation.apply {
+                visibility = if (isLoading) View.VISIBLE else View.GONE
+                if (isLoading) playAnimation() else cancelAnimation()
+            }
+        })
+
+        binding.uploadImageButton.setOnClickListener {
+            imagePickerUploader.pickImage()
         }
 
     }

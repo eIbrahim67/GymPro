@@ -132,7 +132,7 @@ class BecomeTrainerFragment : Fragment() {
         val imagePickerUploader = ImagePickerUploader(fragment = this, onUploadSuccess = { url ->
             binding.imageCoach.setImageURI(null)
             Glide.with(requireContext()).load(url).into(binding.imageCoach)
-            selectedImageUrl = url
+            selectedImageUrl = url.toString()
             imageUploaded = true
             Snackbar.make(binding.root, "Uploaded Successfully!", Snackbar.LENGTH_SHORT).show()
         }, onUploadError = { error ->

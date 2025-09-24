@@ -1,9 +1,11 @@
 package com.eibrahim67.gympro.chat.model
 
+import com.google.firebase.Timestamp
+
 data class ChatMessage(
     val senderId: String = "",
     val text: String? = null,
     val imageUrl: String? = null,
-    val timestamp: Long = 0L,
-    val type: String = "text"
+    val timestamp: Timestamp? = null,
+    val textMessage: Boolean = true
 )

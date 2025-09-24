@@ -16,11 +16,10 @@ import java.util.UUID
 
 class ImagePickerUploader(
     private val fragment: Fragment,
-    private val onUploadSuccess: (String) -> Unit,
+    private val onUploadSuccess: (Uri) -> Unit,
     private val onUploadError: (String) -> Unit,
     private val onLoading: (Boolean) -> Unit
 ) {
-    private var selectedImageUrl: String? = null
 
     // Photo Picker (Android 13+)
     private val pickImageWithPhotoPicker =
@@ -56,7 +55,6 @@ class ImagePickerUploader(
     }
 
     private fun handleImageSelection(uri: Uri) {
-        selectedImageUrl = null
         onLoading(true)
 
         val storageRef = FirebaseStorage.getInstance()
@@ -66,9 +64,8 @@ class ImagePickerUploader(
             .addOnSuccessListener {
                 storageRef.downloadUrl
                     .addOnSuccessListener { url ->
-                        selectedImageUrl = url.toString()
                         onLoading(false)
-                        onUploadSuccess(url.toString())
+                        onUploadSuccess(url)
                     }
                     .addOnFailureListener { e ->
                         onLoading(false)
