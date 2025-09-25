@@ -33,7 +33,7 @@ class PersonalDataViewModel(
             applyResponse(
                 _updateName, viewModelScope
             ) {
-                userRepository.updateName(name)
+//TODO:                userRepository.updateName(name)
             }
         }
     }
@@ -45,7 +45,7 @@ class PersonalDataViewModel(
             applyResponse(
                 _updatePhone, viewModelScope
             ) {
-                userRepository.updatePhone(phone)
+//TODO:                userRepository.updatePhone(phone)
             }
         }
     }

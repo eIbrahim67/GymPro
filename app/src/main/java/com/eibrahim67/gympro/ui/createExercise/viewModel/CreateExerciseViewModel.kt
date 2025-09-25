@@ -54,7 +54,7 @@ class CreateExerciseViewModel(
     private val _addedExerciseId = MutableLiveData<ResponseEI<Unit>>()
     val addedExerciseId: LiveData<ResponseEI<Unit>> get() = _addedExerciseId
 
-    fun addExerciseId(coachId: Int, newPlanId: Int) {
+    fun addExerciseId(coachId: String, newPlanId: Int) {
         applyResponse(_addedExerciseId, viewModelScope) {
             remoteRepository.addExerciseId(coachId, newPlanId)
         }

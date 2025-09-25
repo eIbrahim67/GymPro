@@ -28,7 +28,7 @@ class MyWorkoutsViewModel(
     private val _myWorkoutsIds = MutableLiveData<ResponseEI<List<Int>?>>()
     val myWorkoutsIds: LiveData<ResponseEI<List<Int>?>> get() = _myWorkoutsIds
 
-    fun getMyWorkoutsIds(id: Int) {
+    fun getMyWorkoutsIds(id: String) {
         applyResponse(_myWorkoutsIds, viewModelScope) {
             remoteRepository.getMyWorkoutsIds(id)
         }

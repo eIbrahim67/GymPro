@@ -45,11 +45,11 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getAllExercises()
     }
 
-    override suspend fun getMyExercisesIds(id: Int): List<Int>? {
+    override suspend fun getMyExercisesIds(id: String): List<Int>? {
         return remoteDataSource.getMyExercisesIds(id)
     }
 
-    override suspend fun addExerciseId(coachId: Int, newExerciseId: Int) {
+    override suspend fun addExerciseId(coachId: String, newExerciseId: Int) {
         remoteDataSource.addExerciseId(coachId, newExerciseId)
     }
 
@@ -73,11 +73,11 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getAllWorkouts()
     }
 
-    override suspend fun getMyWorkoutsIds(id: Int): List<Int>? {
+    override suspend fun getMyWorkoutsIds(id: String): List<Int>? {
         return remoteDataSource.getMyWorkoutsIds(id)
     }
 
-    override suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int) {
+    override suspend fun addWorkoutId(coachId: String, newWorkoutId: Int) {
         remoteDataSource.addWorkoutId(coachId, newWorkoutId)
     }
 
@@ -85,7 +85,7 @@ class RemoteRepositoryImpl(
         remoteDataSource.deleteWorkout(id)
     }
 
-    override suspend fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+    override suspend fun addTrainPlanId(coachId: String, newPlanId: Int) {
         remoteDataSource.addTrainPlanId(coachId, newPlanId)
     }
 
@@ -105,7 +105,7 @@ class RemoteRepositoryImpl(
         return remoteDataSource.getAllTrainPlans()
     }
 
-    override suspend fun getMyTrainPlansIds(id: Int): List<Int>? {
+    override suspend fun getMyTrainPlansIds(id: String): List<Int>? {
         return remoteDataSource.getMyTrainPlansIds(id)
     }
 

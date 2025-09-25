@@ -7,7 +7,7 @@ data class Exercise(
     val exerciseHint: String,
     val exerciseSet: Int,
     val exerciseReps: Int,
-    val coachId: Int,
+    val coachId: String,
     val exerciseIntensity: Int,
     val categoryIds: List<Int>,
     val effectedMusclesIds: List<Int>,

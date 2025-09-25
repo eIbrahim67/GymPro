@@ -14,6 +14,7 @@ import com.eibrahim67.gympro.core.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.core.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.databinding.FragmentMyTrainingPlansBinding
 import com.eibrahim67.gympro.utils.response.ResponseEI
+import com.google.firebase.auth.FirebaseAuth
 
 class MyTrainingPlansFragment : Fragment() {
 
@@ -61,9 +62,7 @@ class MyTrainingPlansFragment : Fragment() {
                 }
 
                 is ResponseEI.Success -> {
-
-                    user.data?.let { viewModel.getMyTrainPlansIds(it.id) }
-
+                    user.data?.let { viewModel.getMyTrainPlansIds(FirebaseAuth.getInstance().currentUser?.uid.toString()) }
                 }
 
                 is ResponseEI.Failure -> {

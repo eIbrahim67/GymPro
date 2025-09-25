@@ -14,6 +14,7 @@ import com.eibrahim67.gympro.core.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.core.main.viewModel.MainViewModelFactory
 import com.eibrahim67.gympro.databinding.FragmentMyWorkoutsBinding
 import com.eibrahim67.gympro.utils.response.ResponseEI
+import com.google.firebase.auth.FirebaseAuth
 
 class MyWorkoutsFragment : Fragment() {
 
@@ -50,27 +51,14 @@ class MyWorkoutsFragment : Fragment() {
         val adapterMyWorkouts =
             AdapterMyWorkouts({ id -> goToWorkout(id) }, { id -> deleteWorkout(id) })
         binding.recyclerviewWorkouts.adapter = adapterMyWorkouts
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-        viewModel.getLoggedInUser()
-        viewModel.loggedInUser.observe(viewLifecycleOwner) { user ->
-
-            when (user) {
-                is ResponseEI.Loading -> {
-
-                }
-
-                is ResponseEI.Success -> {
-
-                    user.data?.let { viewModel.getMyWorkoutsIds(it.id) }
-
-                }
-
-                is ResponseEI.Failure -> {
-
-                }
-            }
-
+        if (uid == null) {
+//            TODO: show something
+        } else {
+            viewModel.getMyWorkoutsIds(uid)
         }
+
 
         viewModel.myWorkoutsIds.observe(viewLifecycleOwner) { myTrainPlansIds ->
 

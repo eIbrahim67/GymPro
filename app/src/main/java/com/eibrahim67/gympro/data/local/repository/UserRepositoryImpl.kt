@@ -13,9 +13,7 @@ class UserRepositoryImpl(
 
     override suspend fun getLoggedInUser() = localDateSource.getLoggedInUser()
 
-    override suspend fun updateName(name: String) = localDateSource.updateName(name)
-
-    override suspend fun updatePhone(phone: String) = localDateSource.updatePhone(phone)
+    override suspend fun checkOnId(id: String): User? = localDateSource.checkOnId(id)
 
     override suspend fun updateTypeBody(type: String) = localDateSource.updateTypeBody(type)
 

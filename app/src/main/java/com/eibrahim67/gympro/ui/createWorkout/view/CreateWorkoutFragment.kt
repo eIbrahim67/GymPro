@@ -202,28 +202,8 @@ class CreateWorkoutFragment : Fragment() {
             val workout = createWorkout()
 
             if (workout != null) {
-                viewModel.getLoggedInUser()
-                viewModel.loggedInUser.observe(viewLifecycleOwner) { user ->
-
-                    when (user) {
-                        is ResponseEI.Loading -> {
-                        }
-
-                        is ResponseEI.Success -> {
-
-                            user.data?.let { it ->
-
-                                viewModel.createWorkout(workout)
-                                viewModel.addWorkoutId(user.data.id, workout.id)
-                            }
-
-                        }
-
-                        is ResponseEI.Failure -> {}
-                    }
-
-                }
-
+                viewModel.createWorkout(workout)
+                viewModel.addWorkoutId(workout.coachId, workout.id)
             }
         }
 

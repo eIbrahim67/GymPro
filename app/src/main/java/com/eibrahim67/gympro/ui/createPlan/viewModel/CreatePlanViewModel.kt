@@ -55,7 +55,7 @@ class CreatePlanViewModel(
     private val _addedTrainPlanId = MutableLiveData<ResponseEI<Unit>>()
     val addedTrainPlanId: LiveData<ResponseEI<Unit>> get() = _addedTrainPlanId
 
-    fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+    fun addTrainPlanId(coachId: String, newPlanId: Int) {
         applyResponse(_addedTrainPlanId, viewModelScope) {
             remoteRepository.addTrainPlanId(coachId, newPlanId)
         }

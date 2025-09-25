@@ -18,11 +18,8 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE isLoggedIn = 1 LIMIT 1")
     suspend fun getLoggedInUser(): User?
 
-    @Query("UPDATE user SET name = :name WHERE isLoggedIn = 1")
-    suspend fun updateName(name: String)
-
-    @Query("UPDATE user SET phone = :phone WHERE isLoggedIn = 1")
-    suspend fun updatePhone(phone: String)
+    @Query("SELECT * FROM user WHERE uid = :uid LIMIT 1")
+    suspend fun checkOnId(uid: String): User?
 
     @Query("UPDATE user SET typeBody = :typeBody WHERE isLoggedIn = 1")
     suspend fun updateTypeBody(typeBody: String)

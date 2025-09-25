@@ -10,9 +10,7 @@ interface UserRepository {
 
     suspend fun getLoggedInUser(): User?
 
-    suspend fun updateName(name: String)
-
-    suspend fun updatePhone(phone: String)
+    suspend fun checkOnId(id: String): User?
 
     suspend fun updateTypeBody(type: String)
 

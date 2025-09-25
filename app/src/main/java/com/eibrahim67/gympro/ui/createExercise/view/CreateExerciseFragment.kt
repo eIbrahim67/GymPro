@@ -19,6 +19,7 @@ import com.eibrahim67.gympro.ui.createExercise.viewModel.CreateExerciseViewModel
 import com.eibrahim67.gympro.utils.helperClass.ImagePickerUploader
 import com.eibrahim67.gympro.utils.response.ResponseEI
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import java.util.UUID
 import kotlin.math.absoluteValue
 
@@ -200,30 +201,8 @@ class CreateExerciseFragment : Fragment() {
             val exercise = createExercise()
 
             if (exercise != null) {
-                viewModel.getLoggedInUser()
-                viewModel.loggedInUser.observe(viewLifecycleOwner) { user ->
-
-                    when (user) {
-                        is ResponseEI.Loading -> {
-                        }
-
-                        is ResponseEI.Success -> {
-
-                            user.data?.let { it ->
-                                val updatedExercise = exercise.copy(
-                                    coachId = it.id
-                                )
-                                viewModel.createExercise(updatedExercise)
-                                viewModel.addExerciseId(user.data.id, updatedExercise.id)
-                            }
-
-                        }
-
-                        is ResponseEI.Failure -> {}
-                    }
-
-                }
-
+                viewModel.createExercise(exercise)
+                viewModel.addExerciseId(exercise.coachId, exercise.id)
             }
         }
 
@@ -291,9 +270,9 @@ class CreateExerciseFragment : Fragment() {
             exerciseReps = reps,
             categoryIds = selectedCategoriesIds ?: listOf(),
             effectedMusclesIds = selectedMuscleIds ?: listOf(),
-            coachId = -1,
+            coachId = FirebaseAuth.getInstance().currentUser?.uid.toString(),
             exerciseIntensity = 1,
-            imageUrl = selectedImageUrl.toString() ?: "",
+            imageUrl = selectedImageUrl.toString(),
             videoUrl = null
         )
     }

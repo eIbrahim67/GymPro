@@ -89,7 +89,7 @@ class RemoteDataSourceImpl(
                 ?: emptyList(),
             imageUrl = map["imageUrl"] as? String ?: "",
             videoUrl = map["videoUrl"] as? String ?: "",
-            coachId = (map["coachId"] as? Long)?.toInt() ?: -1)
+            coachId = map["coachId"] as? String ?: "")
     }
 
     override suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>? {
@@ -112,7 +112,7 @@ class RemoteDataSourceImpl(
                     ?: emptyList(),
                 imageUrl = map["imageUrl"] as? String ?: "",
                 videoUrl = map["videoUrl"] as? String ?: "",
-                coachId = (map["coachId"] as? Long)?.toInt() ?: -1)
+                coachId = map["coachId"] as? String ?: "")
 
             list.add(exercise)
         }
@@ -140,7 +140,7 @@ class RemoteDataSourceImpl(
                     ?: emptyList(),
                 imageUrl = map["imageUrl"] as? String ?: "",
                 videoUrl = map["videoUrl"] as? String ?: "",
-                coachId = (map["coachId"] as? Long)?.toInt() ?: -1)
+                coachId = map["coachId"] as? String ?: "")
 
             result.add(exercise)
         }
@@ -148,17 +148,17 @@ class RemoteDataSourceImpl(
         return result
     }
 
-    override suspend fun getMyExercisesIds(id: Int): List<Int>? {
+    override suspend fun getMyExercisesIds(id: String): List<Int>? {
         val snapshot = db.collection("Data").document("coachExercisesId").get().await()
 
         return snapshot.get(id.toString()) as? List<Int>
     }
 
-    override suspend fun addExerciseId(coachId: Int, newWorkoutId: Int) {
+    override suspend fun addExerciseId(coachId: String, newWorkoutId: Int) {
         val docRef = db.collection("Data").document("coachExercisesId")
 
         docRef.update(
-            coachId.toString(), FieldValue.arrayUnion(newWorkoutId)
+            coachId, FieldValue.arrayUnion(newWorkoutId)
         ).addOnSuccessListener {
             Log.d("Firestore", "Exercise ID added successfully")
         }.addOnFailureListener { e ->
@@ -242,7 +242,7 @@ class RemoteDataSourceImpl(
                     ?: emptyList(),
                 targetedMuscleIds = (map["targetedMuscleIds"] as? List<*>)?.mapNotNull { (it as? Long)?.toInt() }
                     ?: emptyList(),
-                coachId = (map["coachId"] as? String)?: "",
+                coachId = (map["coachId"] as? String) ?: "",
                 difficultyLevel = map["difficultyLevel"] as? String ?: "",
                 imageUrl = map["imageUrl"] as? String ?: "",
                 equipment = map["equipment"] as? String ?: "")
@@ -253,17 +253,17 @@ class RemoteDataSourceImpl(
         return result
     }
 
-    override suspend fun getMyWorkoutsIds(id: Int): List<Int>? {
+    override suspend fun getMyWorkoutsIds(id: String): List<Int>? {
         val snapshot = db.collection("Data").document("coachWorkoutsId").get().await()
 
-        return snapshot.get(id.toString()) as? List<Int>
+        return snapshot.get(id) as? List<Int>
     }
 
-    override suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int) {
+    override suspend fun addWorkoutId(coachId: String, newWorkoutId: Int) {
         val docRef = db.collection("Data").document("coachWorkoutsId")
 
         docRef.update(
-            coachId.toString(), FieldValue.arrayUnion(newWorkoutId)
+            coachId, FieldValue.arrayUnion(newWorkoutId)
         ).addOnSuccessListener {
             Log.d("Firestore", "Workout ID added successfully")
         }.addOnFailureListener { e ->
@@ -282,15 +282,15 @@ class RemoteDataSourceImpl(
             .set(hashMapOf(trainPlan.id.toString() to trainPlan), SetOptions.merge())
     }
 
-    override suspend fun addTrainPlanId(coachId: Int, newPlanId: Int) {
+    override suspend fun addTrainPlanId(coachId: String, newPlanId: Int) {
 
         val snapshot = db.collection("Data").document("coachPlansId").get().await()
         val docRef = db.collection("Data").document("coachPlansId")
 
-        val list = snapshot.get(coachId.toString()) as? MutableList<Int> ?: mutableListOf()
+        val list = snapshot.get(coachId) as? MutableList<Int> ?: mutableListOf()
         list.add(newPlanId)
         val mapToUpdate = hashMapOf(
-            coachId.toString() to list
+            coachId to list
         )
 
         docRef.set(mapToUpdate, SetOptions.merge()).addOnSuccessListener {
@@ -301,10 +301,10 @@ class RemoteDataSourceImpl(
 
     }
 
-    override suspend fun getMyTrainPlansIds(id: Int): List<Int>? {
+    override suspend fun getMyTrainPlansIds(id: String): List<Int>? {
         val snapshot = db.collection("Data").document("coachPlansId").get().await()
 
-        return snapshot.get(id.toString()) as? List<Int>
+        return snapshot.get(id) as? List<Int>
     }
 
     override suspend fun deleteTrainPlan(id: Int) {

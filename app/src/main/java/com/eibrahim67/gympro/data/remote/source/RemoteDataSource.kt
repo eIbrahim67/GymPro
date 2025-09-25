@@ -17,24 +17,24 @@ interface RemoteDataSource {
     suspend fun getExerciseById(id: Int): Exercise?
     suspend fun getExercisesByIds(ids: List<Int>): List<Exercise>?
     suspend fun getAllExercises(): List<Exercise?>
-    suspend fun getMyExercisesIds(id: Int): List<Int>?
-    suspend fun addExerciseId(coachId: Int, newWExercisesId: Int)
+    suspend fun getMyExercisesIds(id: String): List<Int>?
+    suspend fun addExerciseId(coachId: String, newWExercisesId: Int)
     suspend fun deleteExercise(id: Int)
 
     suspend fun addWorkouts(workouts: Workout)
     suspend fun getWorkoutById(id: Int): Workout?
     suspend fun getWorkoutsByIds(ids: List<Int>): List<Workout>?
     suspend fun getAllWorkouts(): List<Workout>
-    suspend fun getMyWorkoutsIds(id: Int): List<Int>?
-    suspend fun addWorkoutId(coachId: Int, newWorkoutId: Int)
+    suspend fun getMyWorkoutsIds(id: String): List<Int>?
+    suspend fun addWorkoutId(coachId: String, newWorkoutId: Int)
     suspend fun deleteWorkout(id: Int)
 
     suspend fun addTrainPlans(trainPlans: TrainPlan)
-    suspend fun addTrainPlanId(coachId: Int, newPlanId: Int)
+    suspend fun addTrainPlanId(coachId: String, newPlanId: Int)
     suspend fun getTrainPlanById(id: Int): TrainPlan?
     suspend fun getTrainPlanByIds(ids: List<Int>): List<TrainPlan>?
     suspend fun getAllTrainPlans(): List<TrainPlan>
-    suspend fun getMyTrainPlansIds(id: Int): List<Int>?
+    suspend fun getMyTrainPlansIds(id: String): List<Int>?
     suspend fun deleteTrainPlan(id: Int)
 
     suspend fun getAllCategories():List<Category>

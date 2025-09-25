@@ -38,10 +38,10 @@ class PersonalDataFragment : Fragment() {
                 is ResponseEI.Loading -> {}
                 is ResponseEI.Success -> {
 
-                    binding.updateUserName.setText(data.data?.username)
-                    binding.updateName.setText(data.data?.name)
+//TODO:                    binding.updateUserName.setText(data.data?.username)
+//TODO:                    binding.updateName.setText(data.data?.name)
                     binding.updateEmail.setText(data.data?.email)
-                    binding.updatePhone.setText(data.data?.phone)
+//TODO:                    binding.updatePhone.setText(data.data?.phone)
                     binding.updateBody.setText(data.data?.typeBody)
                     binding.updateTrainPlan.setText(data.data?.trainPlanId.toString())
 

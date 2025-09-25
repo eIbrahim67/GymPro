@@ -11,11 +11,9 @@ interface LocalDateSource {
 
     suspend fun getLoggedInUser(): User?
 
+    suspend fun checkOnId(id: String): User?
+
     suspend fun findLoggedInUser(): Boolean
-
-    suspend fun updateName(name: String)
-
-    suspend fun updatePhone(phone: String)
 
     suspend fun updateTypeBody(type: String)
 

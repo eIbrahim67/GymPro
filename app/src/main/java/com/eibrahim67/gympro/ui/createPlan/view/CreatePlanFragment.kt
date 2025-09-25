@@ -248,30 +248,8 @@ class CreatePlanFragment : Fragment() {
             val plan = createTrainPlan()
 
             if (plan != null) {
-                viewModel.getLoggedInUser()
-                viewModel.loggedInUser.observe(viewLifecycleOwner) { user ->
-
-                    when (user) {
-                        is ResponseEI.Loading -> {
-                        }
-
-                        is ResponseEI.Success -> {
-
-                            user.data?.let { it ->
-                                val updatedPlan = plan.copy(
-                                    coachId = FirebaseAuth.getInstance().uid.toString()
-                                )
-                                viewModel.createPlan(updatedPlan)
-                                viewModel.addTrainPlanId(user.data.id, updatedPlan.id)
-                            }
-
-                        }
-
-                        is ResponseEI.Failure -> {}
-                    }
-
-                }
-
+                viewModel.createPlan(plan)
+                viewModel.addTrainPlanId(plan.coachId, plan.id)
             }
         }
 
@@ -336,7 +314,7 @@ class CreatePlanFragment : Fragment() {
             durationDaysPerTrainingWeek = duration,
             workoutsIds = selectedWorkoutsIds ?: listOf(),
             targetedMuscleIds = selectedMuscleIds ?: listOf(),
-            coachId = "",
+            coachId = FirebaseAuth.getInstance().currentUser?.uid.toString(),
             difficultyLevel = difficulty,
             imageUrl = selectedImageUrl.toString(),
             trainingCategoriesIds = selectedCategoriesIds ?: listOf(),
