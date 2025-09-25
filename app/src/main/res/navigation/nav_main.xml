@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/action_home"
-        android:name="com.eibrahim67.gympro.home.view.HomeFragment"
+        android:name="com.eibrahim67.gympro.ui.home.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -22,12 +22,12 @@
 
     <fragment
         android:id="@+id/action_train"
-        android:name="com.eibrahim67.gympro.train.view.TrainFragment"
+        android:name="com.eibrahim67.gympro.ui.train.view.TrainFragment"
         android:label="fragment_train"
         tools:layout="@layout/fragment_train" />
     <fragment
         android:id="@+id/action_profile"
-        android:name="com.eibrahim67.gympro.profile.view.ProfileFragment"
+        android:name="com.eibrahim67.gympro.ui.profile.view.ProfileFragment"
         android:label="fragment_my_trainer"
         tools:layout="@layout/fragment_profile"
         >
@@ -40,104 +40,104 @@
     </fragment>
     <fragment
         android:id="@+id/action_chat"
-        android:name="com.eibrahim67.gympro.chat.view.ui.ChatFragment"
+        android:name="com.eibrahim67.gympro.ui.chat.view.ui.ChatFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/action_exercise"
-        android:name="com.eibrahim67.gympro.showExercise.view.fragments.ExerciseFragment"
+        android:name="com.eibrahim67.gympro.ui.showExercise.view.fragments.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise" />
     <fragment
         android:id="@+id/action_showTrainPlan"
-        android:name="com.eibrahim67.gympro.showTrainPlan.view.ShowTrainPlanFragment"
+        android:name="com.eibrahim67.gympro.ui.showTrainPlan.view.ShowTrainPlanFragment"
         android:label="fragment_show_train_plan"
         tools:layout="@layout/fragment_show_train_plan" />
     <fragment
         android:id="@+id/action_workout"
-        android:name="com.eibrahim67.gympro.showWorkout.view.WorkoutFragment"
+        android:name="com.eibrahim67.gympro.ui.showWorkout.view.WorkoutFragment"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" />
 
     <fragment
         android:id="@+id/action_chatbotFragment"
-        android:name="com.eibrahim67.gympro.chatbot.presentation.view.ChatbotFragment"
+        android:name="com.eibrahim67.gympro.ui.chatbot.presentation.view.ChatbotFragment"
         android:label="Chatbot"/>
 
 
     <fragment
         android:id="@+id/action_personalDataFragment"
-        android:name="com.eibrahim67.gympro.personalData.PersonalDataFragment"
+        android:name="com.eibrahim67.gympro.ui.personalData.PersonalDataFragment"
         android:label="PersonalData" />
 
     <fragment
         android:id="@+id/action_becomeTrainerFragment"
-        android:name="com.eibrahim67.gympro.becomeTrainer.view.BecomeTrainerFragment"
+        android:name="com.eibrahim67.gympro.ui.becomeTrainer.view.BecomeTrainerFragment"
         android:label="BecomeTrainer" />
 
     <fragment
         android:id="@+id/action_myChatsFragment"
-        android:name="com.eibrahim67.gympro.myChats.view.MyChatsFragment"
+        android:name="com.eibrahim67.gympro.ui.myChats.view.MyChatsFragment"
         android:label="MyChats" />
 
     <fragment
         android:id="@+id/action_myClientsFragment"
-        android:name="com.eibrahim67.gympro.myClients.MyClientsFragment"
+        android:name="com.eibrahim67.gympro.ui.myClients.MyClientsFragment"
         android:label="MyClients" />
 
     <fragment
         android:id="@+id/action_myTrainingPlansFragment"
-        android:name="com.eibrahim67.gympro.myTrainingPlans.MyTrainingPlansFragment"
+        android:name="com.eibrahim67.gympro.ui.myTrainingPlans.MyTrainingPlansFragment"
         android:label="MyTrainingPlans" />
 
     <fragment
         android:id="@+id/action_myProgressFragment"
-        android:name="com.eibrahim67.gympro.myProgress.MyProgressFragment"
+        android:name="com.eibrahim67.gympro.ui.myProgress.MyProgressFragment"
         android:label="MyProgress" />
 
     <fragment
         android:id="@+id/action_mostImprovedMusclesFragment"
-        android:name="com.eibrahim67.gympro.mostImprovedMuscles.MostImprovedMusclesFragment"
+        android:name="com.eibrahim67.gympro.ui.mostImprovedMuscles.MostImprovedMusclesFragment"
         android:label="MostImprovedMuscles" />
 
     <fragment
         android:id="@+id/action_securityPoliciesFragment"
-        android:name="com.eibrahim67.gympro.securityPolicies.SecurityPoliciesFragment"
+        android:name="com.eibrahim67.gympro.ui.securityPolicies.SecurityPoliciesFragment"
         android:label="SecurityPolicies" />
 
     <fragment
         android:id="@+id/action_helpFeedbackFragment"
-        android:name="com.eibrahim67.gympro.helpFeedback.HelpFeedbackFragment"
+        android:name="com.eibrahim67.gympro.ui.helpFeedback.HelpFeedbackFragment"
         android:label="HelpFeedback" />
 
     <fragment
         android:id="@+id/action_aboutFragment"
-        android:name="com.eibrahim67.gympro.about.AboutFragment"
+        android:name="com.eibrahim67.gympro.ui.about.AboutFragment"
         android:label="About" />
 
     <fragment
         android:id="@+id/action_createPlanFragment"
-        android:name="com.eibrahim67.gympro.createPlan.view.CreatePlanFragment"
+        android:name="com.eibrahim67.gympro.ui.createPlan.view.CreatePlanFragment"
         android:label="CreatePlanFragment" />
 
     <fragment
         android:id="@+id/action_createWorkoutFragment"
-        android:name="com.eibrahim67.gympro.createWorkout.view.CreateWorkoutFragment"
+        android:name="com.eibrahim67.gympro.ui.createWorkout.view.CreateWorkoutFragment"
         android:label="CreateWorkoutFragment" />
 
     <fragment
         android:id="@+id/action_myWorkoutsFragment"
-        android:name="com.eibrahim67.gympro.myWorkouts.MyWorkoutsFragment"
+        android:name="com.eibrahim67.gympro.ui.myWorkouts.MyWorkoutsFragment"
         android:label="WorkoutsFragment" />
 
     <fragment
         android:id="@+id/action_createExerciseFragment"
-        android:name="com.eibrahim67.gympro.createExercise.view.CreateExerciseFragment"
+        android:name="com.eibrahim67.gympro.ui.createExercise.view.CreateExerciseFragment"
         android:label="CreateExerciseFragment" />
     
     <fragment
         android:id="@+id/action_myExercisesFragment"
-        android:name="com.eibrahim67.gympro.myExercises.MyExercisesFragment"
+        android:name="com.eibrahim67.gympro.ui.myExercises.MyExercisesFragment"
         android:label="ExercisesFragment" />
 
 </navigation>

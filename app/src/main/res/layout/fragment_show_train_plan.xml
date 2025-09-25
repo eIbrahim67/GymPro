@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".showTrainPlan.view.ShowTrainPlanFragment">
+    tools:context=".ui.showTrainPlan.view.ShowTrainPlanFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
