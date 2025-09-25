@@ -11,8 +11,8 @@ import com.eibrahim67.gympro.ui.chatbot.domain.model.ChatUiState
 import com.eibrahim67.gympro.ui.chatbot.domain.model.ChatbotMessage
 import com.eibrahim67.gympro.ui.chatbot.domain.model.ChatbotViewModelConst
 import com.eibrahim67.gympro.ui.chatbot.domain.usecase.GetChatResponseUseCase
-import com.eibrahim67.gympro.ui.chatbot.ocr.ApiOcrClient
-import com.eibrahim67.gympro.ui.chatbot.vsr.ApiVsrClient
+import com.eibrahim67.gympro.ui.chatbot.data.network.ocr.ApiOcrClient
+import com.eibrahim67.gympro.ui.chatbot.data.network.vsr.ApiVsrClient
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -280,53 +280,6 @@ class ChatbotViewModel(
             }
         }
     }
-
-    /**
-     * Handles a successful chat response by adding the bot's message to the history.
-     */
-//    private fun handleSuccessResponse(chatResponse: ChatbotMessage) {
-//        if (chatResponse.content.isNullOrBlank()) {
-//
-//            Log.e(ChatbotViewModelConst.TAG, "Chat response content is null or blank")
-//            updateUiState { copy(errorMessage = "Invalid response: Content is empty") }
-//            return
-//        }
-//
-//        runCatching {
-//            // Parse the content as a JSON object to extract the message
-//            val parsedResponse = gson.fromJson(chatResponse.content, ChatResponse::class.java)
-//            parsedResponse
-//        }.fold(
-//            onSuccess = { parsedResponse ->
-//                if (parsedResponse?.message != null) {
-//                    conversationHistory.add(
-//                        ChatbotMessage(
-//                            content = parsedResponse.message
-//                        )
-//                    )
-//                    conversationChatbot.add(
-//                        ChatbotMessage(
-//                            content = parsedResponse.message
-//                        )
-//                    )
-//                    updateUiState {
-//                        copy(
-//                            messages = conversationHistory.toList(),
-//                            errorMessage = null
-//                        )
-//                    }
-//                } else {
-//                    Log.e(ChatbotViewModelConst.TAG, "Parsed response or message is null")
-//                    updateUiState { copy(errorMessage = "Invalid response: Message is missing") }
-//                }
-//            },
-//            onFailure = { exception ->
-//
-//                Log.e(ChatbotViewModelConst.TAG, "Error parsing chat response", exception)
-//                updateUiState { copy(errorMessage = "Error parsing response: ${exception.message}") }
-//            }
-//        )
-//    }
 
     /**
      * Updates the UI state with the provided transformation.

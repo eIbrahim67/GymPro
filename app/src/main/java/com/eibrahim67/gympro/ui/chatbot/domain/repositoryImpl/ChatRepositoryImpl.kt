@@ -2,7 +2,7 @@ package com.eibrahim67.gympro.ui.chatbot.domain.repositoryImpl
 
 import com.eibrahim67.gympro.utils.response.FailureReason
 import com.eibrahim67.gympro.utils.response.ResponseEI
-import com.eibrahim67.gympro.ui.chatbot.data.network.ChatLlamaStreamProcessor
+import com.eibrahim67.gympro.ui.chatbot.data.network.llm.ChatLlamaStreamProcessor
 import com.eibrahim67.gympro.ui.chatbot.data.repository.ChatRepository
 import com.eibrahim67.gympro.ui.chatbot.domain.model.ChatbotMessage
 import kotlinx.coroutines.channels.awaitClose

@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.ui.chatbot.data.network
+package com.eibrahim67.gympro.ui.chatbot.data.network.llm
 
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

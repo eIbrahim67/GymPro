@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.ui.chatbot.data.network
+package com.eibrahim67.gympro.ui.chatbot.data.network.llm
 
 import com.eibrahim67.gympro.utils.VALS
 import okhttp3.Call

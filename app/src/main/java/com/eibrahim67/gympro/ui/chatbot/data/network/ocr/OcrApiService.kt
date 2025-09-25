@@ -1,4 +1,4 @@
-package com.eibrahim67.gympro.ui.chatbot.ocr
+package com.eibrahim67.gympro.ui.chatbot.data.network.ocr
 
 import okhttp3.MultipartBody
 import retrofit2.http.Multipart
