@@ -70,7 +70,6 @@ class SigninFragment : Fragment() {
         }
 
         signUpText.setOnClickListener {
-            viewModel.resetStates()
             navController.navigate(
                 R.id.action_signinFragment_to_signupFragment,
                 null,
@@ -123,7 +122,7 @@ class SigninFragment : Fragment() {
             ) {}
             return
         } else {
-            viewModel.checkUser(email, password)
+//            viewModel.checkUser(email, password)
             viewModel.loginUser(email, password) { result ->
                 if (result)
                     Log.i("loginUserFirebase", "True")

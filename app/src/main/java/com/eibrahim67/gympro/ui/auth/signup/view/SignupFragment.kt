@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.ui.auth.signup.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,13 +9,13 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.eibrahim67.gympro.App
-import com.eibrahim67.gympro.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
+import com.eibrahim67.gympro.core.main.view.activities.MainActivity
 import com.eibrahim67.gympro.databinding.FragmentSignupBinding
 import com.eibrahim67.gympro.ui.auth.signup.model.ValidateCredentials
 import com.eibrahim67.gympro.ui.auth.signup.viewModel.SignupViewModel
 import com.eibrahim67.gympro.ui.auth.signup.viewModel.SignupViewModelFactory
+import com.eibrahim67.gympro.utils.UtilsFunctions.createMaterialAlertDialogBuilderOk
 
 class SignupFragment : Fragment() {
 
@@ -85,39 +86,47 @@ class SignupFragment : Fragment() {
 
     private fun observeValidations() {
         viewModel.nameMessage.observe(viewLifecycleOwner) { result ->
-            binding.fNameLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.fNameLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
         viewModel.usernameMessage.observe(viewLifecycleOwner) { result ->
-            binding.usernameLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.usernameLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
         viewModel.phoneMessage.observe(viewLifecycleOwner) { result ->
-            binding.phoneLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.phoneLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
         viewModel.emailMessage.observe(viewLifecycleOwner) { result ->
-            binding.emailLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.emailLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
         viewModel.passwordMessage.observe(viewLifecycleOwner) { result ->
-            binding.passwordLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.passwordLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
         viewModel.confirmPasswordMessage.observe(viewLifecycleOwner) { result ->
-            binding.passwordConfirmLayout.helperText = if (result is ValidateCredentials.InValid) result.message else null
+            binding.passwordConfirmLayout.helperText =
+                if (result is ValidateCredentials.InValid) result.message else null
         }
 
-        viewModel.registerState.observe(viewLifecycleOwner) { result ->
+        viewModel.isUserValid.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ValidateCredentials.Valid -> {
-                    findNavController().popBackStack()
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().finish()
                 }
-                is ValidateCredentials.InValid -> {
-                    createMaterialAlertDialogBuilderOk(
-                        requireContext(), "Sign up Failed", result.message, "Ok"
-                    ) {}
-                }
+
+                is ValidateCredentials.InValid -> createMaterialAlertDialogBuilderOk(
+                    requireContext(), "Sign in Failed", result.message, "Ok"
+                ) {}
+
+                else -> {}
             }
         }
     }
@@ -142,17 +151,14 @@ class SignupFragment : Fragment() {
         when (credentialsStatus) {
             is ValidateCredentials.Valid -> {
                 val name = "${binding.fNameField.text} ${binding.lNameField.text}".trim()
-                val username = binding.usernameField.text?.toString().orEmpty()
-                val phone = binding.phoneField.text?.toString().orEmpty()
                 val email = binding.emailField.text?.toString().orEmpty()
                 val password = binding.passwordField.text?.toString().orEmpty()
-
-                viewModel.registerUser(name, username, phone, email, password)
 
                 viewModel.registerUserFirebase(name, email, password) { result ->
                     Log.i("registerUserFirebase", if (result) "True" else "False")
                 }
             }
+
             is ValidateCredentials.InValid -> {
                 createMaterialAlertDialogBuilderOk(
                     requireContext(), "Sign up Failed", credentialsStatus.message, "Ok"

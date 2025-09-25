@@ -12,13 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.eibrahim67.gympro.App
 import com.eibrahim67.gympro.R
-import com.eibrahim67.gympro.utils.response.ResponseEI
-import com.eibrahim67.gympro.databinding.FragmentProfileBinding
 import com.eibrahim67.gympro.core.main.viewModel.MainViewModel
 import com.eibrahim67.gympro.core.main.viewModel.MainViewModelFactory
+import com.eibrahim67.gympro.databinding.FragmentProfileBinding
 import com.eibrahim67.gympro.ui.auth.authActivity.view.AuthActivity
 import com.eibrahim67.gympro.ui.profile.viewModel.ProfileViewModel
+import com.eibrahim67.gympro.utils.response.ResponseEI
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
 
@@ -111,23 +112,22 @@ class ProfileFragment : Fragment() {
         }
         sharedViewModel.logout.observe(viewLifecycleOwner) { state ->
 
-            sharedViewModel.exerciseById.observe(viewLifecycleOwner) { exercise ->
-                when (state) {
-                    is ResponseEI.Loading -> {}
-                    is ResponseEI.Success -> {
-                        startActivity(Intent(requireContext(), AuthActivity::class.java))
-                        requireActivity().finish()
-                    }
+            when (state) {
+                is ResponseEI.Loading -> {}
+                is ResponseEI.Success -> {
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(Intent(requireContext(), AuthActivity::class.java))
+                    requireActivity().finish()
+                }
 
-                    is ResponseEI.Failure -> {
-                        Snackbar.make(requireView(), "Something Wrong!", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Try Again?") {
-                                sharedViewModel.logout()
-
-                            }.show()
-                    }
+                is ResponseEI.Failure -> {
+                    Snackbar.make(requireView(), "Something Wrong!", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Try Again?") {
+                            sharedViewModel.logout()
+                        }.show()
                 }
             }
+
 
         }
     }

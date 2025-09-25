@@ -1,5 +1,6 @@
 package com.eibrahim67.gympro.ui.auth.signup.viewModel
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,9 +16,6 @@ import kotlinx.coroutines.launch
 class SignupViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
-
-    private val _registerState = MutableLiveData<ValidateCredentials>()
-    val registerState: LiveData<ValidateCredentials> get() = _registerState
 
     private val _nameMessage = MutableLiveData<ValidateCredentials>()
     val nameMessage: LiveData<ValidateCredentials> = _nameMessage
@@ -37,15 +35,27 @@ class SignupViewModel(
     private val _confirmPasswordMessage = MutableLiveData<ValidateCredentials>()
     val confirmPasswordMessage: LiveData<ValidateCredentials> = _confirmPasswordMessage
 
+
+    private val _isUserValid = MutableLiveData<ValidateCredentials?>()
+    val isUserValid: LiveData<ValidateCredentials?> = _isUserValid
+
+
     fun registerUser(
-        name: String, username: String, phone: String, email: String, password: String
+        id: String, email: String, password: String
     ) {
         val createdUser = User(
-            name = name, username = username, phone = phone, email = email, password = password
+            uid = id, email = email, password = password, isLoggedIn = true
         )
         addUser(createdUser)
     }
 
+    private fun addUser(user: User) {
+        viewModelScope.launch {
+            userRepository.addUser(user)
+        }.invokeOnCompletion {
+            _isUserValid.value = ValidateCredentials.Valid
+        }
+    }
 
     val auth = FirebaseAuth.getInstance()
 
@@ -54,7 +64,21 @@ class SignupViewModel(
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val uid = auth.currentUser!!.uid
+                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
+                    viewModelScope.launch {
+                        if (userRepository.checkOnId(uid) == null) {
+                            registerUser(
+                                id = uid,
+                                email = email,
+                                password = password,
+                            )
+                            Log.i("signupRoomUser", "case1")
+                        } else {
+                            userRepository.logInUser(email)
+                            Log.i("signupRoomUser", "case2")
+                        }
+                    }
+
                     val user = hashMapOf(
                         "name" to name, "email" to email
                     )
@@ -65,13 +89,6 @@ class SignupViewModel(
     }
 
 
-    private fun addUser(user: User) {
-        viewModelScope.launch {
-            userRepository.addUser(user)
-        }.invokeOnCompletion {
-            _registerState.value = ValidateCredentials.Valid
-        }
-    }
 
     fun validateName(name: String) {
         _nameMessage.value = when {
