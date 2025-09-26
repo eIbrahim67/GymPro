@@ -1,6 +1,5 @@
 package com.eibrahim67.gympro.ui.chatbot.presentation.view
 
-import android.media.MediaRecorder
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.eibrahim67.gympro.R
 import com.eibrahim67.gympro.databinding.FragmentChatbotBinding
 import com.eibrahim67.gympro.ui.chatbot.data.network.llm.ChatLlamaStreamProcessor
@@ -23,7 +23,6 @@ import com.eibrahim67.gympro.ui.chatbot.presentation.viewModel.ChatbotViewModel
 import com.eibrahim67.gympro.ui.chatbot.presentation.viewModel.ChatbotViewModelFactory
 import com.eibrahim67.gympro.utils.helperClass.AudioRecorderHelper
 import com.eibrahim67.gympro.utils.helperClass.ImageHandler
-import java.io.File
 
 class ChatbotFragment : Fragment() {
 
@@ -31,8 +30,6 @@ class ChatbotFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var chatbotAdapter: ChatbotAdapter
-    private var mediaRecorder: MediaRecorder? = null
-    private var audioFile: File? = null
 
     private val viewModel: ChatbotViewModel by viewModels {
         ChatbotViewModelFactory(
@@ -78,6 +75,17 @@ class ChatbotFragment : Fragment() {
 
         val audioHandler = AudioRecorderHelper(
             fragment = this,
+            onStart = {
+
+
+                Glide.with(requireContext()).asGif().load(R.drawable.mic_record) // in res/drawable
+                    .into(binding.playerView)
+                binding.playerViewLayout.visibility = View.VISIBLE
+
+            },
+            onStop = {
+                binding.playerViewLayout.visibility = View.GONE
+            },
             onAudioReady = { file -> viewModel.processAudio(file) },
             onError = { msg -> showToast(msg) })
 

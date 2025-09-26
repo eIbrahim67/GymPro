@@ -14,6 +14,8 @@ import java.io.File
 
 class AudioRecorderHelper(
     private val fragment: Fragment,
+    private val onStart: () -> Unit,
+    private val onStop: () -> Unit,
     private val onAudioReady: (File) -> Unit,
     private val onError: (String) -> Unit
 ) {
@@ -50,6 +52,7 @@ class AudioRecorderHelper(
     }
 
     private fun startRecording() {
+        onStart()
         audioFile = File(context.cacheDir, "audio_${System.currentTimeMillis()}.mp3")
         try {
             mediaRecorder = MediaRecorder().apply {
@@ -73,6 +76,7 @@ class AudioRecorderHelper(
             }
             mediaRecorder = null
             audioFile?.let { onAudioReady(it) } ?: onError("Audio file missing")
+            onStop()
         } catch (e: Exception) {
             onError("Recording stop failed: ${e.message}")
         }

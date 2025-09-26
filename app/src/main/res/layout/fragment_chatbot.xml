@@ -39,17 +39,18 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_gray"
             app:cardCornerRadius="500dp"
             app:layout_constraintStart_toEndOf="@id/backLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/primary_gray"
-            app:strokeWidth="2dp">
+            app:cardBackgroundColor="@color/gray_v2"
+            app:strokeWidth="1dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ai_icon" />
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_chatbot"
+                app:tint="@color/primary_black" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -57,10 +58,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="EBO Chatbot"
+            android:text="Ebo Chatbot"
             android:textColor="@color/primary_black"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:fontFamily="@font/google_sans"
             app:layout_constraintBottom_toBottomOf="@id/botImageLayout"
             app:layout_constraintStart_toEndOf="@id/botImageLayout"
             app:layout_constraintTop_toTopOf="@id/botImageLayout" />
@@ -70,7 +72,7 @@
             android:id="@+id/botSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="500dp"
             app:cardBackgroundColor="@color/primary_color"
             app:layout_constraintBottom_toBottomOf="@id/backLayout"
@@ -79,9 +81,9 @@
             app:strokeWidth="0dp">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="8dp"
                 android:src="@drawable/icon_vert_more"
                 app:tint="@color/primary_black" />
 
@@ -96,12 +98,34 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@id/inputContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
         tools:listitem="@layout/item_chat_user" />
+
+    <RelativeLayout
+        android:id="@+id/playerViewLayout"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/chatRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/chatRecyclerView"
+        app:layout_constraintStart_toStartOf="@id/chatRecyclerView"
+        app:layout_constraintEnd_toEndOf="@id/chatRecyclerView"
+        android:layout_width="0dp"
+        android:background="@color/primary_color"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:use_controller="false"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/playerView"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/inputContainer"

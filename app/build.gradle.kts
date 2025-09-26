@@ -116,5 +116,8 @@ dependencies {
 
     implementation ("com.jakewharton.timber:timber:5.0.1")
 
+    implementation ("androidx.media3:media3-exoplayer:1.4.1")
+    implementation ("androidx.media3:media3-ui:1.4.1")
+
 }
 
