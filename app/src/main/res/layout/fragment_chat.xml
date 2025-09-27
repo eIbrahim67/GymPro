@@ -16,22 +16,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/backBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="10dp"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/back_button"
             android:rotation="-90"
-            android:src="@drawable/icon_arrow"
-            app:cardBackgroundColor="@color/primary_black"
             app:cardCornerRadius="500dp"
+            app:icon="@drawable/icon_arrow"
+            app:iconGravity="textStart"
+            app:iconSize="30dp"
+            app:iconTint="@color/primary_black"
             app:layout_constraintBottom_toBottomOf="@id/imageLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageLayout"
-            app:strokeColor="@color/gray_v4"
-            app:strokeWidth="2dp"
-            app:tint="@color/primary_black" />
+            app:layout_constraintTop_toTopOf="@id/imageLayout" />
 
 
         <com.google.android.material.card.MaterialCardView
@@ -50,6 +50,7 @@
                 android:id="@+id/chatWithUserImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/user_image"
                 android:scaleType="centerCrop" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -67,25 +68,21 @@
             app:layout_constraintTop_toTopOf="@id/imageLayout" />
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMore"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="10dp"
-            app:cardBackgroundColor="@color/primary_color"
-            app:cardCornerRadius="500dp"
+            android:backgroundTint="@color/primary_color"
+            android:contentDescription="@string/more_options"
+            app:icon="@drawable/icon_vert_more"
+            app:iconGravity="textStart"
+            app:iconSize="25dp"
+            app:iconTint="@color/primary_black"
             app:layout_constraintBottom_toBottomOf="@id/backBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backBtn"
-            app:strokeWidth="0dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="10dp"
-                android:src="@drawable/icon_vert_more"
-                app:tint="@color/primary_black" />
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="@+id/backBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -95,12 +92,25 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@id/inputContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
         tools:listitem="@layout/item_chat_user" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/chatRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/chatRecyclerView"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/recording" />
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/inputContainer"
@@ -122,98 +132,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:padding="10dp">
 
-            <ImageView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/uploadImageButton"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="5dp"
-                android:padding="8dp"
-                android:src="@drawable/icon_outline_photo"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/choose_an_image"
+                app:icon="@drawable/icon_outline_photo"
+                app:iconGravity="textStart"
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/primary_black" />
+                app:rippleColor="?attr/colorSecondaryContainer" />
 
             <EditText
                 android:id="@+id/inputEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:autofillHints=""
+                android:autofillHints="text"
                 android:background="@android:color/transparent"
                 android:hint="@string/type_a_message"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:maxLines="5"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sendButtonCard"
+                app:layout_constraintEnd_toStartOf="@+id/sendButton"
                 app:layout_constraintStart_toEndOf="@id/uploadImageButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                app:cardBackgroundColor="@color/primary_white"
-                app:cardCornerRadius="10dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/recordButton"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/primary_white"
+                android:contentDescription="@string/recoed"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/icon_outline_mic"
+                app:iconGravity="textStart"
+                app:iconSize="20dp"
+                app:iconTint="@color/primary_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/gray_v4"
-                app:strokeWidth="1dp">
+                app:strokeWidth="1dp" />
 
-                <ImageView
-                    android:id="@+id/recordButton"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:src="@drawable/icon_outline_mic"
-                    app:tint="@color/primary_black" />
 
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/sendButtonCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sendButton"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/primary_black"
+                android:contentDescription="@string/send"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/primary_black"
-                app:cardCornerRadius="10dp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/icon_outline_send"
+                app:iconGravity="textStart"
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/gray_v4"
-                app:strokeWidth="1dp">
+                app:strokeWidth="1dp" />
 
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:src="@drawable/icon_outline_send"
-                    android:text="Send" />
-
-            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
         android:id="@+id/uploadImageChatLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/uploadImageChatCard"
@@ -241,70 +245,64 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loadingAnimation"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/uploadImageChatCard"
-            app:layout_constraintEnd_toEndOf="@id/uploadImageChatCard"
-            app:layout_constraintStart_toStartOf="@+id/uploadImageChatCard"
-            app:layout_constraintTop_toTopOf="@id/uploadImageChatCard"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/sendImageButtonCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sendImageButton"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_white"
-            app:cardCornerRadius="100dp"
-            app:layout_constraintEnd_toStartOf="@+id/cancelImageButtonCard"
+            android:backgroundTint="@color/primary_white"
+            android:contentDescription="@string/send_image"
+            app:cornerRadius="28dp"
+            app:icon="@drawable/icon_outline_send"
+            app:iconGravity="textStart"
+            app:iconSize="25dp"
+            app:iconTint="@color/primary_black"
+            app:layout_constraintEnd_toStartOf="@+id/cancelImageButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/uploadImageChatCard"
+            app:rippleColor="?attr/colorSecondaryContainer"
             app:strokeColor="@color/primary_black"
-            app:strokeWidth="1dp">
+            app:strokeWidth="1dp" />
 
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:src="@drawable/icon_outline_send"
-                android:text="Send"
-                app:tint="@color/primary_black" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cancelImageButtonCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelImageButton"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_black"
-            app:cardCornerRadius="100dp"
+            android:backgroundTint="@color/primary_black"
+            android:contentDescription="@string/cancel_sending_image"
+            app:cornerRadius="28dp"
+            app:icon="@drawable/ic_cancel"
+            app:iconGravity="textStart"
+            app:iconSize="25dp"
+            app:iconTint="@color/primary_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/sendImageButtonCard"
+            app:layout_constraintStart_toEndOf="@+id/sendImageButton"
             app:layout_constraintTop_toBottomOf="@id/uploadImageChatCard"
+            app:rippleColor="?attr/colorSecondaryContainer"
             app:strokeColor="@color/primary_black"
-            app:strokeWidth="1dp">
-
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:src="@drawable/ic_cancel"
-                android:text="Send"
-                app:tint="@color/primary_white" />
-        </com.google.android.material.card.MaterialCardView>
+            app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.loadingindicator.LoadingIndicator
+        android:id="@+id/loadingIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/loading"
+        android:visibility="gone"
+        app:indicatorColor="@color/primary_black"
+        app:indicatorSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:minHideDelay="300"
+        app:showDelay="200" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

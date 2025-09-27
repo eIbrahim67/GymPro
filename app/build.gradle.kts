@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.google.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -116,7 +117,7 @@ dependencies {
 
     implementation ("com.jakewharton.timber:timber:5.0.1")
 
-    implementation ("androidx.media3:media3-exoplayer:1.4.1")
+    implementation ("androidx.media3:media3-exoplayer:1.8.0")
     implementation ("androidx.media3:media3-ui:1.4.1")
 
 }

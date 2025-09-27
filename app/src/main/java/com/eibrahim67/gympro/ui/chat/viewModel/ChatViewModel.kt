@@ -1,7 +1,5 @@
 package com.eibrahim67.gympro.ui.chat.viewModel
 
-import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,23 +10,27 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import kotlin.toString
 
 class ChatViewModel : ViewModel() {
 
+    private val db = FirebaseFirestore.getInstance()
 
     private val _chatId = MutableLiveData<String>()
     val chatId: LiveData<String> get() = _chatId
-    private fun getChatId(user1: String, user2: String): String {
+    fun getChatId(user1: String, user2: String) {
         _chatId.value = if (user1 < user2) "${user1}_$user2" else "${user2}_$user1"
-        return chatId.value.toString()
     }
 
-    fun createOrGetChat(currentUid: String, otherUid: String, onChatId: (String) -> Unit) {
-        val chatId = getChatId(currentUid, otherUid)
-        val db = FirebaseFirestore.getInstance()
+    fun createOrGetChat(
+        currentUid: String,
+        otherUid: String,
+        chatId: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
         val chatRef = db.collection("chats").document(chatId)
-        val userChatsRef = db.collection("userChats").document(currentUid)
+        val currentUserChatsRef = db.collection("userChats").document(currentUid)
+        val otherUserChatsRef = db.collection("userChats").document(otherUid)
 
         chatRef.get().addOnSuccessListener { doc ->
             if (!doc.exists()) {
@@ -37,48 +39,66 @@ class ChatViewModel : ViewModel() {
                     "createdAt" to FieldValue.serverTimestamp()
                 )
                 chatRef.set(chatData)
-
-                userChatsRef.set(
+                currentUserChatsRef.set(
                     mapOf("chats" to FieldValue.arrayUnion(chatId)), SetOptions.merge()
                 )
-
+                otherUserChatsRef.set(
+                    mapOf("chats" to FieldValue.arrayUnion(chatId)), SetOptions.merge()
+                )
             }
-            onChatId(chatId)
+        }.addOnSuccessListener { onSuccess() }.addOnFailureListener { onFailure() }
+    }
+
+    fun deleteOurChat(onSuccess: () -> Unit, onFailure: () -> Unit) {
+
+        var currentChatId = chatId.value.toString()
+        if (currentChatId.isEmpty()) return
+
+        db.collection("chats").document(currentChatId).delete().addOnSuccessListener {
+            onSuccess()
+        }.addOnFailureListener {
+            onFailure()
         }
     }
 
+    fun sendMessage(
+        text: String, imageUri: String?, isAudio: Boolean, audioUrl: String?
+    ) {
 
-    fun sendMessage(chatId: String, text: String, imageUri: String?) {
-        val db = FirebaseFirestore.getInstance()
-        val uid = FirebaseAuth.getInstance().uid ?: return
+        var currentChatId = chatId.value.toString()
+        if (currentChatId.isEmpty()) return
+
+        val msgUid = FirebaseAuth.getInstance().uid ?: return
 
         val message = hashMapOf(
-            "senderId" to uid,
-            "text" to text, // empty for images
-            "textMessage" to text.isNotEmpty(),
+            "msgUid" to msgUid,
+            "text" to text,
             "imageUrl" to imageUri,
+            "msgAudio" to isAudio,
+            "audioUrl" to audioUrl,
             "timestamp" to FieldValue.serverTimestamp()
         )
 
-        val chatRef = db.collection("chats").document(chatId)
+        val chatRef = db.collection("chats").document(currentChatId)
 
         db.runBatch { batch ->
             val msgRef = chatRef.collection("messages").document()
             batch.set(msgRef, message)
             batch.update(
                 chatRef, mapOf(
-                    "lastMessage" to text, "lastMessageTime" to FieldValue.serverTimestamp()
+                    "lastMessage" to if (text.isEmpty() && isAudio) "Audio \uD83C\uDF99\uFE0F" else if (text.isEmpty()) "Image \uD83D\uDCF8" else text,
+                    "lastMessageTime" to FieldValue.serverTimestamp()
                 )
             )
-        }
+        }.addOnSuccessListener {
 
+        }.addOnFailureListener {
+
+        }
     }
 
     fun listenForMessages(chatId: String, onMessage: (ChatMessage) -> Unit) {
-        if (chatId.isBlank()) {
-            Log.e("ChatsViewModel", "listenForMessages: chatId is empty!")
-            return
-        }
+        if (chatId.isBlank()) return
 
         FirebaseFirestore.getInstance().collection("chats").document(chatId).collection("messages")
             .orderBy("timestamp").addSnapshotListener { snapshots, e ->
@@ -100,18 +120,17 @@ class ChatViewModel : ViewModel() {
             return
         }
 
-        FirebaseFirestore.getInstance().collection("users").document(uid).get()
-            .addOnSuccessListener { doc ->
-                if (doc.exists()) {
-                    val user = UserChat(
-                        uid,
-                        doc.getString("name") ?: "Unknown",
-                        doc.getString("email") ?: "",
-                        doc.getString("photoUrl")
-                    )
-                    onUser(user)
-                }
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (doc.exists()) {
+                val user = UserChat(
+                    uid,
+                    doc.getString("name") ?: "Unknown",
+                    doc.getString("email") ?: "",
+                    doc.getString("photoUrl")
+                )
+                onUser(user)
             }
+        }
     }
 
 }
